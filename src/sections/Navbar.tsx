@@ -18,8 +18,6 @@ export function scrollToSection(id: string) {
 
 const links = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'comunidad', label: 'Nuestra Comunidad' },
-  { id: 'pilares', label: 'Estudia con Nosotros' },
   { id: 'contacto', label: 'Contacto' },
 ]
 
@@ -88,6 +86,12 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/faq"
+            className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
+          >
+            Preguntas Frecuentes
+          </Link>
           <div className="relative" ref={dropRef}>
             <button
               onClick={(e) => {
@@ -153,6 +157,13 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/faq"
+            onClick={() => setOpen(false)}
+            className="text-base text-foreground/85 hover:text-[#d4af37] transition-colors"
+          >
+            Preguntas Frecuentes
+          </Link>
           <div className="rounded-xl border border-[#d4af37]/25 bg-[#141009] px-4 py-3 flex flex-col gap-3">
             <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80">Calendario y Fiestas</p>
             <Link
