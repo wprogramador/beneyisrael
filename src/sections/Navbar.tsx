@@ -87,6 +87,12 @@ export default function Navbar() {
             </a>
           ))}
           <Link
+            to="/reflexiones"
+            className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
+          >
+            Reflexiones
+          </Link>
+          <Link
             to="/faq"
             className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
           >
@@ -157,6 +163,13 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/reflexiones"
+            onClick={() => setOpen(false)}
+            className="text-base text-foreground/85 hover:text-[#d4af37] transition-colors"
+          >
+            Reflexiones
+          </Link>
           <Link
             to="/faq"
             onClick={() => setOpen(false)}

@@ -2,6 +2,7 @@ import Navbar from '@/sections/Navbar'
 import Hero from '@/sections/Hero'
 import Comunidad from '@/sections/Comunidad'
 import CitaTorah from '@/sections/CitaTorah'
+import ParashaSemana from '@/sections/ParashaSemana'
 import Pilares from '@/sections/Pilares'
 import Contacto from '@/sections/Contacto'
 import Footer from '@/sections/Footer'
@@ -14,6 +15,7 @@ export default function Home() {
         <Hero />
         <Comunidad />
         <CitaTorah />
+        <ParashaSemana />
         <Pilares />
         <Contacto />
       </main>

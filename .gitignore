@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Lockfile: Vercel usa npm 10/11, el lock de npm 12 rompe el build
+package-lock.json
