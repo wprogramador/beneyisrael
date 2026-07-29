@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 4%;
+    --foreground: 40 30% 92%;
+    --card: 30 16% 7%;
+    --card-foreground: 40 30% 92%;
+    --popover: 30 16% 7%;
+    --popover-foreground: 40 30% 92%;
+    --primary: 43 74% 49%;
+    --primary-foreground: 30 30% 8%;
+    --secondary: 35 14% 14%;
+    --secondary-foreground: 40 30% 92%;
+    --muted: 35 12% 16%;
+    --muted-foreground: 38 12% 62%;
+    --accent: 43 60% 45%;
+    --accent-foreground: 30 30% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 15% 18%;
+    --input: 40 15% 18%;
+    --ring: 43 74% 49%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Heebo', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-hebrew {
+    font-family: 'Frank Ruhl Libre', 'Heebo', serif;
+  }
+  .text-gold {
+    color: #d4af37;
+  }
+  .bg-gold {
+    background-color: #d4af37;
+  }
+  .border-gold {
+    border-color: #d4af37;
+  }
+  .gold-gradient-text {
+    background: linear-gradient(120deg, #f3d98b 0%, #d4af37 45%, #a9821f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.12s; }
+  .reveal-delay-2 { transition-delay: 0.24s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+
+  /* Animación de entrada del hero (por CSS, sin observador) */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-anim {
+    opacity: 0;
+    animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-anim-1 { animation-delay: 0.1s; }
+  .hero-anim-2 { animation-delay: 0.2s; }
+  .hero-anim-3 { animation-delay: 0.3s; }
+  .hero-anim-4 { animation-delay: 0.4s; }
+
+  /* Transición del carrusel de citas */
+  @keyframes citaFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cita-fade {
+    animation: citaFade 0.8s ease-out;
+  }
+}
