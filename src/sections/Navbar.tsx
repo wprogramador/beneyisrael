@@ -22,7 +22,6 @@ export default function Navbar() {
   const [dropOpen, setDropOpen] = useState(false)
   const dropRef = useRef<HTMLDivElement | null>(null)
   const { pathname } = useLocation()
-  const isHome = pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
