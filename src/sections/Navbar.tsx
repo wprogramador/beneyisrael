@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import FechaHoyBar from '@/components/FechaHoyBar'
 
 export function scrollToSection(id: string) {
@@ -16,15 +16,13 @@ export function scrollToSection(id: string) {
   }
 }
 
-const links = [
-  { id: 'inicio', label: 'Inicio' },
-]
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [dropOpen, setDropOpen] = useState(false)
   const dropRef = useRef<HTMLDivElement | null>(null)
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -60,13 +58,10 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-5 flex items-center justify-between gap-3">
-          <a
-            href="#inicio"
-            onClick={(e) => {
-              e.preventDefault()
-              setOpen(false)
-              scrollToSection('inicio')
-            }}
+          {/* ===== LOGO ===== */}
+          <Link
+            to="/"
+            onClick={() => setOpen(false)}
             className="flex items-center gap-2.5 sm:gap-3 group min-w-0"
           >
             <img
@@ -82,22 +77,17 @@ export default function Navbar() {
                 Centro de Estudios Bene Israel
               </span>
             </div>
-          </a>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-7">
-            {links.map((l) => (
-              <a
-                key={l.id}
-                href={`#${l.id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(l.id)
-                }}
-                className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
-              >
-                {l.label}
-              </a>
-            ))}
+            {/* Inicio */}
+            <Link
+              to="/"
+              className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
+            >
+              Inicio
+            </Link>
+
             <Link
               to="/tora-semanal"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
@@ -166,22 +156,16 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* ===== MENÚ MÓVIL ===== */}
         {open && (
           <nav className="md:hidden max-h-[calc(100dvh-5rem)] overflow-y-auto bg-[#0c0a07]/98 backdrop-blur-md border-t border-[#d4af37]/20 px-5 py-5 flex flex-col gap-1">
-            {links.map((l) => (
-              <a
-                key={l.id}
-                href={`#${l.id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  setOpen(false)
-                  scrollToSection(l.id)
-                }}
-                className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10"
-              >
-                {l.label}
-              </a>
-            ))}
+            <Link
+              to="/"
+              onClick={() => setOpen(false)}
+              className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10"
+            >
+              Inicio
+            </Link>
             <Link
               to="/tora-semanal"
               onClick={() => setOpen(false)}
