@@ -100,6 +100,12 @@ export default function Navbar() {
               </a>
             ))}
             <Link
+              to="/tora-semanal"
+              className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
+            >
+              Torá Semanal
+            </Link>
+            <Link
               to="/reflexiones"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
             >
@@ -177,6 +183,13 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/tora-semanal"
+              onClick={() => setOpen(false)}
+              className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10"
+            >
+              Torá Semanal
+            </Link>
             <Link
               to="/reflexiones"
               onClick={() => setOpen(false)}
