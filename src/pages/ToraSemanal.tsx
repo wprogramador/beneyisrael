@@ -135,7 +135,7 @@ function ShareMenu({ data, onClose }: { data: ShareData; onClose: () => void }) 
         </div>
 
         {/* Compartir nativo (solo si está disponible) */}
-        {typeof navigator !== 'undefined' && navigator.share && (
+        {typeof navigator !== 'undefined' && 'share' in navigator && (
           <button
             onClick={shareNative}
             className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#d4af37] text-[#14100a] hover:bg-[#e9c65a] transition-colors text-sm font-bold"
