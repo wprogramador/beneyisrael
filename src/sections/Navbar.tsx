@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
-import { Link, useLocation } from 'react-router'
+import { Link } from 'react-router'
 import FechaHoyBar from '@/components/FechaHoyBar'
 
 export function scrollToSection(id: string) {
@@ -21,7 +21,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [dropOpen, setDropOpen] = useState(false)
   const dropRef = useRef<HTMLDivElement | null>(null)
-  const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
