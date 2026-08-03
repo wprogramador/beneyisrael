@@ -40,10 +40,10 @@ export default function Contacto() {
   }
 
   return (
-    <section id="contacto" ref={ref} className="relative py-24 md:py-32 bg-[#100d08]">
-      <div className="mx-auto max-w-6xl px-5">
+    <section id="contacto" ref={ref} className="relative py-16 sm:py-24 md:py-32 bg-[#100d08]">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5">
         {/* Llamado a la acción */}
-        <div className="reveal relative overflow-hidden rounded-3xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] via-[#141009] to-[#0c0a07] p-10 md:p-16 text-center">
+        <div className="reveal relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] via-[#141009] to-[#0c0a07] p-6 sm:p-10 md:p-16 text-center">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
@@ -52,7 +52,7 @@ export default function Contacto() {
             }}
           />
           <p className="font-hebrew text-[#d4af37] text-xl" dir="rtl" lang="he">בואו ונלמדה</p>
-          <h2 className="font-hebrew text-3xl md:text-5xl font-bold mt-3 leading-tight">
+          <h2 className="font-hebrew text-2xl sm:text-3xl md:text-5xl font-bold mt-3 leading-tight">
             Hay un lugar para ti en la <span className="gold-gradient-text">Bet Midrash Bene Israel</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-foreground/80 leading-relaxed">
@@ -90,7 +90,7 @@ export default function Contacto() {
         </div>
 
         {/* Horarios de estudio */}
-        <div id="horarios" className="reveal mt-14 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] to-[#100d08] p-8 md:p-12 scroll-mt-24">
+        <div id="horarios" className="reveal mt-14 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] to-[#100d08] p-5 sm:p-8 md:p-12 scroll-mt-32">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-[#d4af37]/50 bg-[#d4af37]/10 text-[#d4af37]">
               <Clock size={30} strokeWidth={1.5} />
@@ -115,7 +115,7 @@ export default function Contacto() {
         </div>
 
         {/* Información + formulario */}
-        <div id="formulario-contacto" className="mt-16 grid md:grid-cols-2 gap-12 scroll-mt-24">
+        <div id="formulario-contacto" className="mt-16 grid md:grid-cols-2 gap-12 scroll-mt-32">
           <div className="space-y-8">
             <h3 className="reveal font-hebrew text-2xl md:text-3xl font-bold">
               Visítanos o <span className="gold-gradient-text">escríbenos</span>
@@ -179,7 +179,7 @@ export default function Contacto() {
             </ul>
           </div>
 
-          <form onSubmit={enviar} className="reveal reveal-delay-1 rounded-2xl border border-[#d4af37]/25 bg-[#141009] p-7 md:p-9 space-y-5">
+          <form onSubmit={enviar} className="reveal reveal-delay-1 rounded-2xl border border-[#d4af37]/25 bg-[#141009] p-5 sm:p-7 md:p-9 space-y-5">
             <div>
               <label htmlFor="nombre" className="block text-sm font-medium text-foreground/80 mb-2">
                 Tu nombre

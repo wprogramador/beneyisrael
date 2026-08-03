@@ -56,7 +56,7 @@ export default function Faq() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-36 pb-12 md:pt-44 md:pb-16 overflow-hidden">
+        <section className="relative pt-40 pb-12 md:pt-48 md:pb-16 overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
@@ -93,7 +93,7 @@ export default function Faq() {
                 >
                   <button
                     onClick={() => setAbierta(activa ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                    className="w-full flex items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-4 sm:py-5 text-left"
                   >
                     <span className={`font-hebrew font-semibold text-base md:text-lg ${activa ? 'text-[#d4af37]' : 'text-foreground'}`}>
                       {item.q}
@@ -108,7 +108,7 @@ export default function Faq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-6 text-foreground/75 leading-relaxed">
+                      <p className="px-4 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-foreground/75 leading-relaxed">
                         {item.a}
                       </p>
                     </div>

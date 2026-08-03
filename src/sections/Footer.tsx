@@ -29,7 +29,7 @@ export default function Footer() {
           <img
             src="images/logo-horizontal.png"
             alt="Centro de Estudios Hebraicos — Bene Israel"
-            className="w-60 md:w-72"
+            className="w-full max-w-[15rem] sm:w-60 md:w-72"
           />
         </div>
         <p className="font-hebrew text-[#d4af37] text-xl" dir="rtl" lang="he">

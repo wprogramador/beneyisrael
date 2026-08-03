@@ -74,7 +74,7 @@ export default function Moedim() {
       <Navbar />
       <main>
         {/* Hero de la página */}
-        <section className="relative pt-36 pb-16 md:pt-44 md:pb-20 overflow-hidden">
+        <section className="relative pt-40 pb-16 md:pt-48 md:pb-20 overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{

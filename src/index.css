@@ -37,7 +37,13 @@
     scroll-behavior: smooth;
   }
   section[id] {
-    scroll-margin-top: 80px;
+    /* barra fecha (2rem) + navbar ~3.5rem */
+    scroll-margin-top: 6.5rem;
+  }
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-margin-top: 7.5rem;
+    }
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -90,6 +96,24 @@
   .hero-anim-2 { animation-delay: 0.2s; }
   .hero-anim-3 { animation-delay: 0.3s; }
   .hero-anim-4 { animation-delay: 0.4s; }
+
+  @keyframes heroCursorBlink {
+    0%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .hero-type-cursor {
+    animation: heroCursorBlink 0.9s step-end infinite;
+  }
+  .hero-type-cursor-done {
+    animation: heroCursorBlink 1.1s step-end 4 forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-type-cursor {
+      animation: none;
+      opacity: 0;
+    }
+  }
 
   /* Transición del carrusel de citas */
   @keyframes citaFade {
