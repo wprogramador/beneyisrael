@@ -6,15 +6,13 @@ export { TARJETAS_FESTIVIDADES } from './tarjetas_festividades'
 export { TARJETAS_HEBREO } from './tarjetas_hebreo'
 export { TARJETAS_HALAJA } from './tarjetas_halaja'
 
-import {
-  TARJETAS_PARASHA,
-  TARJETAS_MUSAR,
-  TARJETAS_MIDDOT,
-  TARJETAS_CABALA,
-  TARJETAS_FESTIVIDADES,
-  TARJETAS_HEBREO,
-  TARJETAS_HALAJA,
-} from './tarjetas_parasha'
+import { TARJETAS_PARASHA } from './tarjetas_parasha'
+import { TARJETAS_MUSAR } from './tarjetas_musar'
+import { TARJETAS_MIDDOT } from './tarjetas_middot'
+import { TARJETAS_CABALA } from './tarjetas_cabala'
+import { TARJETAS_FESTIVIDADES } from './tarjetas_festividades'
+import { TARJETAS_HEBREO } from './tarjetas_hebreo'
+import { TARJETAS_HALAJA } from './tarjetas_halaja'
 
 import type { Tarjeta, CategoriaTarjeta } from './tarjetasTypes'
 
