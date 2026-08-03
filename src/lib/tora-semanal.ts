@@ -7,6 +7,8 @@ import {
   TARJETAS_HEBREO,
   TARJETAS_HALAJA,
 } from './tarjetas'
+import { parashaLocal } from './hebcal'
+import { normalizarParasha, resolveParashaId } from './parashaIds'
 import type { Tarjeta } from './tarjetasTypes'
 
 /* ===== Generador pseudoaleatorio con seed ===== */
@@ -28,12 +30,27 @@ function getSemanaSeed(fecha = new Date()): number {
   return fecha.getFullYear() * 100 + getISOWeek(fecha)
 }
 
+/* ===== Normalizar título de tarjeta para comparar con hebcal ===== */
+function normalizarTitulo(title: string): string {
+  return normalizarParasha(title).join('-')
+}
+
+/* ===== Buscar parashá de la semana en las tarjetas ===== */
+function getParashaDeSemana(): Tarjeta | undefined {
+  const info = parashaLocal(new Date())
+  const idCanonico = resolveParashaId(info.nombre)
+  if (!idCanonico) return undefined
+
+  // Buscar por título normalizado
+  return TARJETAS_PARASHA.find((t) => normalizarTitulo(t.title) === idCanonico)
+}
+
 /* ===== Interface ===== */
 export interface ContenidoSemanal {
   semana: number
   anio: number
   seed: number
-  parasha: Tarjeta
+  parasha: Tarjeta | null
   musar: Tarjeta
   middot: Tarjeta
   cabala: Tarjeta
@@ -51,11 +68,13 @@ export function getContenidoSemanal(fecha = new Date()): ContenidoSemanal {
     return arr[idx]
   }
 
+  const parasha = getParashaDeSemana()
+
   return {
     semana: getISOWeek(fecha),
     anio: fecha.getFullYear(),
     seed,
-    parasha: pick(TARJETAS_PARASHA, 0),
+    parasha: parasha ?? null,
     musar: pick(TARJETAS_MUSAR, 1),
     middot: pick(TARJETAS_MIDDOT, 2),
     cabala: pick(TARJETAS_CABALA, 3),

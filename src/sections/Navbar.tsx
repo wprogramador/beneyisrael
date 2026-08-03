@@ -18,7 +18,6 @@ export function scrollToSection(id: string) {
 
 const links = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'contacto', label: 'Contacto' },
 ]
 
 export default function Navbar() {
