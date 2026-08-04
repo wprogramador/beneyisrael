@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Heart, Wallet, CreditCard, Globe, MessageSquare, Send, Copy, Check, Phone, QrCode, ArrowLeft } from 'lucide-react'
+import { Heart, Wallet, CreditCard, Globe, MessageSquare, Copy, Check, Phone, QrCode, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router'
 
 // ← NÚMERO DE WHATSAPP DEL MORÉ
@@ -167,7 +167,6 @@ export default function Donacion() {
               />
               <p className="text-xs text-[#d4af37]/60">Escanea con la app de Binance</p>
             </div>
-            {/* ← NUEVO: Binance ID copiable → */}
             <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
               <div>
                 <span className="block text-xs text-foreground/50">Binance ID</span>
