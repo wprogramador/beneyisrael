@@ -7,6 +7,7 @@ import Faq from './pages/Faq'
 import Reflexiones from './pages/Reflexiones'
 import ToraSemanal from './pages/ToraSemanal'
 import Donacion from './pages/Donacion'
+import Biblioteca from './pages/Biblioteca'
 import WhatsAppFloat from './components/WhatsAppFloat'
 
 function ScrollToTop() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/reflexiones" element={<Reflexiones />} />
         <Route path="/tora-semanal" element={<ToraSemanal />} />
         <Route path="/donar" element={<Donacion />} />
+        <Route path="/biblioteca" element={<Biblioteca />} />
       </Routes>
       <WhatsAppFloat />
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Menu, X, ChevronDown, Heart } from 'lucide-react'
+import { Menu, X, ChevronDown, Heart, BookOpen } from 'lucide-react'
 import { Link } from 'react-router'
 import FechaHoyBar from '@/components/FechaHoyBar'
 
@@ -37,7 +37,6 @@ export default function Navbar() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  // Evitar scroll del body con el menú abierto
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
@@ -78,7 +77,6 @@ export default function Navbar() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-7">
-            {/* Inicio */}
             <Link
               to="/"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
@@ -97,6 +95,14 @@ export default function Navbar() {
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
             >
               Reflexiones
+            </Link>
+            {/* ← NUEVO: Biblioteca → */}
+            <Link
+              to="/biblioteca"
+              className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1.5"
+            >
+              <BookOpen size={14} />
+              Biblioteca
             </Link>
             <Link
               to="/faq"
@@ -134,7 +140,6 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            {/* ← NUEVO: Link a Donar → */}
             <Link
               to="/donar"
               className="text-sm font-semibold bg-[#d4af37] text-[#14100a] px-4 py-2 rounded-md hover:bg-[#e9c65a] transition-colors inline-flex items-center gap-1.5"
@@ -178,6 +183,15 @@ export default function Navbar() {
             >
               Reflexiones
             </Link>
+            {/* ← NUEVO: Biblioteca móvil → */}
+            <Link
+              to="/biblioteca"
+              onClick={() => setOpen(false)}
+              className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10 inline-flex items-center gap-2"
+            >
+              <BookOpen size={18} />
+              Biblioteca
+            </Link>
             <Link
               to="/faq"
               onClick={() => setOpen(false)}
@@ -202,7 +216,6 @@ export default function Navbar() {
                 Calendario Hebreo
               </Link>
             </div>
-            {/* ← NUEVO: Link a Donar en móvil → */}
             <Link
               to="/donar"
               onClick={() => setOpen(false)}
