@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Menu, X, ChevronDown, Heart, BookOpen } from 'lucide-react'
+import { Menu, X, ChevronDown, Heart, BookOpen, Calendar, HelpCircle } from 'lucide-react'
 import { Link } from 'react-router'
 import FechaHoyBar from '@/components/FechaHoyBar'
 
@@ -76,14 +76,14 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-7">
+          {/* ===== DESKTOP NAV ===== */}
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               to="/"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
             >
               Inicio
             </Link>
-
             <Link
               to="/tora-semanal"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
@@ -96,7 +96,6 @@ export default function Navbar() {
             >
               Reflexiones
             </Link>
-            {/* ← NUEVO: Biblioteca → */}
             <Link
               to="/biblioteca"
               className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1.5"
@@ -104,12 +103,8 @@ export default function Navbar() {
               <BookOpen size={14} />
               Biblioteca
             </Link>
-            <Link
-              to="/faq"
-              className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
-            >
-              Preguntas Frecuentes
-            </Link>
+
+            {/* Dropdown: Recursos */}
             <div className="relative" ref={dropRef}>
               <button
                 onClick={(e) => {
@@ -118,28 +113,40 @@ export default function Navbar() {
                 }}
                 className="flex items-center gap-1.5 text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors"
               >
-                Calendario y Fiestas
-                <ChevronDown size={15} className={`transition-transform duration-300 ${dropOpen ? 'rotate-180' : ''}`} />
+                <Calendar size={14} />
+                Recursos
+                <ChevronDown size={14} className={`transition-transform duration-300 ${dropOpen ? 'rotate-180' : ''}`} />
               </button>
               {dropOpen && (
                 <div className="absolute top-full right-0 mt-3 w-56 rounded-xl border border-[#d4af37]/30 bg-[#141009]/95 backdrop-blur-md shadow-2xl shadow-black/60 py-2 z-50">
                   <Link
-                    to="/moedim"
-                    onClick={() => setDropOpen(false)}
-                    className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
-                  >
-                    Moedim/Fiestas
-                  </Link>
-                  <Link
                     to="/calendario"
                     onClick={() => setDropOpen(false)}
-                    className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
                   >
+                    <Calendar size={14} />
                     Calendario Hebreo
+                  </Link>
+                  <Link
+                    to="/moedim"
+                    onClick={() => setDropOpen(false)}
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                  >
+                    <Calendar size={14} />
+                    Moedim / Fiestas
+                  </Link>
+                  <Link
+                    to="/faq"
+                    onClick={() => setDropOpen(false)}
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                  >
+                    <HelpCircle size={14} />
+                    Preguntas Frecuentes
                   </Link>
                 </div>
               )}
             </div>
+
             <Link
               to="/donar"
               className="text-sm font-semibold bg-[#d4af37] text-[#14100a] px-4 py-2 rounded-md hover:bg-[#e9c65a] transition-colors inline-flex items-center gap-1.5"
@@ -183,7 +190,6 @@ export default function Navbar() {
             >
               Reflexiones
             </Link>
-            {/* ← NUEVO: Biblioteca móvil → */}
             <Link
               to="/biblioteca"
               onClick={() => setOpen(false)}
@@ -192,30 +198,36 @@ export default function Navbar() {
               <BookOpen size={18} />
               Biblioteca
             </Link>
-            <Link
-              to="/faq"
-              onClick={() => setOpen(false)}
-              className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10"
-            >
-              Preguntas Frecuentes
-            </Link>
+
+            {/* Recursos en móvil */}
             <div className="mt-2 rounded-xl border border-[#d4af37]/25 bg-[#141009] px-4 py-3 flex flex-col gap-1">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80 mb-1">Calendario y Fiestas</p>
-              <Link
-                to="/moedim"
-                onClick={() => setOpen(false)}
-                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors"
-              >
-                Moedim/Fiestas
-              </Link>
+              <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80 mb-1">Recursos</p>
               <Link
                 to="/calendario"
                 onClick={() => setOpen(false)}
-                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors"
+                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors inline-flex items-center gap-2"
               >
+                <Calendar size={16} />
                 Calendario Hebreo
               </Link>
+              <Link
+                to="/moedim"
+                onClick={() => setOpen(false)}
+                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors inline-flex items-center gap-2"
+              >
+                <Calendar size={16} />
+                Moedim / Fiestas
+              </Link>
+              <Link
+                to="/faq"
+                onClick={() => setOpen(false)}
+                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors inline-flex items-center gap-2"
+              >
+                <HelpCircle size={16} />
+                Preguntas Frecuentes
+              </Link>
             </div>
+
             <Link
               to="/donar"
               onClick={() => setOpen(false)}
