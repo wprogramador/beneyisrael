@@ -17,7 +17,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="inline-flex items-center gap-1.5 rounded-md bg-[#d4af37]/10 px-3 py-1.5 text-xs font-medium text-[#d4af37] hover:bg-[#d4af37]/20 transition-colors border border-[#d4af37]/20"
+      className="inline-flex items-center gap-1.5 rounded-md bg-[#d4af37]/10 px-3 py-1.5 text-xs font-medium text-[#d4af37] hover:bg-[#d4af37]/20 transition-colors border border-[#d4af37]/20 shrink-0"
       title="Copiar"
     >
       {copied ? <Check className="size-3.5 text-green-400" /> : <Copy className="size-3.5" />}
@@ -61,7 +61,6 @@ export default function Donacion() {
 
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}`
 
-  // Generar link de WhatsApp con los datos del formulario
   const generarWhatsAppLink = () => {
     const tipoMap: Record<string, string> = {
       reflexion: 'Reflexión sobre parashá',
@@ -85,7 +84,6 @@ export default function Donacion() {
 
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
-      {/* Navbar simple */}
       <header className="border-b border-[#d4af37]/20 bg-[#0c0a07]/95 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 sm:px-5 flex h-14 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-[#d4af37] hover:text-[#e9c65a] transition-colors text-sm">
@@ -97,7 +95,6 @@ export default function Donacion() {
       </header>
 
       <div className="mx-auto max-w-4xl px-4 py-12">
-        {/* ===== ENCABEZADO ===== */}
         <div className="mb-10 text-center">
           <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-[#d4af37]/10 text-[#d4af37] ring-1 ring-[#d4af37]/30">
             <Heart className="size-8" />
@@ -112,7 +109,6 @@ export default function Donacion() {
           </p>
         </div>
 
-        {/* ===== MÉTODOS DE DONACIÓN ===== */}
         <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* PayPal */}
           <MetodoCard
@@ -133,9 +129,9 @@ export default function Donacion() {
               />
               <p className="text-xs text-[#d4af37]/60">Escanea o usa el link</p>
             </div>
-            <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
-              <span className="font-mono text-xs text-foreground/70">paypal.me/orisraelca</span>
-              <CopyButton text="https://www.paypal.com/paypalme/orisraelca" label="Copiar link" />
+            <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 gap-2">
+              <span className="font-mono text-xs text-foreground/70 truncate">paypal.me/orisraelca</span>
+              <CopyButton text="https://www.paypal.com/paypalme/orisraelca" label="Copiar" />
             </div>
             <a
               href="https://www.paypal.com/paypalme/orisraelca"
@@ -167,12 +163,12 @@ export default function Donacion() {
               />
               <p className="text-xs text-[#d4af37]/60">Escanea con la app de Binance</p>
             </div>
-            <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
-              <div>
-                <span className="block text-xs text-foreground/50">Binance ID</span>
-                <span className="font-mono text-xs text-foreground/80">{BINANCE_ID}</span>
+            <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 gap-2">
+              <div className="min-w-0">
+                <p className="text-xs text-foreground/50">Binance ID</p>
+                <p className="font-mono text-xs text-foreground/80">{BINANCE_ID}</p>
               </div>
-              <CopyButton text={BINANCE_ID} label="Copiar ID" />
+              <CopyButton text={BINANCE_ID} label="Copiar" />
             </div>
             <a
               href="https://www.beneyisrael.com/binanqr.PNG"
@@ -195,38 +191,37 @@ export default function Donacion() {
             <p className="text-foreground/60">
               Para quienes están en Venezuela y prefieren apoyar en bolívares de forma inmediata.
             </p>
-            <div className="space-y-2 rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="text-xs text-foreground/50">Banco:</span>
-                  <span className="text-xs font-medium text-foreground/80 ml-2">Banco Nacional de Crédito (BNC)</span>
-                </div>
+            <div className="space-y-3 rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
+              {/* Banco */}
+              <div>
+                <p className="text-xs text-foreground/50">Banco</p>
+                <p className="text-xs font-medium text-foreground/80">Banco Nacional de Crédito (BNC)</p>
               </div>
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="text-xs text-foreground/50">Teléfono:</span>
-                  <span className="font-mono text-xs text-foreground/80 ml-2">0412.458.65.37</span>
+              {/* Teléfono */}
+              <div className="flex items-end justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="text-xs text-foreground/50">Teléfono</p>
+                  <p className="font-mono text-xs text-foreground/80">0412.458.65.37</p>
                 </div>
-                <CopyButton text="04124586537" label="Copiar teléfono" />
+                <CopyButton text="04124586537" label="Copiar" />
               </div>
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="text-xs text-foreground/50">RIF Jurídico:</span>
-                  <span className="font-mono text-xs text-foreground/80 ml-2">J-408904110</span>
+              {/* RIF */}
+              <div className="flex items-end justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="text-xs text-foreground/50">RIF Jurídico</p>
+                  <p className="font-mono text-xs text-foreground/80">J-408904110</p>
                 </div>
-                <CopyButton text="408904110" label="Copiar RIF" />
+                <CopyButton text="408904110" label="Copiar" />
               </div>
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="text-xs text-foreground/50">Razón social:</span>
-                  <span className="text-xs font-medium text-foreground/80 ml-2">OR ISRAEL</span>
-                </div>
+              {/* Razón social */}
+              <div>
+                <p className="text-xs text-foreground/50">Razón social</p>
+                <p className="text-xs font-medium text-foreground/80">OR ISRAEL</p>
               </div>
             </div>
           </MetodoCard>
         </div>
 
-        {/* ===== MENSAJE DE AGRADECIMIENTO ===== */}
         <div className="mb-12 rounded-xl border-l-4 border-[#d4af37] bg-[#d4af37]/5 p-6">
           <p className="text-sm leading-relaxed text-foreground/80 italic">
             "Cada semana dedicamos horas al estudio de la parashá, la cábala, el musar y las middot
@@ -237,7 +232,6 @@ export default function Donacion() {
           <p className="mt-2 text-xs font-medium text-[#d4af37]/70">— Moré Imanuel ben Efraim</p>
         </div>
 
-        {/* ===== SOLICITUDES ESPECIALES ===== */}
         <div className="rounded-xl border border-[#d4af37]/15 bg-[#141009] p-6 shadow-lg shadow-black/40 sm:p-8">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-lg bg-[#d4af37]/10 text-[#d4af37]">
@@ -252,7 +246,6 @@ export default function Donacion() {
             </div>
           </div>
 
-          {/* → WHATSAPP DESTACADO ← */}
           <div className="mb-6 rounded-xl border border-green-500/20 bg-green-950/20 p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
@@ -293,7 +286,6 @@ export default function Donacion() {
             </p>
           </div>
 
-          {/* Formulario → ahora envía a WhatsApp */}
           <div className="border-t border-[#d4af37]/10 pt-6">
             <p className="mb-4 text-sm text-foreground/50">
               ¿Prefieres dejar una solicitud por escrito? Llena el formulario y te enviaremos a WhatsApp con todo listo:
@@ -364,7 +356,6 @@ export default function Donacion() {
           </div>
         </div>
 
-        {/* Footer simple */}
         <div className="mt-12 text-center">
           <Link
             to="/"
