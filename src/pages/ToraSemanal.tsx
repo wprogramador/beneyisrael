@@ -187,15 +187,17 @@ function TarjetaVertical({ tarjeta, tipo }: { tarjeta: NonNullable<ReturnType<ty
     <article className="relative bg-[#1a1510] border border-[#d4af37]/15 rounded-2xl overflow-hidden shadow-lg hover:shadow-[#d4af37]/10 transition-all duration-300">
       <div className="absolute top-0 left-0 w-1.5 h-full" style={{ backgroundColor: meta.color }} />
 
-      <div className="absolute top-4 right-4 flex items-center gap-2">
+      {/* FIX: flex-wrap y z-10 para evitar que se monten */}
+      <div className="absolute top-4 right-4 flex items-center gap-2 flex-wrap justify-end z-10 max-w-[70%]">
         <ShareButton data={shareData} small />
-        <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider" style={{ backgroundColor: meta.color + '22', color: meta.color, border: `1px solid ${meta.color}44` }}>
+        <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0" style={{ backgroundColor: meta.color + '22', color: meta.color, border: `1px solid ${meta.color}44` }}>
           <Icon className="w-3.5 h-3.5" />
           {meta.label}
         </span>
       </div>
 
-      <div className="p-6 sm:p-8 pt-14">
+      {/* FIX: pt-14 aumentado a pt-20 para dar más espacio a los botones */}
+      <div className="p-6 sm:p-8 pt-20">
         <p className="text-right font-serif text-xl sm:text-2xl text-[#d4af37] mb-1" dir="rtl">
           {tarjeta.hebTitle}
         </p>

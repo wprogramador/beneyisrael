@@ -241,7 +241,7 @@ export default function Donacion() {
               <h2 className="text-xl font-semibold text-foreground">Solicitudes Especiales</h2>
               <p className="text-sm text-foreground/50">
                 ¿Necesitas una reflexión sobre una parashá específica, un tema de cábala, o material
-                para tu decena? Escríbenos.
+                para tu Estudio? Escríbenos.
               </p>
             </div>
           </div>
@@ -267,7 +267,7 @@ export default function Donacion() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="inline-block size-1.5 rounded-full bg-green-500" />
-                    <strong className="text-green-300">Asesoría personalizada:</strong> estudio individual, guía espiritual, acompañamiento de decena
+                    <strong className="text-green-300">Asesoría personalizada:</strong> estudio individual, guía espiritual o acompañamiento 
                   </li>
                 </ul>
               </div>
@@ -340,7 +340,7 @@ export default function Donacion() {
                   rows={4}
                   value={solicitud.mensaje}
                   onChange={(e) => setSolicitud({ ...solicitud, mensaje: e.target.value })}
-                  placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿para tu decena, comunidad o estudio personal?"
+                  placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿pareja, comunidad o estudio personal?"
                   className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                 />
               </div>
