@@ -4,6 +4,8 @@ import { Link } from 'react-router'
 
 // ← NÚMERO DE WHATSAPP DEL MORÉ
 const WHATSAPP_NUMBER = "584124586537"
+// ← BINANCE ID
+const BINANCE_ID = "214702179"
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [copied, setCopied] = useState(false)
@@ -56,23 +58,34 @@ function MetodoCard({
 
 export default function Donacion() {
   const [solicitud, setSolicitud] = useState({ nombre: '', email: '', tipo: 'reflexion', mensaje: '' })
-  const [enviado, setEnviado] = useState(false)
-
-  const handleSolicitud = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Solicitud:', solicitud)
-    setEnviado(true)
-    setTimeout(() => {
-      setEnviado(false)
-      setSolicitud({ nombre: '', email: '', tipo: 'reflexion', mensaje: '' })
-    }, 3000)
-  }
 
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}`
 
+  // Generar link de WhatsApp con los datos del formulario
+  const generarWhatsAppLink = () => {
+    const tipoMap: Record<string, string> = {
+      reflexion: 'Reflexión sobre parashá',
+      cabala: 'Tema de Cábala / Sefirot',
+      musar: 'Estudio de Musar / Middot',
+      hebreo: 'Clase de Hebreo / Letras',
+      halaja: 'Análisis Halájico Evolutivo',
+      otro: 'Otro tema',
+    }
+    const tipoTexto = tipoMap[solicitud.tipo] || solicitud.tipo
+    const texto = `Hola, soy ${solicitud.nombre}.%0AEmail: ${solicitud.email}%0ASolicito: ${tipoTexto}%0A%0A${solicitud.mensaje}`
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto).replace(/%20/g, '%20')}`
+  }
+
+  const handleEnviarWhatsApp = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!solicitud.nombre || !solicitud.email || !solicitud.mensaje) return
+    const link = generarWhatsAppLink()
+    window.open(link, '_blank')
+  }
+
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
-      {/* Navbar simple para esta página */}
+      {/* Navbar simple */}
       <header className="border-b border-[#d4af37]/20 bg-[#0c0a07]/95 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 sm:px-5 flex h-14 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-[#d4af37] hover:text-[#e9c65a] transition-colors text-sm">
@@ -154,6 +167,14 @@ export default function Donacion() {
               />
               <p className="text-xs text-[#d4af37]/60">Escanea con la app de Binance</p>
             </div>
+            {/* ← NUEVO: Binance ID copiable → */}
+            <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
+              <div>
+                <span className="block text-xs text-foreground/50">Binance ID</span>
+                <span className="font-mono text-xs text-foreground/80">{BINANCE_ID}</span>
+              </div>
+              <CopyButton text={BINANCE_ID} label="Copiar ID" />
+            </div>
             <a
               href="https://www.beneyisrael.com/binanqr.PNG"
               target="_blank"
@@ -176,24 +197,31 @@ export default function Donacion() {
               Para quienes están en Venezuela y prefieren apoyar en bolívares de forma inmediata.
             </p>
             <div className="space-y-2 rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
-              <div className="flex justify-between">
-                <span className="text-xs text-foreground/50">Banco:</span>
-                <span className="text-xs font-medium text-foreground/80">Banco Nacional de Crédito (BNC)</span>
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="text-xs text-foreground/50">Banco:</span>
+                  <span className="text-xs font-medium text-foreground/80 ml-2">Banco Nacional de Crédito (BNC)</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-xs text-foreground/50">Teléfono:</span>
-                <span className="font-mono text-xs text-foreground/80">0412.458.65.37</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-xs text-foreground/50">RIF Jurídico:</span>
-                <span className="font-mono text-xs text-foreground/80">J-408904110</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-xs text-foreground/50">Razón social:</span>
-                <span className="text-xs font-medium text-foreground/80">OR ISRAEL</span>
-              </div>
-              <div className="pt-1">
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="text-xs text-foreground/50">Teléfono:</span>
+                  <span className="font-mono text-xs text-foreground/80 ml-2">0412.458.65.37</span>
+                </div>
                 <CopyButton text="04124586537" label="Copiar teléfono" />
+              </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="text-xs text-foreground/50">RIF Jurídico:</span>
+                  <span className="font-mono text-xs text-foreground/80 ml-2">J-408904110</span>
+                </div>
+                <CopyButton text="408904110" label="Copiar RIF" />
+              </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="text-xs text-foreground/50">Razón social:</span>
+                  <span className="text-xs font-medium text-foreground/80 ml-2">OR ISRAEL</span>
+                </div>
               </div>
             </div>
           </MetodoCard>
@@ -266,85 +294,74 @@ export default function Donacion() {
             </p>
           </div>
 
-          {/* Formulario (para lo demás) */}
+          {/* Formulario → ahora envía a WhatsApp */}
           <div className="border-t border-[#d4af37]/10 pt-6">
             <p className="mb-4 text-sm text-foreground/50">
-              ¿Prefieres dejar una solicitud por escrito? Usa este formulario para temas de contenido web,
-              sugerencias de parashá, o solicitudes que no requieren respuesta inmediata:
+              ¿Prefieres dejar una solicitud por escrito? Llena el formulario y te enviaremos a WhatsApp con todo listo:
             </p>
 
-            {enviado ? (
-              <div className="rounded-lg bg-green-950/20 border border-green-500/20 p-6 text-center">
-                <Check className="mx-auto mb-2 size-8 text-green-500" />
-                <p className="font-medium text-green-400">¡Solicitud enviada!</p>
-                <p className="text-sm text-green-300/70">
-                  Te responderemos a la brevedad. Todá rabá.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSolicitud} className="space-y-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-foreground/80">Nombre</label>
-                    <input
-                      required
-                      type="text"
-                      value={solicitud.nombre}
-                      onChange={(e) => setSolicitud({ ...solicitud, nombre: e.target.value })}
-                      placeholder="Tu nombre"
-                      className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-foreground/80">Correo electrónico</label>
-                    <input
-                      required
-                      type="email"
-                      value={solicitud.email}
-                      onChange={(e) => setSolicitud({ ...solicitud, email: e.target.value })}
-                      placeholder="tu@email.com"
-                      className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
-                    />
-                  </div>
-                </div>
-
+            <form onSubmit={handleEnviarWhatsApp} className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground/80">Tipo de solicitud</label>
-                  <select
-                    value={solicitud.tipo}
-                    onChange={(e) => setSolicitud({ ...solicitud, tipo: e.target.value })}
-                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
-                  >
-                    <option value="reflexion">Reflexión sobre una parashá específica</option>
-                    <option value="cabala">Tema de Cábala / Sefirot</option>
-                    <option value="musar">Estudio de Musar / Middot</option>
-                    <option value="hebreo">Clase de Hebreo / Letras</option>
-                    <option value="halaja">Análisis Halájico Evolutivo</option>
-                    <option value="otro">Otro tema</option>
-                  </select>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground/80">Mensaje</label>
-                  <textarea
+                  <label className="text-sm font-medium text-foreground/80">Nombre</label>
+                  <input
                     required
-                    rows={4}
-                    value={solicitud.mensaje}
-                    onChange={(e) => setSolicitud({ ...solicitud, mensaje: e.target.value })}
-                    placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿para tu decena, comunidad o estudio personal?"
+                    type="text"
+                    value={solicitud.nombre}
+                    onChange={(e) => setSolicitud({ ...solicitud, nombre: e.target.value })}
+                    placeholder="Tu nombre"
                     className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                   />
                 </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-foreground/80">Correo electrónico</label>
+                  <input
+                    required
+                    type="email"
+                    value={solicitud.email}
+                    onChange={(e) => setSolicitud({ ...solicitud, email: e.target.value })}
+                    placeholder="tu@email.com"
+                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                  />
+                </div>
+              </div>
 
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 rounded-md bg-[#d4af37] px-6 py-2.5 text-sm font-medium text-[#14100a] hover:bg-[#e9c65a] transition-colors"
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-foreground/80">Tipo de solicitud</label>
+                <select
+                  value={solicitud.tipo}
+                  onChange={(e) => setSolicitud({ ...solicitud, tipo: e.target.value })}
+                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                 >
-                  <Send className="size-4" />
-                  Enviar solicitud
-                </button>
-              </form>
-            )}
+                  <option value="reflexion">Reflexión sobre una parashá específica</option>
+                  <option value="cabala">Tema de Cábala / Sefirot</option>
+                  <option value="musar">Estudio de Musar / Middot</option>
+                  <option value="hebreo">Clase de Hebreo / Letras</option>
+                  <option value="halaja">Análisis Halájico Evolutivo</option>
+                  <option value="otro">Otro tema</option>
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-foreground/80">Mensaje</label>
+                <textarea
+                  required
+                  rows={4}
+                  value={solicitud.mensaje}
+                  onChange={(e) => setSolicitud({ ...solicitud, mensaje: e.target.value })}
+                  placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿para tu decena, comunidad o estudio personal?"
+                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-md bg-green-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-green-700 transition-colors"
+              >
+                <MessageSquare className="size-4" />
+                Enviar solicitud por WhatsApp
+              </button>
+            </form>
           </div>
         </div>
 
