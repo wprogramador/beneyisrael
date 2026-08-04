@@ -4,23 +4,23 @@ export default function Comunidad() {
   const ref = useReveal<HTMLElement>()
 
   return (
-    <section id="comunidad" ref={ref} className="relative py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-5">
+    <section id="comunidad" ref={ref} className="relative py-16 sm:py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5">
         {/* Encabezado */}
         <div className="text-center max-w-3xl mx-auto">
           <p className="reveal font-hebrew text-[#d4af37] text-lg tracking-wide" dir="rtl" lang="he">
             קהילתנו
           </p>
-          <h2 className="reveal font-hebrew text-3xl md:text-5xl font-bold mt-2">
+          <h2 className="reveal font-hebrew text-2xl sm:text-3xl md:text-5xl font-bold mt-2">
             Nuestra <span className="gold-gradient-text">Comunidad</span>
           </h2>
-          <p className="reveal text-sm tracking-[0.3em] uppercase text-foreground/60 mt-3">
+          <p className="reveal text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase text-foreground/60 mt-3">
             Quiénes somos
           </p>
         </div>
 
         {/* Identidad y compromiso */}
-        <div className="mt-16 grid md:grid-cols-2 gap-12 items-center">
+        <div className="mt-10 sm:mt-16 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div className="reveal order-2 md:order-1">
             <div className="relative">
               <div className="absolute -inset-3 rounded-2xl border border-[#d4af37]/30" />
@@ -46,15 +46,15 @@ export default function Comunidad() {
               <strong className="text-[#d4af37] font-semibold">Bet Midrash Bene Israel</strong>, se enfoca en tres
               pilares fundamentales para el desarrollo de nuestra comunidad.
             </p>
-            <div className="reveal reveal-delay-3 flex items-center gap-4 pt-2">
+            <div className="reveal reveal-delay-3 flex items-center gap-3 sm:gap-4 pt-2">
               <img
                 src="images/logo-bet-midrash.png"
                 alt="Logo Bet Midrash Bene Israel"
-                className="h-20 w-20 rounded-lg object-cover ring-1 ring-[#d4af37]/40"
+                className="h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-lg object-cover ring-1 ring-[#d4af37]/40"
               />
-              <div>
-                <p className="font-hebrew text-xl text-[#d4af37]" dir="rtl" lang="he">בית מדרש בני ישראל</p>
-                <p className="text-sm text-foreground/60">Bet Midrash Bene Israel — Centro de Estudios Hebraicos</p>
+              <div className="min-w-0">
+                <p className="font-hebrew text-lg sm:text-xl text-[#d4af37]" dir="rtl" lang="he">בית מדרש בני ישראל</p>
+                <p className="text-xs sm:text-sm text-foreground/60">Bet Midrash Bene Israel — Centro de Estudios Hebraicos</p>
               </div>
             </div>
           </div>

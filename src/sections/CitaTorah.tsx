@@ -4,19 +4,19 @@ import { useReveal } from '@/hooks/useReveal'
 
 const citas = [
   {
-    he: 'אין לך מצוה בכל המצוות כולן שהיא שקולה כנגד תלמוד תורה אלא תלמוד תורה כנגד כל המצוות כולן, שהתלמוד מביא לידי מעשה',
-    es: '«No existe otra mitzvá que se iguale al estudio de la Torá. Más bien, ésta equivale al resto de las mitzvot juntas, debido a que el estudio lleva a la práctica».',
+    he: 'אֵין לְךָ מִצְוָה בְּכָל הַמִּצְוֹת כֻּלָּן שֶׁהִיא שְׁקוּלָה כְּנֶגֶד תַּלְמוּד תּוֹרָה אֶלָּא תַּלְמוּד תּוֹרָה כְּנֶגֶד כָּל הַמִּצְוֹת כֻּלָּן, שֶׁהַתַּלְמוּד מֵבִיא לִידֵי מַעֲשֶׂה',
+    es: '«No hay mitzvá entre todas las mitzvot que se iguale al estudio de la Torá; más bien, el estudio de la Torá equivale a todas las mitzvot juntas, porque el estudio lleva a la práctica».',
     fuente: 'Rambam · רמב״ם',
-    ref: 'Mishné Torá, Hiljot Talmud Torá',
+    ref: 'Mishné Torá, Hiljot Talmud Torá 3:3',
   },
   {
-    he: 'הֱוֵי זָהִיר בַּמִּצְוָה קַלָּה כְבַחֲמוּרָה... וְעִסְקוֹ בַתּוֹרָה, הֱוֵי מַעֲמִיד עֲמִידַת קָבָע לְתוֹרָתֶךָ',
-    es: '«Fija un tiempo regular para el estudio de la Torá; di poco y haz mucho; y recibe a cada persona con un semblante alegre».',
+    he: 'עֲשֵׂה תוֹרָתְךָ קֶבַע. אֱמֹר מְעַט וַעֲשֵׂה הַרְבֵּה, וֶהֱוֵי מְקַבֵּל אֶת כָּל הָאָדָם בְּסֵבֶר פָּנִים יָפוֹת',
+    es: '«Haz de tu Torá algo fijo; di poco y haz mucho; y recibe a cada persona con un semblante alegre».',
     fuente: 'Shammai · Pirké Avot',
     ref: 'Pirké Avot 1:15',
   },
   {
-    he: 'הֲפֹךְ בָּהּ וַהֲפֹךְ בָּהּ דְּכֹלָּא בָהּ. וּבָהּ תֶּחֱזֵי, וְסִיב וּבְלֵה בָהּ, וּמִינַּהּ לָא תָּזוּעַ, שֶׁאֵין לְךָ מִדָּה טוֹבָה הֵימֶנָּה',
+    he: 'הֲפֹךְ בָּהּ וַהֲפֹךְ בָּהּ, דְּכֹלָּא בָהּ. וּבָהּ תֶּחֱזֵי, וְסִיב וּבְלֵה בָהּ, וּמִנַּהּ לָא תְּזוּעַ, שֶׁאֵין לְךָ מִדָּה טוֹבָה הֵימֶנָּה',
     es: '«Revuélvela y revuélvela, porque todo está en ella. Contémplala y envejece en ella, y no te apartes de ella, pues no hay mejor medida que ella».',
     fuente: 'Ben Bag Bag · Pirké Avot',
     ref: 'Pirké Avot 5:22',
@@ -28,14 +28,14 @@ const citas = [
     ref: 'Salmo 119:105',
   },
   {
-    he: 'כִּי בְּשֵׁנִים הַיּוֹשְׁבִים וְעוֹסְקִים בְּדִבְרֵי תוֹרָה, שְׁכִינָה שְׁרוּיָה בֵינֵיהֶם',
-    es: '«Cuando dos personas se sientan y se ocupan en palabras de Torá, la Shejiná mora entre ellas».',
-    fuente: 'Rabí Janaia ben Teradión · Pirké Avot',
+    he: 'שְׁנַיִם שֶׁיּוֹשְׁבִין וְעוֹסְקִין בְּדִבְרֵי תוֹרָה, שְׁכִינָה שְׁרוּיָה בֵינֵיהֶם',
+    es: '«Cuando dos se sientan y se ocupan en palabras de Torá, la Shejiná mora entre ellos».',
+    fuente: 'Rabí Jananiá ben Teradión · Pirké Avot',
     ref: 'Pirké Avot 3:2',
   },
   {
-    he: 'לֹא־יָמוּשׁ סֵפֶר הַתּוֹרָה הַזֶּה מִפִּיךָ וְהָגִיתָ בּוֹ יוֹמָם וָלַיְלָה',
-    es: '«No se apartará este libro de la Torá de tu boca; meditarás en él de día y de noche, para que cuides de hacer todo lo que en él está escrito».',
+    he: 'לֹא־יָמוּשׁ סֵפֶר הַתּוֹרָה הַזֶּה מִפִּיךָ וְהָגִיתָ בּוֹ יוֹמָם וָלַיְלָה לְמַעַן תִּשְׁמֹר לַעֲשׂוֹת כְּכָל־הַכָּתוּב בּוֹ',
+    es: '«No se apartará este libro de la Torá de tu boca; meditarás en él de día y de noche, para que cuides de hacer conforme a todo lo que en él está escrito».',
     fuente: 'Iehoshúa · יהושע',
     ref: 'Iehoshúa 1:8',
   },
@@ -77,7 +77,7 @@ export default function CitaTorah() {
           <Quote size={24} strokeWidth={1.6} />
         </div>
 
-        <div className="relative mt-8 min-h-[260px] md:min-h-[230px]">
+        <div className="relative mt-8 min-h-[340px] sm:min-h-[300px] md:min-h-[260px]">
           {citas.map((cita, i) => (
             <blockquote
               key={i}
@@ -88,16 +88,16 @@ export default function CitaTorah() {
                   : 'opacity-0 translate-y-3 pointer-events-none'
               }`}
             >
-              <p className="font-hebrew text-2xl md:text-3xl leading-relaxed text-[#d4af37]" dir="rtl" lang="he">
+              <p className="font-hebrew text-lg sm:text-2xl md:text-3xl leading-relaxed text-[#d4af37]" dir="rtl" lang="he">
                 {cita.he}
               </p>
-              <p className="mx-auto mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-foreground/85">
+              <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-foreground/85">
                 {cita.es}
               </p>
-              <div className="mx-auto mt-8 flex items-center justify-center gap-4 text-[#d4af37]">
-                <span className="h-px w-14 bg-gradient-to-r from-transparent to-[#d4af37]/70" />
-                <p className="text-sm tracking-[0.3em] uppercase">{cita.fuente}</p>
-                <span className="h-px w-14 bg-gradient-to-l from-transparent to-[#d4af37]/70" />
+              <div className="mx-auto mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4 text-[#d4af37]">
+                <span className="h-px w-8 sm:w-14 bg-gradient-to-r from-transparent to-[#d4af37]/70" />
+                <p className="text-[11px] sm:text-sm tracking-[0.15em] sm:tracking-[0.3em] uppercase text-center">{cita.fuente}</p>
+                <span className="h-px w-8 sm:w-14 bg-gradient-to-l from-transparent to-[#d4af37]/70" />
               </div>
               <p className="mt-2 text-xs text-foreground/50 tracking-wide">{cita.ref}</p>
             </blockquote>

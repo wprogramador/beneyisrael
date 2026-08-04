@@ -1,122 +1,41 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
-import { ChevronLeft, ChevronDown, BookOpen, ScrollText, Star } from 'lucide-react'
+import { ChevronLeft, ChevronDown, BookOpen, Clock, ScrollText, Star } from 'lucide-react'
 import Navbar from '@/sections/Navbar'
 import Footer from '@/sections/Footer'
 import { useReveal } from '@/hooks/useReveal'
 import { useParasha } from '@/lib/hebcal'
 import { LIBROS, type Reflexion } from '@/lib/reflexiones'
-
-// normaliza nombres de parashá a id (maneja dobles como "Behar-Bechukotai")
-function normalizar(nombre: string): string[] {
-  return nombre
-    .split('-')
-    .map((parte) =>
-      parte
-        .trim()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[̀-ͯ]/g, '')
-        .replace(/\s+/g, '-')
-    )
-}
+import { normalizarParasha, resolveParashaIds } from '@/lib/parashaIds'
 
 function findReflexion(nombreParasha: string): Reflexion | undefined {
-  const partes = normalizar(nombreParasha)
   const todas = LIBROS.flatMap((l) => l.reflexiones)
-  // coincidencia exacta por id o por nombre normalizado
-  for (const p of partes) {
-    const exacta = todas.find((r) => r.id === p)
-    if (exacta) return exacta
+  const ids = resolveParashaIds(nombreParasha)
+
+  for (const id of ids) {
+    const porId = todas.find((r) => r.id === id)
+    if (porId) return porId
   }
-  // coincidencia por nombre transliterado alternativo
-  const alias: Record<string, string> = {
-    bechukotai: 'bejukotai',
-    bechukosai: 'bejukotai',
-    behaalotecha: 'behaalotja',
-    behaaloscha: 'behaalotja',
-    shoftim: 'shoftim',
-    tetzaveh: 'tetzave',
-    terumah: 'teruma',
-    tazria: 'tazria',
-    metzora: 'metzora',
-    kedoshim: 'kedoshim',
-    behar: 'behar',
-    emor: 'emor',
-    tzav: 'tzav',
-    shemini: 'shemini',
-    shmini: 'shemini',
-    bo: 'bo',
-    beshalach: 'beshalaj',
-    beshalah: 'beshalaj',
-    yitro: 'itro',
-    mishpatim: 'mishpatim',
-    pekudei: 'pekudei',
-    vayakhel: 'vayakhel',
-    vayikra: 'vayikra',
-    'acharei-mot': 'ajarei-mot',
-    'acharei': 'ajarei-mot',
-    mot: 'ajarei-mot',
-    chukat: 'jukat',
-    chukas: 'jukat',
-    pinchas: 'pinjas',
-    pinhas: 'pinjas',
-    matos: 'matot',
-    mattos: 'matot',
-    masei: 'masei',
-    masaei: 'masei',
-    devarim: 'devarim',
-    vaetchanan: 'vaetjanan',
-    vaeschanan: 'vaetjanan',
-    ekev: 'eikev',
-    eikev: 'eikev',
-    reeh: 'ree',
-    'ki-tavo': 'ki-tavo',
-    'ki-tisa': 'ki-tisa',
-    'ki-tetze': 'ki-tetze',
-    'ki-teitzei': 'ki-tetze',
-    nitzavim: 'nitzavim',
-    vayelech: 'vayelej',
-    vayelekh: 'vayelej',
-    haazinu: 'haazinu',
-    'vezot-haberakhah': 'vezot-haberaja',
-    'vezot-haberakha': 'vezot-haberaja',
-    bereshit: 'bereshit',
-    bereishit: 'bereshit',
-    noach: 'noaj',
-    'lech-lecha': 'lej-leja',
-    vayera: 'vayera',
-    'chayei-sarah': 'jaye-sara',
-    'chaye-sara': 'jaye-sara',
-    sarah: 'jaye-sara',
-    toldot: 'toldot',
-    toldos: 'toldot',
-    vayetze: 'vayetze',
-    vayetzei: 'vayetze',
-    vayishlach: 'vayishlaj',
-    vayeshev: 'vayeshev',
-    mikeitz: 'miketz',
-    mikets: 'miketz',
-    vayigash: 'vayigash',
-    vayechi: 'vayeji',
-    shemot: 'shemot',
-    shemos: 'shemot',
-    vaera: 'vaera',
-    korach: 'koraj',
-    shalach: 'shelaj',
-    'shlach': 'shelaj',
-    'shelach': 'shelaj',
-  }
-  for (const p of partes) {
-    if (alias[p]) {
-      const encontrada = todas.find((r) => r.id === alias[p])
-      if (encontrada) return encontrada
-    }
-  }
-  return undefined
+
+  // Respaldo: comparar contra el nombre mostrado (p. ej. "Reé")
+  const claves = new Set(ids)
+  for (const p of normalizarParasha(nombreParasha)) claves.add(p)
+  return todas.find((r) => {
+    const nombreNorm = normalizarParasha(r.nombre)
+    return nombreNorm.some((n) => claves.has(n) || claves.has(r.id))
+  })
+}
+
+/** ~200 palabras/min en español; mínimo 1 minuto. */
+function minutosLectura(r: Reflexion): number {
+  const texto = [r.titulo, r.citaEspanol, r.citaHebreo, ...r.cuerpo].join(' ')
+  const palabras = texto.trim().split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(palabras / 200))
 }
 
 function TarjetaReflexion({ r, destacada = false }: { r: Reflexion; destacada?: boolean }) {
+  const mins = minutosLectura(r)
+
   return (
     <article
       className={`relative overflow-hidden rounded-3xl border p-8 md:p-12 ${
@@ -140,11 +59,17 @@ function TarjetaReflexion({ r, destacada = false }: { r: Reflexion; destacada?: 
             <Star size={13} /> Reflexión de esta semana
           </p>
         )}
-        <p className="mt-5 font-hebrew text-[#d4af37] text-lg" dir="rtl" lang="he">{r.hebreo}</p>
+        <p className={`${destacada ? 'mt-5' : 'mt-0'} font-hebrew text-[#d4af37] text-lg`} dir="rtl" lang="he">
+          {r.hebreo}
+        </p>
         <h2 className="mt-1 font-hebrew text-3xl md:text-4xl font-bold">
           Parashat <span className="gold-gradient-text">{r.nombre}</span>
         </h2>
         <p className="mt-1 text-sm text-foreground/60">{r.lectura}</p>
+        <p className="mt-3 inline-flex items-center gap-1.5 text-xs tracking-[0.15em] uppercase text-[#d4af37]/90">
+          <Clock size={13} aria-hidden="true" />
+          {mins} {mins === 1 ? 'minuto' : 'minutos'} de lectura
+        </p>
 
         <h3 className="mt-8 font-hebrew text-xl md:text-2xl font-bold text-[#d4af37]">
           {r.titulo}
@@ -199,7 +124,7 @@ export default function Reflexiones() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-36 pb-10 md:pt-44 md:pb-14 overflow-hidden">
+        <section className="relative pt-40 pb-10 md:pt-48 md:pb-14 overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
@@ -226,7 +151,9 @@ export default function Reflexiones() {
             <TarjetaReflexion r={reflexionSemana} destacada />
           ) : (
             <div className="rounded-3xl border border-[#d4af37]/30 bg-[#141009] p-10 text-center text-foreground/60">
-              Cargando la parashá de esta semana…
+              {parasha.nombre
+                ? `Aún no hay una reflexión publicada para Parashat ${parasha.nombre}. Explora el archivo abajo.`
+                : 'Cargando la parashá de esta semana…'}
             </div>
           )}
         </section>
@@ -252,15 +179,16 @@ export default function Reflexiones() {
                 <div key={libro.nombre} className="rounded-2xl border border-[#d4af37]/25 bg-[#141009] overflow-hidden">
                   <button
                     onClick={() => toggleLibro(libro.nombre)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[#d4af37]/5 transition-colors"
+                    className="w-full flex items-center justify-between gap-3 px-4 sm:px-6 py-4 sm:py-5 text-left hover:bg-[#d4af37]/5 transition-colors"
                   >
-                    <span className="flex items-center gap-3">
-                      <BookOpen size={18} className="text-[#d4af37]" />
-                      <span className="font-hebrew font-bold text-lg">{libro.nombre}</span>
-                      <span className="font-hebrew text-[#d4af37]/70" dir="rtl" lang="he">{libro.hebreo}</span>
+                    <span className="flex items-center gap-2 sm:gap-3 min-w-0">
+                      <BookOpen size={18} className="text-[#d4af37] shrink-0" />
+                      <span className="font-hebrew font-bold text-base sm:text-lg truncate">{libro.nombre}</span>
+                      <span className="hidden sm:inline font-hebrew text-[#d4af37]/70" dir="rtl" lang="he">{libro.hebreo}</span>
                     </span>
-                    <span className="flex items-center gap-2 text-sm text-foreground/50">
-                      {libro.reflexiones.length} parashiot
+                    <span className="flex items-center gap-2 text-xs sm:text-sm text-foreground/50 shrink-0">
+                      {libro.reflexiones.length}
+                      <span className="hidden sm:inline">parashiot</span>
                       <ChevronDown size={17} className={`text-[#d4af37] transition-transform ${expandido ? 'rotate-180' : ''}`} />
                     </span>
                   </button>
@@ -275,10 +203,10 @@ export default function Reflexiones() {
                             <div key={r.id}>
                               <button
                                 onClick={() => toggleReflexion(r.id)}
-                                className="w-full flex items-center justify-between gap-3 px-6 py-4 text-left hover:bg-[#d4af37]/5 transition-colors"
+                                className="w-full flex items-center justify-between gap-2 sm:gap-3 px-4 sm:px-6 py-3.5 sm:py-4 text-left hover:bg-[#d4af37]/5 transition-colors"
                               >
-                                <span className="flex items-center gap-3 flex-wrap">
-                                  <span className="font-hebrew font-semibold">Parashat {r.nombre}</span>
+                                <span className="flex items-center gap-2 sm:gap-3 flex-wrap min-w-0">
+                                  <span className="font-hebrew font-semibold text-sm sm:text-base">Parashat {r.nombre}</span>
                                   <span className="font-hebrew text-sm text-[#d4af37]/70" dir="rtl" lang="he">{r.hebreo}</span>
                                   {esSemana && (
                                     <span className="inline-flex items-center gap-1 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/50 px-2.5 py-0.5 text-[10px] font-semibold text-[#d4af37]">
@@ -286,8 +214,8 @@ export default function Reflexiones() {
                                     </span>
                                   )}
                                 </span>
-                                <span className="text-xs text-[#d4af37]/80 shrink-0">
-                                  {abiertaR ? 'Cerrar' : 'Leer reflexión'}
+                                <span className="text-[11px] sm:text-xs text-[#d4af37]/80 shrink-0">
+                                  {abiertaR ? 'Cerrar' : 'Leer'}
                                 </span>
                               </button>
                               <div className={`grid transition-all duration-500 ${abiertaR ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>

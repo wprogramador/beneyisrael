@@ -1,4 +1,4 @@
-import { BookOpen, Sparkles, HeartHandshake } from 'lucide-react'
+import { BookOpen, Sparkles, HeartHandshake, Wifi, Home, Users } from 'lucide-react'
 import { useReveal } from '@/hooks/useReveal'
 
 const pilares = [
@@ -29,13 +29,13 @@ export default function Pilares() {
   const ref = useReveal<HTMLElement>()
 
   return (
-    <section id="pilares" ref={ref} className="relative py-24 md:py-32 bg-[#100d08]">
-      <div className="mx-auto max-w-6xl px-5">
+    <section id="pilares" ref={ref} className="relative py-16 sm:py-24 md:py-32 bg-[#100d08]">
+      <div className="mx-auto max-w-6xl px-4 sm:px-5">
         <div className="text-center max-w-3xl mx-auto">
           <p className="reveal font-hebrew text-[#d4af37] text-lg tracking-wide" dir="rtl" lang="he">
             בית מדרש
           </p>
-          <h2 className="reveal font-hebrew text-3xl md:text-5xl font-bold mt-2">
+          <h2 className="reveal font-hebrew text-2xl sm:text-3xl md:text-5xl font-bold mt-2">
             Estudia <span className="gold-gradient-text">con Nosotros</span>
           </h2>
           <p className="reveal text-foreground/70 mt-4 leading-relaxed">
@@ -47,7 +47,7 @@ export default function Pilares() {
           {pilares.map((p, i) => (
             <article
               key={p.titulo}
-              className={`reveal ${i === 1 ? 'reveal-delay-1' : i === 2 ? 'reveal-delay-2' : ''} group relative rounded-2xl border border-[#d4af37]/20 bg-gradient-to-b from-[#1a150d] to-[#100d08] p-8 hover:border-[#d4af37]/60 transition-colors duration-500`}
+              className={`reveal ${i === 1 ? 'reveal-delay-1' : i === 2 ? 'reveal-delay-2' : ''} group relative rounded-2xl border border-[#d4af37]/20 bg-gradient-to-b from-[#1a150d] to-[#100d08] p-6 sm:p-8 hover:border-[#d4af37]/60 transition-colors duration-500`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] group-hover:bg-[#d4af37] group-hover:text-[#14100a] transition-colors duration-500">
@@ -86,25 +86,53 @@ export default function Pilares() {
           </div>
         </div>
 
-        {/* Franja cultural */}
+        {/* Franja: estudio a distancia */}
         <div className="reveal mt-16 overflow-hidden rounded-2xl border border-[#d4af37]/20">
           <div className="grid md:grid-cols-2">
             <img
               src="images/clases-online.jpg"
               alt="Clase en línea de estudios hebraicos"
-              className="h-full w-full object-cover aspect-[3/2] md:aspect-auto"
+              className="h-56 sm:h-72 md:h-full w-full object-cover"
             />
-            <div className="flex flex-col justify-center p-8 md:p-12 bg-[#1a150d]">
-              <p className="font-hebrew text-[#d4af37] text-lg" dir="rtl" lang="he">לימוד מרחוק</p>
-              <h3 className="font-hebrew text-2xl md:text-3xl font-bold mt-2">
+            <div className="flex flex-col justify-center px-6 py-8 sm:px-8 md:p-12 bg-[#1a150d]">
+              <p className="font-hebrew text-[#d4af37] text-base sm:text-lg" dir="rtl" lang="he">
+                לימוד מרחוק
+              </p>
+              <h3 className="font-hebrew text-xl sm:text-2xl md:text-3xl font-bold mt-2 leading-snug">
                 Estudia con nosotros, estés donde estés
               </h3>
-              <p className="mt-4 leading-relaxed text-foreground/75">
+              <p className="mt-4 text-sm sm:text-base leading-relaxed text-foreground/75">
                 Aunque nuestra sede física está en Los Teques, nuestra visión no tiene fronteras: ofrecemos charlas,
                 conferencias y cursos a distancia para quienes anhelan formarse con seriedad y calidad, y desean
                 «retornar a casa».
               </p>
+              <p className="mt-5 text-sm sm:text-base text-[#d4af37] font-medium leading-snug">
+                No hace falta estar presencial para estudiar juntos.
+              </p>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-[#d4af37]/20 bg-[#100d08]">
+            {[
+              { icon: Home, label: 'Desde tu casa', desc: 'Conéctate donde estés' },
+              { icon: Wifi, label: 'En vivo o grabado', desc: 'A tu ritmo' },
+              { icon: Users, label: 'Misma comunidad', desc: 'Estudio compartido' },
+            ].map((item, i) => (
+              <div
+                key={item.label}
+                className={`flex items-center gap-3 px-6 py-5 sm:px-5 sm:py-6 md:px-8 ${
+                  i > 0 ? 'border-t sm:border-t-0 sm:border-l border-[#d4af37]/15' : ''
+                }`}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[#d4af37]/35 text-[#d4af37]">
+                  <item.icon size={18} strokeWidth={1.7} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-foreground">{item.label}</span>
+                  <span className="block text-xs text-foreground/55 mt-0.5">{item.desc}</span>
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

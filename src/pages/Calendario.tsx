@@ -14,6 +14,13 @@ import {
   type HebrewDate,
 } from '@/lib/hebrew'
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
   useParasha, useEventosMes, useProximasMoedim, parashaDeSemana,
   type EventoHebreo, type ParashaInfo,
 } from '@/lib/hebcal'
@@ -185,7 +192,7 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
     celdas.push(
       <div
         key={i}
-        className={`group relative min-h-[86px] md:min-h-[108px] rounded-lg border p-1.5 md:p-2 transition-colors ${
+        className={`group relative min-h-[64px] sm:min-h-[86px] md:min-h-[108px] rounded-md sm:rounded-lg border p-1 sm:p-1.5 md:p-2 transition-colors ${
           esHoy
             ? 'border-[#d4af37] bg-[#d4af37]/15 shadow-lg shadow-[#d4af37]/10'
             : enMes
@@ -200,45 +207,60 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
           .filter(Boolean)
           .join(' · ')}
       >
-        <div className="flex items-start justify-between">
-          <span className={`text-sm md:text-base font-semibold ${esHoy ? 'text-[#d4af37]' : 'text-foreground'}`}>
+        <div className="flex items-start justify-between gap-0.5">
+          <span className={`text-xs sm:text-sm md:text-base font-semibold ${esHoy ? 'text-[#d4af37]' : 'text-foreground'}`}>
             {g.d}
           </span>
-          <span className="flex items-center gap-1">
-            <LunaIcon dia={heb.d} size={13} />
-            <span className="font-hebrew text-xs md:text-sm text-[#d4af37]/70" dir="rtl" lang="he">
+          <span className="flex items-center gap-0.5 sm:gap-1">
+            <span className="hidden sm:inline-flex">
+              <LunaIcon dia={heb.d} size={13} />
+            </span>
+            <span className="font-hebrew text-[10px] sm:text-xs md:text-sm text-[#d4af37]/70" dir="rtl" lang="he">
               {hebrewDayNumeral(heb.d)}
             </span>
           </span>
         </div>
         {(evs.length > 0 || esRoshJodesh) && (
-          <div className="mt-1 space-y-0.5">
+          <div className="mt-0.5 sm:mt-1 space-y-0.5">
             {esRoshJodesh && (
-              <p className="text-[10px] md:text-[11px] leading-tight text-[#d4af37] font-medium">
+              <p className="hidden sm:block text-[10px] md:text-[11px] leading-tight text-[#d4af37] font-medium">
                 Rosh Jodesh {heb.monthName}
               </p>
             )}
-            {evs.slice(0, 2).map((e, j) => (
-              <p key={j} className="text-[10px] md:text-[11px] leading-tight text-foreground/70 truncate">
-                {e.titulo}
-              </p>
-            ))}
+            {/* Móvil: puntos; desktop: títulos */}
+            <div className="sm:hidden flex gap-0.5 mt-0.5" aria-hidden="true">
+              {esRoshJodesh && <span className="h-1 w-1 rounded-full bg-[#d4af37]" />}
+              {evs.slice(0, 2).map((_, j) => (
+                <span key={j} className="h-1 w-1 rounded-full bg-[#d4af37]/70" />
+              ))}
+            </div>
+            <div className="hidden sm:block space-y-0.5">
+              {evs.slice(0, 2).map((e, j) => (
+                <p key={j} className="text-[10px] md:text-[11px] leading-tight text-foreground/70 truncate">
+                  {e.titulo}
+                </p>
+              ))}
+            </div>
           </div>
         )}
         {enMes && (
           <div
-            className={`mt-1.5 rounded px-1 py-0.5 ${
-              nocheEspecial ? 'bg-[#d4af37]/15 border border-[#d4af37]/30' : 'border-t border-[#d4af37]/10'
+            className={`mt-1 sm:mt-1.5 rounded px-0.5 sm:px-1 py-0.5 ${
+              nocheEspecial ? 'bg-[#d4af37]/15 border border-[#d4af37]/30' : 'border-t border-[#d4af37]/10 max-sm:hidden'
             }`}
           >
-            <p className="flex items-center gap-1 text-[9px] md:text-[10px] leading-tight text-[#d4af37]/90">
+            <p className="flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[9px] md:text-[10px] leading-tight text-[#d4af37]/90">
               <span aria-hidden="true">🕯️</span>
-              <span className="hidden sm:inline">esta noche:</span>
+              <span className="hidden md:inline">esta noche:</span>
               <span className="font-hebrew" dir="rtl" lang="he">{hebrewDayNumeral(hebSig.d)}</span>
-              {faseSig && <LunaIcon dia={hebSig.d} size={10} />}
+              {faseSig && (
+                <span className="hidden sm:inline-flex">
+                  <LunaIcon dia={hebSig.d} size={10} />
+                </span>
+              )}
             </p>
             {nocheEspecial && (
-              <p className="text-[9px] md:text-[10px] leading-tight text-foreground/70 truncate">
+              <p className="hidden sm:block text-[9px] md:text-[10px] leading-tight text-foreground/70 truncate">
                 {faseSig ? faseSig.nombre : evsSig[0].titulo}
               </p>
             )}
@@ -250,14 +272,15 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
 
   return (
     <div>
-      <div className="grid grid-cols-7 gap-1.5 md:gap-2 mb-2">
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2 mb-2">
         {DIAS_SEMANA.map((d, i) => (
-          <p key={d} className={`text-center text-xs md:text-sm font-semibold tracking-wide uppercase ${i === 6 ? 'text-[#d4af37]' : 'text-foreground/60'}`}>
-            {d}
+          <p key={d} className={`text-center text-[10px] sm:text-xs md:text-sm font-semibold tracking-wide uppercase ${i === 6 ? 'text-[#d4af37]' : 'text-foreground/60'}`}>
+            <span className="sm:hidden">{d.charAt(0)}</span>
+            <span className="hidden sm:inline">{d}</span>
           </p>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-1.5 md:gap-2">{celdas}</div>
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2">{celdas}</div>
     </div>
   )
 }
@@ -390,7 +413,110 @@ function proximoCumpleHebreo(nac: HebrewDate): { fecha: Date; anio: number } {
   return { fecha, anio }
 }
 
+const triggerCls =
+  'w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground hover:border-[#d4af37]/60 focus:border-[#d4af37] focus:ring-[#d4af37]/25 data-[placeholder]:text-foreground/45'
+
+const contentCls =
+  'max-h-56 border-[#d4af37]/30 bg-[#141009] text-foreground shadow-xl'
+
+function CampoSelect({
+  label,
+  value,
+  placeholder,
+  onChange,
+  options,
+}: {
+  label: string
+  value: string
+  placeholder: string
+  onChange: (v: string) => void
+  options: { value: string; label: string }[]
+}) {
+  return (
+    <label className="flex flex-col gap-1.5 text-left min-w-0">
+      <span className="text-[10px] tracking-[0.2em] uppercase text-[#d4af37]/80">{label}</span>
+      <Select value={value || undefined} onValueChange={onChange}>
+        <SelectTrigger className={triggerCls}>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent position="popper" className={contentCls}>
+          {options.map((o) => (
+            <SelectItem
+              key={o.value}
+              value={o.value}
+              className="focus:bg-[#d4af37]/20 focus:text-foreground"
+            >
+              {o.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </label>
+  )
+}
+
+function diasDelMesSecular(year: number, month: number): number {
+  return new Date(year, month, 0).getDate()
+}
+
+function SelectoresFechaSecular({
+  dia,
+  mes,
+  anio,
+  onDia,
+  onMes,
+  onAnio,
+  anioMin,
+  anioMax,
+}: {
+  dia: string
+  mes: string
+  anio: string
+  onDia: (v: string) => void
+  onMes: (v: string) => void
+  onAnio: (v: string) => void
+  anioMin: number
+  anioMax: number
+}) {
+  const y = parseInt(anio, 10) || anioMax
+  const m = parseInt(mes, 10) || 1
+  const maxDia = diasDelMesSecular(y, m)
+  const anios = useMemo(() => {
+    const lista: { value: string; label: string }[] = []
+    for (let a = anioMax; a >= anioMin; a--) lista.push({ value: String(a), label: String(a) })
+    return lista
+  }, [anioMin, anioMax])
+
+  const dias = useMemo(
+    () => Array.from({ length: maxDia }, (_, i) => ({ value: String(i + 1), label: String(i + 1) })),
+    [maxDia]
+  )
+
+  const meses = useMemo(
+    () =>
+      MESES_ES.map((nombre, i) => ({
+        value: String(i + 1),
+        label: nombre.charAt(0).toUpperCase() + nombre.slice(1),
+      })),
+    []
+  )
+
+  useEffect(() => {
+    const d = parseInt(dia, 10)
+    if (d > maxDia) onDia(String(maxDia))
+  }, [maxDia, dia, onDia])
+
+  return (
+    <div className="grid grid-cols-3 gap-2.5 flex-1 min-w-0">
+      <CampoSelect label="Día" value={dia} placeholder="—" onChange={onDia} options={dias} />
+      <CampoSelect label="Mes" value={mes} placeholder="—" onChange={onMes} options={meses} />
+      <CampoSelect label="Año" value={anio} placeholder="—" onChange={onAnio} options={anios} />
+    </div>
+  )
+}
+
 function NacimientoHebreo() {
+  const hoy = useMemo(() => new Date(), [])
   const [dia, setDia] = useState('')
   const [mes, setMes] = useState('')
   const [anio, setAnio] = useState('')
@@ -399,24 +525,37 @@ function NacimientoHebreo() {
   const [res, setRes] = useState<ResultadoNacimiento | null>(null)
 
   const buscar = async () => {
-    const d = parseInt(dia), m = parseInt(mes), y = parseInt(anio)
-    const hoy = new Date()
-    if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12 || y < 1900 || y > hoy.getFullYear()) {
-      setError('Revisa la fecha: día (1–31), mes (1–12) y año válidos.')
+    const d = parseInt(dia, 10)
+    const m = parseInt(mes, 10)
+    const y = parseInt(anio, 10)
+    if (!d || !m || !y) {
+      setError('Elige día, mes y año de nacimiento.')
+      setRes(null)
+      return
+    }
+    const candidata = new Date(y, m - 1, d)
+    if (
+      candidata.getFullYear() !== y ||
+      candidata.getMonth() !== m - 1 ||
+      candidata.getDate() !== d ||
+      y < 1900 ||
+      candidata > hoy
+    ) {
+      setError('Esa fecha no es válida. Revisa día, mes y año.')
       setRes(null)
       return
     }
     setError('')
     setCargando(true)
-    const hebreo = gregorianToHebrew(y, m, d)
-    const [parasha] = await Promise.all([parashaDeSemana(new Date(y, m - 1, d))])
-    const { fecha, anio: anioProximo } = proximoCumpleHebreo(hebreo)
-    setRes({ hebreo, parasha, proximoCumple: fecha, anioProximo })
-    setCargando(false)
+    try {
+      const hebreo = gregorianToHebrew(y, m, d)
+      const parasha = await parashaDeSemana(candidata)
+      const { fecha, anio: anioProximo } = proximoCumpleHebreo(hebreo)
+      setRes({ hebreo, parasha, proximoCumple: fecha, anioProximo })
+    } finally {
+      setCargando(false)
+    }
   }
-
-  const inputCls =
-    'w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 py-2.5 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-[#d4af37] transition-colors text-center'
 
   const compartir = () => {
     if (!res) return
@@ -446,16 +585,21 @@ function NacimientoHebreo() {
           </p>
         </div>
 
-        <div className="mt-7 flex flex-col sm:flex-row items-stretch justify-center gap-3 max-w-xl mx-auto">
-          <div className="grid grid-cols-3 gap-2.5 flex-1">
-            <input className={inputCls} value={dia} onChange={(e) => setDia(e.target.value)} placeholder="Día" inputMode="numeric" />
-            <input className={inputCls} value={mes} onChange={(e) => setMes(e.target.value)} placeholder="Mes" inputMode="numeric" />
-            <input className={inputCls} value={anio} onChange={(e) => setAnio(e.target.value)} placeholder="Año" inputMode="numeric" />
-          </div>
+        <div className="mt-7 flex flex-col sm:flex-row items-end justify-center gap-3 max-w-xl mx-auto">
+          <SelectoresFechaSecular
+            dia={dia}
+            mes={mes}
+            anio={anio}
+            onDia={setDia}
+            onMes={setMes}
+            onAnio={setAnio}
+            anioMin={1900}
+            anioMax={hoy.getFullYear()}
+          />
           <button
             onClick={buscar}
             disabled={cargando}
-            className="bg-[#d4af37] text-[#14100a] font-semibold px-7 py-2.5 rounded-full hover:bg-[#e9c65a] transition-colors text-sm disabled:opacity-60"
+            className="w-full sm:w-auto bg-[#d4af37] text-[#14100a] font-semibold px-7 py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm disabled:opacity-60"
           >
             {cargando ? 'Buscando…' : 'Descubrir'}
           </button>
@@ -503,26 +647,65 @@ function NacimientoHebreo() {
 
 /* ===================== Conversor ===================== */
 function Conversor() {
-  const hoy = new Date()
+  const hoy = useMemo(() => new Date(), [])
+  const hebreoHoy = useMemo(
+    () => gregorianToHebrew(hoy.getFullYear(), hoy.getMonth() + 1, hoy.getDate()),
+    [hoy]
+  )
+
   const [gDia, setGDia] = useState(String(hoy.getDate()))
   const [gMes, setGMes] = useState(String(hoy.getMonth() + 1))
   const [gAnio, setGAnio] = useState(String(hoy.getFullYear()))
   const [resG, setResG] = useState<HebrewDate | null>(null)
 
-  const [hDia, setHDia] = useState('1')
-  const hebreoHoy = gregorianToHebrew(hoy.getFullYear(), hoy.getMonth() + 1, hoy.getDate())
+  const [hDia, setHDia] = useState(String(hebreoHoy.d))
   const [hMes, setHMes] = useState(String(hebreoHoy.m))
   const [hAnio, setHAnio] = useState(String(hebreoHoy.y))
   const [resH, setResH] = useState<string>('')
 
+  const anioHeb = parseInt(hAnio, 10) || hebreoHoy.y
+  const mesesHeb = hebrewMonthOptions(anioHeb)
+  const diasEnMes = daysInHebrewMonth(anioHeb, parseInt(hMes, 10) || 1)
+
+  useEffect(() => {
+    const d = parseInt(hDia, 10)
+    if (d > diasEnMes) setHDia(String(diasEnMes))
+  }, [diasEnMes, hDia])
+
+  useEffect(() => {
+    const m = parseInt(hMes, 10)
+    if (!mesesHeb.some((o) => o.value === m)) {
+      setHMes(String(mesesHeb[Math.min(5, mesesHeb.length - 1)]?.value ?? 1))
+    }
+  }, [anioHeb]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const aniosHeb = useMemo(() => {
+    const lista: number[] = []
+    for (let y = hebreoHoy.y - 120; y <= hebreoHoy.y + 5; y++) lista.push(y)
+    return lista
+  }, [hebreoHoy.y])
+
   const convertirAHebreo = () => {
-    const d = parseInt(gDia), m = parseInt(gMes), y = parseInt(gAnio)
-    if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12) return
+    const d = parseInt(gDia, 10)
+    const m = parseInt(gMes, 10)
+    const y = parseInt(gAnio, 10)
+    if (!d || !m || !y) return
+    const candidata = new Date(y, m - 1, d)
+    if (
+      candidata.getFullYear() !== y ||
+      candidata.getMonth() !== m - 1 ||
+      candidata.getDate() !== d
+    ) {
+      setResG(null)
+      return
+    }
     setResG(gregorianToHebrew(y, m, d))
   }
 
   const convertirASecular = () => {
-    const d = parseInt(hDia), m = parseInt(hMes), y = parseInt(hAnio)
+    const d = parseInt(hDia, 10)
+    const m = parseInt(hMes, 10)
+    const y = parseInt(hAnio, 10)
     if (!d || !m || !y) return
     if (m < 1 || m > monthsInHebrewYear(y)) {
       setResH(`El año ${y} no tiene ese mes.`)
@@ -538,9 +721,6 @@ function Conversor() {
     setResH(`${DIAS_ES[fecha.getDay()]} ${fmtSecular(g.y, g.m, g.d)}`)
   }
 
-  const inputCls =
-    'w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 py-2.5 text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-[#d4af37] transition-colors'
-
   return (
     <div className="reveal rounded-3xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] to-[#100d08] p-8 md:p-10">
       <div className="text-center">
@@ -553,17 +733,23 @@ function Conversor() {
       </div>
 
       <div className="mt-8 grid md:grid-cols-2 gap-8">
-        {/* Secular → Hebrea */}
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
           <h3 className="font-hebrew text-lg font-bold text-foreground">Fecha secular → hebrea</h3>
-          <div className="mt-4 grid grid-cols-3 gap-2.5">
-            <input className={inputCls} value={gDia} onChange={(e) => setGDia(e.target.value)} placeholder="Día" inputMode="numeric" />
-            <input className={inputCls} value={gMes} onChange={(e) => setGMes(e.target.value)} placeholder="Mes" inputMode="numeric" />
-            <input className={inputCls} value={gAnio} onChange={(e) => setGAnio(e.target.value)} placeholder="Año" inputMode="numeric" />
+          <div className="mt-4">
+            <SelectoresFechaSecular
+              dia={gDia}
+              mes={gMes}
+              anio={gAnio}
+              onDia={setGDia}
+              onMes={setGMes}
+              onAnio={setGAnio}
+              anioMin={1900}
+              anioMax={hoy.getFullYear() + 5}
+            />
           </div>
           <button
             onClick={convertirAHebreo}
-            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-full hover:bg-[#e9c65a] transition-colors text-sm"
+            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm"
           >
             Convertir
           </button>
@@ -577,21 +763,37 @@ function Conversor() {
           )}
         </div>
 
-        {/* Hebrea → Secular */}
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
           <h3 className="font-hebrew text-lg font-bold text-foreground">Fecha hebrea → secular</h3>
-          <div className="mt-4 grid grid-cols-3 gap-2.5">
-            <input className={inputCls} value={hDia} onChange={(e) => setHDia(e.target.value)} placeholder="Día" inputMode="numeric" />
-            <select className={inputCls} value={hMes} onChange={(e) => setHMes(e.target.value)}>
-              {hebrewMonthOptions(parseInt(hAnio) || hebreoHoy.y).map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-            <input className={inputCls} value={hAnio} onChange={(e) => setHAnio(e.target.value)} placeholder="Año" inputMode="numeric" />
+          <div className="mt-4 grid grid-cols-3 gap-2.5 min-w-0">
+            <CampoSelect
+              label="Día"
+              value={hDia}
+              placeholder="—"
+              onChange={setHDia}
+              options={Array.from({ length: diasEnMes }, (_, i) => ({
+                value: String(i + 1),
+                label: `${i + 1} · ${hebrewDayNumeral(i + 1)}`,
+              }))}
+            />
+            <CampoSelect
+              label="Mes"
+              value={hMes}
+              placeholder="—"
+              onChange={setHMes}
+              options={mesesHeb.map((o) => ({ value: String(o.value), label: o.label }))}
+            />
+            <CampoSelect
+              label="Año"
+              value={hAnio}
+              placeholder="—"
+              onChange={setHAnio}
+              options={aniosHeb.map((y) => ({ value: String(y), label: String(y) }))}
+            />
           </div>
           <button
             onClick={convertirASecular}
-            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-full hover:bg-[#e9c65a] transition-colors text-sm"
+            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm"
           >
             Convertir
           </button>
@@ -639,7 +841,7 @@ export default function Calendario() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-36 pb-12 md:pt-44 md:pb-16 overflow-hidden">
+        <section className="relative pt-40 pb-12 md:pt-48 md:pb-16 overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
@@ -683,8 +885,8 @@ export default function Calendario() {
                 >
                   <ChevronLeft size={19} />
                 </button>
-                <div className="text-center min-w-[220px]">
-                  <p className="font-hebrew text-xl md:text-2xl font-bold capitalize">
+                <div className="text-center min-w-0 sm:min-w-[220px]">
+                  <p className="font-hebrew text-base sm:text-xl md:text-2xl font-bold capitalize leading-snug">
                     {vista === 'mes'
                       ? `${MESES_ES[mesActual.m - 1]} ${mesActual.y}`
                       : `Semana del ${semanaBase.getDate()} de ${MESES_ES[semanaBase.getMonth()]}`}
@@ -727,7 +929,7 @@ export default function Calendario() {
 
         {/* Próximas moedim + conversor */}
         <section className="mx-auto max-w-6xl px-5 pb-24 md:pb-32 grid lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2 reveal rounded-3xl border border-[#d4af37]/25 bg-[#100d08] p-8">
+          <div className="lg:col-span-2 reveal rounded-2xl sm:rounded-3xl border border-[#d4af37]/25 bg-[#100d08] p-5 sm:p-8">
             <p className="flex items-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
               <Sparkles size={16} /> Próximas festividades
             </p>
