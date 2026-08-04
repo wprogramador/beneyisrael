@@ -1,6 +1,6 @@
 import { scrollToSection } from '@/sections/Navbar'
 import { Link } from 'react-router'
-import { Instagram } from 'lucide-react'
+import { Instagram, Heart } from 'lucide-react'
 
 const redes = [
   {
@@ -29,14 +29,14 @@ export default function Footer() {
           <img
             src="images/logo-horizontal.png"
             alt="Centro de Estudios Hebraicos — Bene Israel"
-            className="w-60 md:w-72"
+            className="w-full max-w-[15rem] sm:w-60 md:w-72"
           />
         </div>
         <p className="font-hebrew text-[#d4af37] text-xl" dir="rtl" lang="he">
           בית מדרש בני ישראל — Los Teques
         </p>
         <p className="max-w-xl text-sm text-foreground/60 leading-relaxed">
-          Beit Midrash Bene Israel · Centro de Estudios Bene Israel · Un faro de luz en los Altos Mirandinos,
+          Beit Midrash Bene Israel — Centro de Estudios Bene Israel — Un faro de luz en los Altos Mirandinos,
           promoviendo el estudio de las Escrituras y el retorno de las almas a la Torá, bajo la guía del Eterno.
         </p>
         <nav className="flex flex-wrap justify-center gap-x-7 gap-y-2 text-sm">
@@ -61,6 +61,11 @@ export default function Footer() {
           <Link to="/moedim" className="text-foreground/70 hover:text-[#d4af37] transition-colors">
             Moedim
           </Link>
+          {/* ← NUEVO: Link a Donar → */}
+          <Link to="/donar" className="text-foreground/70 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1">
+            <Heart size={14} />
+            Apoyar
+          </Link>
         </nav>
 
         {/* Redes sociales */}
@@ -79,9 +84,23 @@ export default function Footer() {
           ))}
         </div>
         <p className="text-xs text-foreground/50 -mt-3">
-          Síguenos: Instagram <span className="text-[#d4af37]">@beneisrael_</span> · TikTok{' '}
+          Síguenos: Instagram <span className="text-[#d4af37]">@beneisrael_</span> — TikTok{' '}
           <span className="text-[#d4af37]">@beneisrael</span>
         </p>
+
+        {/* ← NUEVO: Caja de apoyo → */}
+        <div className="mt-2 rounded-xl border border-[#d4af37]/20 bg-[#141009]/60 px-6 py-4 max-w-md">
+          <p className="text-sm text-foreground/70 mb-3">
+            Tu apoyo mantiene vivo este espacio de estudio y reflexión. Cada contribución es una luz para la comunidad.
+          </p>
+          <Link
+            to="/donar"
+            className="inline-flex items-center gap-2 rounded-md bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#14100a] hover:bg-[#e9c65a] transition-colors"
+          >
+            <Heart size={16} />
+            Donar / Solicitar
+          </Link>
+        </div>
 
         <p className="text-xs text-foreground/40">
           © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela
