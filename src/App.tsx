@@ -33,8 +33,8 @@ export default function App() {
         <Route path="/tora-semanal" element={<ToraSemanal />} />
         <Route path="/donacion" element={<Donacion />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
-        <Route path="/kabalat-shabat" element={<KabalatShabat />} />
-        <Route path="/shajarit-shabat" element={<ShajaritShabat />} />
+        <Route path="/siddur/kabalat-shabat" element={<KabalatShabat />} />
+        <Route path="/siddur/shabat" element={<ShajaritShabat />} />
       </Routes>
       <WhatsAppFloat />
     </>
