@@ -1,11 +1,6 @@
 import { useState } from 'react'
-import { Heart, Wallet, CreditCard, Globe, MessageSquare, Copy, Check, Phone, QrCode, ArrowLeft, BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, Library, BookText, Flame } from 'lucide-react'
+import { ArrowLeft, BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, Library, BookText, Flame } from 'lucide-react'
 import { Link } from 'react-router'
-
-// ← NÚMERO DE WHATSAPP DEL MORÉ
-const WHATSAPP_NUMBER = "584124586537"
-// ← BINANCE ID
-const BINANCE_ID = "214702179"
 
 interface Recurso {
   id: string
