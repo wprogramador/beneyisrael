@@ -1,6 +1,11 @@
 import { useState } from 'react'
-import { BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, ArrowLeft, BookText, Library } from 'lucide-react'
+import { Heart, Wallet, CreditCard, Globe, MessageSquare, Copy, Check, Phone, QrCode, ArrowLeft, BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, Library, BookText, Flame } from 'lucide-react'
 import { Link } from 'react-router'
+
+// ← NÚMERO DE WHATSAPP DEL MORÉ
+const WHATSAPP_NUMBER = "584124586537"
+// ← BINANCE ID
+const BINANCE_ID = "214702179"
 
 interface Recurso {
   id: string
@@ -11,9 +16,32 @@ interface Recurso {
   icono: React.ReactNode
   badge: string
   badgeColor: string
+  esInterno?: boolean
 }
 
 const recursos: Recurso[] = [
+  {
+    id: 'kabalat-shabat',
+    titulo: 'Kabalat Shabat',
+    categoria: 'tefila',
+    descripcion: 'Recepción del Shabat completa: Hadlakat Nerot, Leja Dodi, Shalom Alejem, Kidush, Birkat haMazon. Hebreo, fonética y español.',
+    url: '/siddur/kabalat-shabat',
+    icono: <Flame className="size-6" />,
+    badge: 'Siddur',
+    badgeColor: '#d4af37',
+    esInterno: true,
+  },
+  {
+    id: 'siddur-shabat',
+    titulo: 'Siddur Shajarit Shabat',
+    categoria: 'tefila',
+    descripcion: 'Oraciones de la mañana de Shabat en hebreo, fonética y español. Preparado por Bene Israel.',
+    url: '/siddur/shabat',
+    icono: <BookOpen className="size-6" />,
+    badge: 'Siddur',
+    badgeColor: '#d4af37',
+    esInterno: true,
+  },
   {
     id: 'tanaj-he',
     titulo: 'Tanaj en Hebreo',
@@ -120,7 +148,6 @@ export default function Biblioteca() {
 
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
-      {/* Navbar simple */}
       <header className="border-b border-[#d4af37]/20 bg-[#0c0a07]/95 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 sm:px-5 flex h-14 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-[#d4af37] hover:text-[#e9c65a] transition-colors text-sm">
@@ -132,7 +159,6 @@ export default function Biblioteca() {
       </header>
 
       <div className="mx-auto max-w-6xl px-4 py-12">
-        {/* Encabezado */}
         <div className="mb-10 text-center">
           <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-[#d4af37]/10 text-[#d4af37] ring-1 ring-[#d4af37]/30">
             <Library className="size-8" />
@@ -146,7 +172,6 @@ export default function Biblioteca() {
           </p>
         </div>
 
-        {/* Búsqueda */}
         <div className="mb-6 max-w-md mx-auto relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-[#d4af37]/50" />
           <input
@@ -158,7 +183,6 @@ export default function Biblioteca() {
           />
         </div>
 
-        {/* Filtros */}
         <div className="mb-10 flex flex-wrap justify-center gap-2">
           {categorias.map((cat) => (
             <button
@@ -176,50 +200,46 @@ export default function Biblioteca() {
           ))}
         </div>
 
-        {/* Grid de recursos */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtrados.map((recurso) => (
-            <a
-              key={recurso.id}
-              href={recurso.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-xl border border-[#d4af37]/15 bg-[#141009] p-6 shadow-lg shadow-black/40 transition-all hover:border-[#d4af37]/30 hover:shadow-xl hover:-translate-y-0.5"
-            >
-              {/* Badge */}
-              <span
-                className="absolute top-4 right-4 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider"
-                style={{
-                  backgroundColor: recurso.badgeColor + '22',
-                  color: recurso.badgeColor,
-                  border: `1px solid ${recurso.badgeColor}44`,
-                }}
-              >
-                {recurso.badge}
-              </span>
-
-              {/* Icono */}
-              <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-[#d4af37]/10 text-[#d4af37]">
-                {recurso.icono}
+          {filtrados.map((recurso) => {
+            const CardContent = (
+              <div className="group relative overflow-hidden rounded-xl border border-[#d4af37]/15 bg-[#141009] p-6 shadow-lg shadow-black/40 transition-all hover:border-[#d4af37]/30 hover:shadow-xl hover:-translate-y-0.5">
+                <span
+                  className="absolute top-4 right-4 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider"
+                  style={{
+                    backgroundColor: recurso.badgeColor + '22',
+                    color: recurso.badgeColor,
+                    border: `1px solid ${recurso.badgeColor}44`,
+                  }}
+                >
+                  {recurso.badge}
+                </span>
+                <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-[#d4af37]/10 text-[#d4af37]">
+                  {recurso.icono}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold text-[#f5f0e6] group-hover:text-[#d4af37] transition-colors">
+                  {recurso.titulo}
+                </h3>
+                <p className="mb-5 text-sm leading-relaxed text-[#a89b8c]">
+                  {recurso.descripcion}
+                </p>
+                <div className="inline-flex items-center gap-2 rounded-md bg-[#d4af37]/10 px-4 py-2 text-sm font-medium text-[#d4af37] border border-[#d4af37]/20 group-hover:bg-[#d4af37]/20 transition-colors">
+                  {recurso.esInterno ? <BookOpen className="size-4" /> : <ExternalLink className="size-4" />}
+                  {recurso.esInterno ? 'Abrir Siddur' : 'Abrir recurso'}
+                </div>
               </div>
+            )
 
-              {/* Título */}
-              <h3 className="mb-2 text-lg font-semibold text-[#f5f0e6] group-hover:text-[#d4af37] transition-colors">
-                {recurso.titulo}
-              </h3>
-
-              {/* Descripción */}
-              <p className="mb-5 text-sm leading-relaxed text-[#a89b8c]">
-                {recurso.descripcion}
-              </p>
-
-              {/* Botón */}
-              <div className="inline-flex items-center gap-2 rounded-md bg-[#d4af37]/10 px-4 py-2 text-sm font-medium text-[#d4af37] border border-[#d4af37]/20 group-hover:bg-[#d4af37]/20 transition-colors">
-                <ExternalLink className="size-4" />
-                Abrir recurso
-              </div>
-            </a>
-          ))}
+            return recurso.esInterno ? (
+              <Link key={recurso.id} to={recurso.url}>
+                {CardContent}
+              </Link>
+            ) : (
+              <a key={recurso.id} href={recurso.url} target="_blank" rel="noopener noreferrer">
+                {CardContent}
+              </a>
+            )
+          })}
         </div>
 
         {filtrados.length === 0 && (
@@ -229,7 +249,6 @@ export default function Biblioteca() {
           </div>
         )}
 
-        {/* Footer simple */}
         <div className="mt-16 text-center border-t border-[#d4af37]/10 pt-8">
           <p className="text-xs text-[#8a7e72]">
             © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela
