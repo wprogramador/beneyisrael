@@ -9,6 +9,7 @@ import ToraSemanal from './pages/ToraSemanal'
 import Donacion from './pages/Donacion'
 import Biblioteca from './pages/Biblioteca'
 import KabalatShabat from './pages/KabalatShabat'
+import ShajaritShabat from './pages/ShajaritShabat'
 import WhatsAppFloat from './components/WhatsAppFloat'
 
 function ScrollToTop() {
@@ -30,9 +31,10 @@ export default function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/reflexiones" element={<Reflexiones />} />
         <Route path="/tora-semanal" element={<ToraSemanal />} />
-        <Route path="/donar" element={<Donacion />} />
+        <Route path="/donacion" element={<Donacion />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
-        <Route path="/siddur/kabalat-shabat" element={<KabalatShabat />} />
+        <Route path="/kabalat-shabat" element={<KabalatShabat />} />
+        <Route path="/shajarit-shabat" element={<ShajaritShabat />} />
       </Routes>
       <WhatsAppFloat />
     </>
