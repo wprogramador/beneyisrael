@@ -187,7 +187,7 @@ export default function Biblioteca() {
                 filtro === cat.id
                   ? 'bg-[#d4af37] text-[#14100a]'
                   : 'bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 hover:bg-[#d4af37]/20'
-              }a}
+              }`}
             >
               {cat.id !== 'todos' && <Filter className="size-3" />}
               {cat.label}
