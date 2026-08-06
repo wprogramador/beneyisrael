@@ -47,11 +47,11 @@ function MetodoCard({
           {icon}
         </div>
         <div>
-          <h3 className="font-semibold text-foreground">{title}</h3>
-          <p className="text-xs text-[#d4af37]/70">{subtitle}</p>
+          <h3 className="font-semibold text-[#f5f0e6]">{title}</h3>
+          <p className="text-xs text-[#a89b8c]">{subtitle}</p>
         </div>
       </div>
-      <div className="space-y-3 text-sm text-foreground/80">{children}</div>
+      <div className="space-y-3 text-sm text-[#d5cfc5]">{children}</div>
     </div>
   )
 }
@@ -83,7 +83,8 @@ export default function Donacion() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0c0a07] text-foreground">
+    <div className="min-h-screen bg-[#0c0a07]">
+      {/* Navbar simple */}
       <header className="border-b border-[#d4af37]/20 bg-[#0c0a07]/95 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 sm:px-5 flex h-14 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-[#d4af37] hover:text-[#e9c65a] transition-colors text-sm">
@@ -95,20 +96,22 @@ export default function Donacion() {
       </header>
 
       <div className="mx-auto max-w-4xl px-4 py-12">
+        {/* ===== ENCABEZADO ===== */}
         <div className="mb-10 text-center">
           <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-[#d4af37]/10 text-[#d4af37] ring-1 ring-[#d4af37]/30">
             <Heart className="size-8" />
           </div>
-          <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mb-3 text-3xl font-bold tracking-tight text-[#f5f0e6] sm:text-4xl">
             Apoya el Proyecto Torah
           </h1>
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-foreground/60">
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#a89b8c]">
             Este espacio de estudio, reflexión y enseñanza de la Torá vive gracias al apoyo de quienes
             creen en la difusión de la sabiduría hebraica. Tu contribución nos permite seguir
             creando contenido semanal, mantener la web y llegar a más almas.
           </p>
         </div>
 
+        {/* ===== MÉTODOS DE DONACIÓN ===== */}
         <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* PayPal */}
           <MetodoCard
@@ -117,7 +120,7 @@ export default function Donacion() {
             subtitle="Donación internacional"
             accent="bg-blue-500"
           >
-            <p className="text-foreground/60">
+            <p className="text-[#a89b8c]">
               Ideal para apoyos desde cualquier parte del mundo. Seguro, rápido y directo.
             </p>
             <div className="rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 text-center">
@@ -127,10 +130,10 @@ export default function Donacion() {
                 className="mx-auto mb-2 h-32 w-32 rounded-md object-contain"
                 loading="lazy"
               />
-              <p className="text-xs text-[#d4af37]/60">Escanea o usa el link</p>
+              <p className="text-xs text-[#8a7e72]">Escanea o usa el link</p>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 gap-2">
-              <span className="font-mono text-xs text-foreground/70 truncate">paypal.me/orisraelca</span>
+              <span className="font-mono text-xs text-[#d5cfc5] truncate">paypal.me/orisraelca</span>
               <CopyButton text="https://www.paypal.com/paypalme/orisraelca" label="Copiar" />
             </div>
             <a
@@ -151,7 +154,7 @@ export default function Donacion() {
             subtitle="Crypto / QR de pago"
             accent="bg-yellow-500"
           >
-            <p className="text-foreground/60">
+            <p className="text-[#a89b8c]">
               Pagos instantáneos con cripto o saldo Binance. Sin comisiones entre usuarios.
             </p>
             <div className="rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 text-center">
@@ -161,12 +164,12 @@ export default function Donacion() {
                 className="mx-auto mb-2 h-32 w-32 rounded-md object-contain"
                 loading="lazy"
               />
-              <p className="text-xs text-[#d4af37]/60">Escanea con la app de Binance</p>
+              <p className="text-xs text-[#8a7e72]">Escanea con la app de Binance</p>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 gap-2">
               <div className="min-w-0">
-                <p className="text-xs text-foreground/50">Binance ID</p>
-                <p className="font-mono text-xs text-foreground/80">{BINANCE_ID}</p>
+                <p className="text-xs text-[#8a7e72]">Binance ID</p>
+                <p className="font-mono text-xs text-[#d5cfc5]">{BINANCE_ID}</p>
               </div>
               <CopyButton text={BINANCE_ID} label="Copiar" />
             </div>
@@ -188,64 +191,63 @@ export default function Donacion() {
             subtitle="Transferencia nacional BNC"
             accent="bg-green-600"
           >
-            <p className="text-foreground/60">
+            <p className="text-[#a89b8c]">
               Para quienes están en Venezuela y prefieren apoyar en bolívares de forma inmediata.
             </p>
             <div className="space-y-3 rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3">
-              {/* Banco */}
               <div>
-                <p className="text-xs text-foreground/50">Banco</p>
-                <p className="text-xs font-medium text-foreground/80">Banco Nacional de Crédito (BNC)</p>
+                <p className="text-xs text-[#8a7e72]">Banco</p>
+                <p className="text-xs font-medium text-[#d5cfc5]">Banco Nacional de Crédito (BNC)</p>
               </div>
-              {/* Teléfono */}
               <div className="flex items-end justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="text-xs text-foreground/50">Teléfono</p>
-                  <p className="font-mono text-xs text-foreground/80">0412.458.65.37</p>
+                  <p className="text-xs text-[#8a7e72]">Teléfono</p>
+                  <p className="font-mono text-xs text-[#d5cfc5]">0412.458.65.37</p>
                 </div>
                 <CopyButton text="04124586537" label="Copiar" />
               </div>
-              {/* RIF */}
               <div className="flex items-end justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="text-xs text-foreground/50">RIF Jurídico</p>
-                  <p className="font-mono text-xs text-foreground/80">J-408904110</p>
+                  <p className="text-xs text-[#8a7e72]">RIF Jurídico</p>
+                  <p className="font-mono text-xs text-[#d5cfc5]">J-408904110</p>
                 </div>
                 <CopyButton text="408904110" label="Copiar" />
               </div>
-              {/* Razón social */}
               <div>
-                <p className="text-xs text-foreground/50">Razón social</p>
-                <p className="text-xs font-medium text-foreground/80">OR ISRAEL</p>
+                <p className="text-xs text-[#8a7e72]">Razón social</p>
+                <p className="text-xs font-medium text-[#d5cfc5]">OR ISRAEL</p>
               </div>
             </div>
           </MetodoCard>
         </div>
 
+        {/* ===== MENSAJE DE AGRADECIMIENTO ===== */}
         <div className="mb-12 rounded-xl border-l-4 border-[#d4af37] bg-[#d4af37]/5 p-6">
-          <p className="text-sm leading-relaxed text-foreground/80 italic">
+          <p className="text-sm leading-relaxed text-[#d5cfc5] italic">
             "Cada semana dedicamos horas al estudio de la parashá, la cábala, el musar y las middot
             para traer reflexiones que iluminen la vida de nuestra comunidad. Tu apoyo no es solo una
             donación: es una <strong className="text-[#d4af37]">mitzvá de jesed</strong> que permite que la Torá siga siendo
             luz para todos. ¡Todá rabá!"
           </p>
-          <p className="mt-2 text-xs font-medium text-[#d4af37]/70">— Moré Imanuel ben Efraim</p>
+          <p className="mt-2 text-xs font-medium text-[#a89b8c]">— Moré Imanuel ben Efraim</p>
         </div>
 
+        {/* ===== SOLICITUDES ESPECIALES ===== */}
         <div className="rounded-xl border border-[#d4af37]/15 bg-[#141009] p-6 shadow-lg shadow-black/40 sm:p-8">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-lg bg-[#d4af37]/10 text-[#d4af37]">
               <MessageSquare className="size-5" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-foreground">Solicitudes Especiales</h2>
-              <p className="text-sm text-foreground/50">
+              <h2 className="text-xl font-semibold text-[#f5f0e6]">Solicitudes Especiales</h2>
+              <p className="text-sm text-[#a89b8c]">
                 ¿Necesitas una reflexión sobre una parashá específica, un tema de cábala, o material
-                para tu Estudio? Escríbenos.
+                para tu decena? Escríbenos.
               </p>
             </div>
           </div>
 
+          {/* → WHATSAPP DESTACADO ← */}
           <div className="mb-6 rounded-xl border border-green-500/20 bg-green-950/20 p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
@@ -267,7 +269,7 @@ export default function Donacion() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="inline-block size-1.5 rounded-full bg-green-500" />
-                    <strong className="text-green-300">Asesoría personalizada:</strong> estudio individual, guía espiritual o acompañamiento 
+                    <strong className="text-green-300">Asesoría personalizada:</strong> estudio individual, guía espiritual, acompañamiento de decena
                   </li>
                 </ul>
               </div>
@@ -286,43 +288,44 @@ export default function Donacion() {
             </p>
           </div>
 
+          {/* Formulario → ahora envía a WhatsApp */}
           <div className="border-t border-[#d4af37]/10 pt-6">
-            <p className="mb-4 text-sm text-foreground/50">
+            <p className="mb-4 text-sm text-[#a89b8c]">
               ¿Prefieres dejar una solicitud por escrito? Llena el formulario y te enviaremos a WhatsApp con todo listo:
             </p>
 
             <form onSubmit={handleEnviarWhatsApp} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground/80">Nombre</label>
+                  <label className="text-sm font-medium text-[#d5cfc5]">Nombre</label>
                   <input
                     required
                     type="text"
                     value={solicitud.nombre}
                     onChange={(e) => setSolicitud({ ...solicitud, nombre: e.target.value })}
                     placeholder="Tu nombre"
-                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-[#f5f0e6] placeholder:text-[#8a7e72] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground/80">Correo electrónico</label>
+                  <label className="text-sm font-medium text-[#d5cfc5]">Correo electrónico</label>
                   <input
                     required
                     type="email"
                     value={solicitud.email}
                     onChange={(e) => setSolicitud({ ...solicitud, email: e.target.value })}
                     placeholder="tu@email.com"
-                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                    className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-[#f5f0e6] placeholder:text-[#8a7e72] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground/80">Tipo de solicitud</label>
+                <label className="text-sm font-medium text-[#d5cfc5]">Tipo de solicitud</label>
                 <select
                   value={solicitud.tipo}
                   onChange={(e) => setSolicitud({ ...solicitud, tipo: e.target.value })}
-                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-[#f5f0e6] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                 >
                   <option value="reflexion">Reflexión sobre una parashá específica</option>
                   <option value="cabala">Tema de Cábala / Sefirot</option>
@@ -334,14 +337,14 @@ export default function Donacion() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground/80">Mensaje</label>
+                <label className="text-sm font-medium text-[#d5cfc5]">Mensaje</label>
                 <textarea
                   required
                   rows={4}
                   value={solicitud.mensaje}
                   onChange={(e) => setSolicitud({ ...solicitud, mensaje: e.target.value })}
-                  placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿pareja, comunidad o estudio personal?"
-                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-foreground placeholder:text-foreground/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
+                  placeholder="Describe tu solicitud: ¿sobre qué tema? ¿para qué fecha? ¿para tu decena, comunidad o estudio personal?"
+                  className="w-full rounded-md border border-[#d4af37]/20 bg-[#0c0a07] px-3 py-2 text-sm text-[#f5f0e6] placeholder:text-[#8a7e72] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d4af37]/50"
                 />
               </div>
 
@@ -356,15 +359,16 @@ export default function Donacion() {
           </div>
         </div>
 
+        {/* Footer simple */}
         <div className="mt-12 text-center">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm text-[#d4af37]/70 hover:text-[#d4af37] transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-[#a89b8c] hover:text-[#d4af37] transition-colors"
           >
             <ArrowLeft size={16} />
             Volver a la página principal
           </Link>
-          <p className="mt-4 text-xs text-foreground/30">
+          <p className="mt-4 text-xs text-[#8a7e72]">
             © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela
           </p>
         </div>
