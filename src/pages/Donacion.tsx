@@ -369,7 +369,7 @@ export default function Donacion() {
             Volver a la página principal
           </Link>
           <p className="mt-4 text-xs text-[#8a7e72]">
-            © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela
+            © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela.
           </p>
         </div>
       </div>
