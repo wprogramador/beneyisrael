@@ -31,10 +31,10 @@ export default function App() {
         <Route path="/faq" element={<Faq />} />
         <Route path="/reflexiones" element={<Reflexiones />} />
         <Route path="/tora-semanal" element={<ToraSemanal />} />
-        <Route path="/donacion" element={<Donacion />} />
+        <Route path="/donar" element={<Donacion />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
-        <Route path="/siddur/kabalat-shabat" element={<KabalatShabat />} />
-        <Route path="/siddur/shabat" element={<ShajaritShabat />} />
+        <Route path="/kabalat-shabat" element={<KabalatShabat />} />
+        <Route path="/shajarit-shabat" element={<ShajaritShabat />} />
       </Routes>
       <WhatsAppFloat />
     </>
