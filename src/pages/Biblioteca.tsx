@@ -31,7 +31,7 @@ const recursos: Recurso[] = [
     titulo: 'Siddur Shajarit Shabat',
     categoria: 'tefila',
     descripcion: 'Oraciones de la mañana de Shabat en hebreo, fonética y español. Preparado por Bene Israel.',
-    url: '/siddur/shabat',
+    url: '/siddur/shajarit-shabat',
     icono: <BookOpen className="size-6" />,
     badge: 'Siddur',
     badgeColor: '#d4af37',
@@ -81,7 +81,7 @@ const recursos: Recurso[] = [
     id: 'tikun-qorim',
     titulo: 'Tikun Korim',
     categoria: 'tefila',
-    descripcion: 'Texto corregido para lectores de la Torá (leyendo en la sinagoga).',
+    descripcion: 'Texto corregido para lectores de la Toré (leyendo en la sinagoga).',
     url: 'https://www.beneyisrael.com/Tikun-Qorim/cp/cp0.htm',
     icono: <BookMarked className="size-6" />,
     badge: 'Lectura',
@@ -187,7 +187,7 @@ export default function Biblioteca() {
                 filtro === cat.id
                   ? 'bg-[#d4af37] text-[#14100a]'
                   : 'bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 hover:bg-[#d4af37]/20'
-              }`}
+              }a}
             >
               {cat.id !== 'todos' && <Filter className="size-3" />}
               {cat.label}
@@ -216,11 +216,11 @@ export default function Biblioteca() {
                   {recurso.titulo}
                 </h3>
                 <p className="mb-5 text-sm leading-relaxed text-[#a89b8c]">
-                  {recurso.descripcion}
+                   {recurso.descripcion}
                 </p>
                 <div className="inline-flex items-center gap-2 rounded-md bg-[#d4af37]/10 px-4 py-2 text-sm font-medium text-[#d4af37] border border-[#d4af37]/20 group-hover:bg-[#d4af37]/20 transition-colors">
                   {recurso.esInterno ? <BookOpen className="size-4" /> : <ExternalLink className="size-4" />}
-                  {recurso.esInterno ? 'Abrir Siddur' : 'Abrir recurso'}
+                  {recurso.esInterno ? 'Abir Siddur' : 'Abrir recurso'}
                 </div>
               </div>
             )
