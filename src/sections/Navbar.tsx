@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Menu, X, ChevronDown, Heart, BookOpen, Calendar, HelpCircle } from 'lucide-react'
+import { Menu, X, ChevronDown, Heart, BookOpen, Calendar, HelpCircle, Clock } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import FechaHoyBar from '@/components/FechaHoyBar'
@@ -125,6 +125,14 @@ export default function Navbar() {
               {dropOpen && (
                 <div className="absolute top-full right-0 mt-3 w-56 rounded-xl border border-[#d4af37]/30 bg-[#141009]/95 backdrop-blur-md shadow-2xl shadow-black/60 py-2 z-50">
                   <Link
+                    href="/shabbat-horarios"
+                    onClick={() => setDropOpen(false)}
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                  >
+                    <Clock size={14} />
+                    Horarios de Shabat
+                  </Link>
+                  <Link
                     href="/calendario"
                     onClick={() => setDropOpen(false)}
                     className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
@@ -207,6 +215,14 @@ export default function Navbar() {
             {/* Recursos en móvil */}
             <div className="mt-2 rounded-xl border border-[#d4af37]/25 bg-[#141009] px-4 py-3 flex flex-col gap-1">
               <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80 mb-1">Recursos</p>
+              <Link
+                href="/shabbat-horarios"
+                onClick={() => setOpen(false)}
+                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors inline-flex items-center gap-2"
+              >
+                <Clock size={16} />
+                Horarios de Shabat
+              </Link>
               <Link
                 href="/calendario"
                 onClick={() => setOpen(false)}
