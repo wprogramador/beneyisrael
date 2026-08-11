@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
-import { Link } from 'react-router'
+import Link from 'next/link'
 import Image from 'next/image'
 import FechaHoyBar from '@/components/FechaHoyBar'
 
@@ -75,11 +75,11 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-7">{links.map((l) => (
             <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); scrollToSection(l.id) }} className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">{l.label}</a>
           ))}
-            <Link to="/reflexiones" className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">Reflexiones</Link>
-            <Link to="/faq" className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">Preguntas Frecuentes</Link>
+            <Link href="/reflexiones" className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">Reflexiones</Link>
+            <Link href="/faq" className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">Preguntas Frecuentes</Link>
             <div className="relative" ref={dropRef}>
               <button onClick={(e) => { e.stopPropagation(); setDropOpen(!dropOpen) }} className="flex items-center gap-1.5 text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors">Calendario y Fiestas<ChevronDown size={15} className={`transition-transform duration-300 ${dropOpen ? 'rotate-180' : ''}`} /></button>
-              {dropOpen && (<div className="absolute top-full right-0 mt-3 w-56 rounded-xl border border-[#d4af37]/30 bg-[#141009]/95 backdrop-blur-md shadow-2xl shadow-black/60 py-2 z-50"><Link to="/moedim" onClick={() => setDropOpen(false)} className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors">Moedim/Fiestas</Link><Link to="/calendario" onClick={() => setDropOpen(false)} className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors">Calendario Hebreo</Link></div>)}
+              {dropOpen && (<div className="absolute top-full right-0 mt-3 w-56 rounded-xl border border-[#d4af37]/30 bg-[#141009]/95 backdrop-blur-md shadow-2xl shadow-black/60 py-2 z-50"><Link href="/moedim" onClick={() => setDropOpen(false)} className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors">Moedim/Fiestas</Link><Link href="/calendario" onClick={() => setDropOpen(false)} className="block px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors">Calendario Hebreo</Link></div>)}
             </div>
             <a href="https://wa.me/584124586537?text=Shalom%2C%20deseo%20informaci%C3%B3n%20sobre%20la%20Bet%20Midrash%20Bene%20Israel%20(Los%20Teques)." target="_blank" rel="noreferrer" className="text-sm font-semibold bg-[#d4af37] text-[#14100a] px-4 py-2 rounded-md hover:bg-[#e9c65a] transition-colors">Contáctanos</a>
           </nav>
@@ -87,7 +87,7 @@ export default function Navbar() {
         </div>
         {open && (<nav className="md:hidden max-h-[calc(100dvh-5rem)] overflow-y-auto bg-[#0c0a07]/98 backdrop-blur-md border-t border-[#d4af37]/20 px-5 py-5 flex flex-col gap-1">{links.map((l) => (
           <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToSection(l.id) }} className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10">{l.label}</a>
-        ))}<Link to="/reflexiones" onClick={() => setOpen(false)} className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10">Reflexiones</Link><Link to="/faq" onClick={() => setOpen(false)} className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10">Preguntas Frecuentes</Link><div className="mt-2 rounded-xl border border-[#d4af37]/25 bg-[#141009] px-4 py-3 flex flex-col gap-1"><p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80 mb-1">Calendario y Fiestas</p><Link to="/moedim" onClick={() => setOpen(false)} className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors">Moedim/Fiestas</Link><Link to="/calendario" onClick={() => setOpen(false)} className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors">Calendario Hebreo</Link></div><a href="https://wa.me/584124586537?text=Shalom%2C%20deseo%20informaci%C3%B3n%20sobre%20la%20Bet%20Midrash%20Bene%20Israel%20(Los%20Teques)." target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="mt-4 text-center font-semibold bg-[#d4af37] text-[#14100a] px-4 py-3 rounded-md">Contáctanos</a></nav>)}
+        ))}<Link href="/reflexiones" onClick={() => setOpen(false)} className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10">Reflexiones</Link><Link href="/faq" onClick={() => setOpen(false)} className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10">Preguntas Frecuentes</Link><div className="mt-2 rounded-xl border border-[#d4af37]/25 bg-[#141009] px-4 py-3 flex flex-col gap-1"><p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]/80 mb-1">Calendario y Fiestas</p><Link href="/moedim" onClick={() => setOpen(false)} className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors">Moedim/Fiestas</Link><Link href="/calendario" onClick={() => setOpen(false)} className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors">Calendario Hebreo</Link></div><a href="https://wa.me/584124586537?text=Shalom%2C%20deseo%20informaci%C3%B3n%20sobre%20la%20Bet%20Midrash%20Bene%20Israel%20(Los%20Teques)." target="_blank" rel="noreferrer" onClick={() => setOpen(false)} className="mt-4 text-center font-semibold bg-[#d4af37] text-[#14100a] px-4 py-3 rounded-md">Contáctanos</a></nav>)}
       </header>
     </>
   )
