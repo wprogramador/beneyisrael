@@ -31,7 +31,6 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE_NAME }],
   robots: { index: true, follow: true },
-  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'es_VE',
@@ -118,18 +117,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <meta name="msapplication-TileColor" content="#0c0a07" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>
-        <ScrollToTop />
         {children}
         <WhatsAppFloat />
+        <ScrollToTop />
       </body>
     </html>
   )
