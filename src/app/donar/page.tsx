@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Donar from '@/views/Donar'
+import Donacion from '@/views/Donacion'
 
 export const metadata: Metadata = {
   title: 'Donar · Apoya el Beit Midrash',
@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 }
 
 export default function DonarPage() {
-  return <Donar />
+  return <Donacion />
 }
