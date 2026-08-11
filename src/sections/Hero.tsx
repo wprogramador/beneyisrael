@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { scrollToSection } from '@/sections/Navbar'
 
 const TITULO_COMPLETO = 'Beit Midrash Bene Israel'
@@ -48,11 +49,14 @@ export default function Hero() {
   return (
     <section id="inicio" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
       {/* Fondo */}
-      <div className="absolute inset-0">
-        <img
+      <div className="relative inset-0">
+        <Image
           src="/images/hero-estudio.jpg"
           alt="Reunión de estudio en la Bet Midrash Bene Israel"
-          className="h-full w-full object-cover object-center"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0c0a07]/85 via-[#0c0a07]/70 to-[#0c0a07]" />
       </div>
@@ -84,13 +88,13 @@ export default function Hero() {
         </p>
 
         <div className="hero-anim hero-anim-2 mx-auto my-6 sm:my-8 flex items-center justify-center gap-3 sm:gap-4 text-[#d4af37]">
-          <span className="h-px w-10 sm:w-16 md:w-24 bg-gradient-to-r from-transparent to-[#d4af37]/70" />
+          <span className="h-px w-10 sm:w-16 md:w-24 bg-gradient-to-r from-transparent to-[#d4af37]/20" />
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" className="sm:w-[26px] sm:h-[26px]">
-            <path d="M12 2 L21 7.5 L21 16.5 L12 22 L3 16.5 L3 7.5 Z" />
-            <path d="M12 2 L21 16.5 L3 16.5 Z" fill="currentColor" stroke="none" opacity="0.25" />
-            <path d="M12 22 L21 7.5 L3 7.5 Z" fill="currentColor" stroke="none" opacity="0.25" />
+            <path d="M12 2 L21 7.5 L21 16.5 L12 22 L3 16.5 T7.5 Z" />
+            <path d="M12 2 L21 16.5 T3 16.5 Z" fill="currentColor" stroke="none" opacity="0.25" />
+            <path d="M12 22 L21 7.5 T3 7.5 Z" fill="currentColor" stroke="none" opacity="0.25" />
           </svg>
-          <span className="h-px w-10 sm:w-16 md:w-24 bg-gradient-to-l from-transparent to-[#d4af37]/70" />
+          <span className="h-px w-10 sm:w-16 md:w-24 bg-gradient-to-l from-transparent to-[#d4af37]/20" />
         </div>
 
         <p className="hero-anim hero-anim-3 mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-foreground/85 leading-relaxed">

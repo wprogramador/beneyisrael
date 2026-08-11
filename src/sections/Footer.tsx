@@ -1,26 +1,13 @@
 'use client'
 
+import Image from 'next/image'
 import { scrollToSection } from '@/sections/Navbar'
 import Link from 'next/link'
 import { Instagram, Heart } from 'lucide-react'
 
 const redes = [
-  {
-    nombre: 'Instagram',
-    usuario: '@beneisrael_',
-    url: 'https://www.instagram.com/beneisrael_',
-    icono: <Instagram size={20} strokeWidth={1.8} />,
-  },
-  {
-    nombre: 'TikTok',
-    usuario: '@beneisrael',
-    url: 'https://www.tiktok.com/@beneisrael',
-    icono: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-        <path d="M9 12a4 4 0 1 0 4 4V4c.6 2.5 2.4 4.5 5 5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
+  { nombre: 'Instagram', usuario: '@beneisrael_', url: 'https://www.instagram.com/beneisrael_/', icono: <Instagram size={20} strokeWidth={1.8} /> },
+  { nombre: 'TikTok', usuario: '@beneisrael', url: 'https://www.tiktok.com/@beneisrael', icono: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M9 12a4 4 0 1 0 4 4V4c.6 2.5 2.4 4.5 5 5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
 ]
 
 export default function Footer() {
@@ -28,85 +15,33 @@ export default function Footer() {
     <footer className="border-t border-[#d4af37]/20 bg-[#0c0a07] py-14">
       <div className="mx-auto max-w-6xl px-5 flex flex-col items-center text-center gap-6">
         <div className="rounded-xl bg-[#f3ead6] px-6 py-4 shadow-lg shadow-black/40 ring-1 ring-[#d4af37]/30">
-          <img
+          <Image
             src="/images/logo-horizontal.png"
             alt="Centro de Estudios Hebraicos — Bene Israel"
-            className="w-full max-w-[15rem] sm:w-60 md:w-72"
+            width={288}
+            height={80}
+            className="w-full max-w-[15rem] sm:w-60 md:w-72 h-auto"
           />
         </div>
-        <p className="font-hebrew text-[#d4af37] text-xl" dir="rtl" lang="he">
-          בית מדרש בני ישראל — Los Teques
-        </p>
-        <p className="max-w-xl text-sm text-foreground/60 leading-relaxed">
-          Beit Midrash Bene Israel — Centro de Estudios Bene Israel — Un faro de luz en los Altos Mirandinos,
-          promoviendo el estudio de las Escrituras y el retorno de las almas a la Torá, bajo la guía del Eterno.
-        </p>
+        <p className="font-hebrew text-[#d4af37] text-xl" dir="rtl" lang="he">בית מדרש בני ישראל — Los Teques</p>
+        <p className="max-w-xl text-sm text-foreground/60 leading-relaxed">Beit Midrash Bene Israel — Centro de Estudios Bene Israel — Un faro de luz en los Altos Mirandinos, promoviendo el estudio de las Escrituras y el retorno de las almas a la Torá, bajo la guía del Eterno.</p>
         <nav className="flex flex-wrap justify-center gap-x-7 gap-y-2 text-sm">
-          {[
-            { id: 'inicio', label: 'Inicio' },
-            { id: 'comunidad', label: 'Nuestra Comunidad' },
-            { id: 'pilares', label: 'Estudia con Nosotros' },
-            { id: 'contacto', label: 'Contacto' },
-          ].map((l) => (
-            <a
-              key={l.id}
-              href={`#${l.id}`}
-              onClick={(e) => {
-                e.preventDefault()
-                scrollToSection(l.id)
-              }}
-              className="text-foreground/70 hover:text-[#d4af37] transition-colors"
-            >
-              {l.label}
-            </a>
+          {[{ id: 'inicio', label: 'Inicio' }, { id: 'comunidad', label: 'Nuestra Comunidad' }, { id: 'pilares', label: 'Estudia con Nosotros' }, { id: 'contacto', label: 'Contacto' }].map((l) => (
+            <a key={l.id} href={`#${l.id}`} onClick={(e) => { e.preventDefault(); scrollToSection(l.id) }} className="text-foreground/70 hover:text-[#d4af37] transition-colors">{l.label}</a>
           ))}
-          <Link href="/moedim" className="text-foreground/70 hover:text-[#d4af37] transition-colors">
-            Moedim
-          </Link>
-          {/* ← NUEVO: Link a Donar → */}
-          <Link href="/donar" className="text-foreground/70 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1">
-            <Heart size={14} />
-            Apoyar
-          </Link>
+          <Link href="/moedim" className="text-foreground/70 hover:text-[#d4af37] transition-colors">Moedim</Link>
+          <Link href="/donar" className="text-foreground/70 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1"><Heart size={14} /> Apoyar</Link>
         </nav>
-
-        {/* Redes sociales */}
-        <div className="flex items-center gap-4">
-          {redes.map((r) => (
-            <a
-              key={r.nombre}
-              href={r.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${r.nombre} ${r.usuario}`}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors duration-300"
-            >
-              {r.icono}
-            </a>
-          ))}
-        </div>
-        <p className="text-xs text-foreground/50 -mt-3">
-          Síguenos: Instagram <span className="text-[#d4af37]">@beneisrael_</span> — TikTok{' '}
-          <span className="text-[#d4af37]">@beneisrael</span>
-        </p>
-
-        {/* ← NUEVO: Caja de apoyo → */}
+        <div className="flex items-center gap-4">{redes.map((r) => (
+          <a key={r.nombre} href={r.url} target="_blank" rel="noreferrer" aria-label={`${r.nombre} ${r.usuario}`} className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors duration-300">{r.icono}</a>
+        ))}</div>
+        <p className="text-xs text-foreground/50 -mt-3">Síguenos: Instagram <span className="text-[#d4af37]">@beneisrael_</span> — TikTok{' '}<span className="text-[#d4af37]">@beneisrael</span></p>
+        {/* NUEVO: Caja de apoyo */}
         <div className="mt-2 rounded-xl border border-[#d4af37]/20 bg-[#141009]/60 px-6 py-4 max-w-md">
-          <p className="text-sm text-foreground/70 mb-3">
-            Tu apoyo mantiene vivo este espacio de estudio y reflexión. Cada contribución es una luz para la comunidad.
-          </p>
-          <Link
-            href="/donar"
-            className="inline-flex items-center gap-2 rounded-md bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#14100a] hover:bg-[#e9c65a] transition-colors"
-          >
-            <Heart size={16} />
-            Donar / Solicitar
-          </Link>
+          <p className="text-sm text-foreground/70 mb-3">Tu apoyo mantiene vivo este espacio de estudio y reflexión. Cada contribución es una luz para la comunidad.</p>
+          <Link href="/donar" className="inline-flex items-center gap-2 rounded-md bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#14100a] hover:bg-[#e9c65a] transition-colors"><Heart size={16} /> Donar / Solicitar</Link>
         </div>
-
-        <p className="text-xs text-foreground/40">
-          © {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela
-        </p>
+        <p className="text-xs text-foreground/40">© {new Date().getFullYear()} Beit Midrash Bene Israel — Los Teques, Venezuela</p>
       </div>
     </footer>
   )

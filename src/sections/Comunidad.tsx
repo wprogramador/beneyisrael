@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useReveal } from '@/hooks/useReveal'
 
 export default function Comunidad() {
@@ -24,12 +25,14 @@ export default function Comunidad() {
         {/* Identidad y compromiso */}
         <div className="mt-10 sm:mt-16 grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div className="reveal order-2 md:order-1">
-            <div className="relative">
+            <div className="relative aspect-[3/2]">
               <div className="absolute -inset-3 rounded-2xl border border-[#d4af37]/30" />
-              <img
+              <Image
                 src="/images/salon-estudio.jpg"
                 alt="Salón de estudio de la Bet Midrash Bene Israel"
-                className="relative rounded-xl shadow-2xl shadow-black/60 w-full object-cover aspect-[3/2]"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="relative rounded-xl shadow-2xl shadow-black/60 object-cover"
               />
             </div>
           </div>
@@ -49,11 +52,15 @@ export default function Comunidad() {
               pilares fundamentales para el desarrollo de nuestra comunidad.
             </p>
             <div className="reveal reveal-delay-3 flex items-center gap-3 sm:gap-4 pt-2">
-              <img
-                src="/images/logo-bet-midrash.png"
-                alt="Logo Bet Midrash Bene Israel"
-                className="h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-lg object-cover ring-1 ring-[#d4af37]/40"
-              />
+              <div className="h-16 w-16 sm:h-20 sm:w-20 shrink-0 relative">
+                <Image
+                  src="/images/logo-bet-midrash.png"
+                  alt="Logo Bet Midrash Bene Israel"
+                  fill
+                  sizes="80px"
+                  className="rounded-lg object-cover ring-1 ring-[#d4af37]/40"
+                />
+              </div>
               <div className="min-w-0">
                 <p className="font-hebrew text-lg sm:text-xl text-[#d4af37]" dir="rtl" lang="he">בית מדרש בני ישראל</p>
                 <p className="text-xs sm:text-sm text-foreground/60">Bet Midrash Bene Israel — Centro de Estudios Hebraicos</p>
