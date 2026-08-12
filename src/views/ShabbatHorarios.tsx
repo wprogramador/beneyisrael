@@ -41,9 +41,10 @@ function formatFecha(fechaIso: string): string {
   return d.toLocaleDateString('es-VE', { day: 'numeric', month: 'short' })
 }
 
-function getSemanaLabel(inicio: string): string {
-  const d = new Date(inicio)
-  return d.toLocaleDateString('es-VE', { day: 'numeric', month: 'short' })
+function addDays(fecha: string, dias: number): string {
+  const d = new Date(fecha)
+  d.setDate(d.getDate() + dias)
+  return d.toISOString().split('T')[0]
 }
 
 export default function ShabbatHorarios() {
@@ -65,43 +66,51 @@ export default function ShabbatHorarios() {
         const inicio = hoy.toISOString().split('T')[0]
         const fin = new Date(hoy.getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
-        const url = `https://www.hebcal.com/hebcal?cfg=json&latitude=${ciudad.lat}&longitude=${ciudad.lng}&b=18&m=42&start=${inicio}&end=${fin}&lg=es`
+        // s=on incluye eventos de Shabat (parashat)
+        // b=18: 18 min antes del atardecer (velas)
+        // m=42: 42 min despues del atardecer (havdalah)
+        const url = `https://www.hebcal.com/hebcal?cfg=json&latitude=${ciudad.lat}&longitude=${ciudad.lng}&b=18&m=42&start=${inicio}&end=${fin}&lg=es&s=on`
         const res = await fetch(url)
         if (!res.ok) throw new Error('Error al cargar datos')
         const data = await res.json()
 
         const items = data.items || []
 
-        // Agrupar por semana (viernes/sábado)
-        const semanas: Record<string, { entrada?: string; salida?: string; parasha?: string }> = {}
+        // Mapas por fecha
+        const candles: Record<string, string> = {}
+        const havdalah: Record<string, string> = {}
+        const parashot: Record<string, string> = {}
 
         for (const item of items) {
           const fecha = item.date?.split('T')[0]
           if (!fecha) continue
 
-          if (!semanas[fecha]) semanas[fecha] = {}
-
           if (item.category === 'candles') {
-            semanas[fecha].entrada = item.date
+            candles[fecha] = item.date
           } else if (item.category === 'havdalah') {
-            semanas[fecha].salida = item.date
+            havdalah[fecha] = item.date
           } else if (item.category === 'parashat') {
-            semanas[fecha].parasha = item.title.replace('Parashat ', '')
+            parashot[fecha] = item.title.replace('Parashá ', '').replace('Parashat ', '')
           }
         }
 
-        // Construir array ordenado
+        // Emparejar: candles (viernes) + havdalah (sabado) + parashat (sabado)
         const resultado: HorarioShabat[] = []
-        const fechas = Object.keys(semanas).sort()
+        const fechasCandles = Object.keys(candles).sort()
 
-        for (let i = 0; i < fechas.length; i++) {
-          const s = semanas[fechas[i]]
-          if (s.entrada && s.salida && s.parasha) {
+        for (const fechaViernes of fechasCandles) {
+          const fechaSabado = addDays(fechaViernes, 1)
+
+          const entrada = candles[fechaViernes]
+          const salida = havdalah[fechaSabado]
+          const parasha = parashot[fechaSabado]
+
+          if (entrada && salida && parasha) {
             resultado.push({
-              fecha: getSemanaLabel(s.entrada),
-              parasha: s.parasha,
-              entrada: formatHora(s.entrada),
-              salida: formatHora(s.salida),
+              fecha: formatFecha(entrada),
+              parasha,
+              entrada: formatHora(entrada),
+              salida: formatHora(salida),
             })
           }
         }
@@ -123,10 +132,10 @@ export default function ShabbatHorarios() {
   const compartirWhatsApp = () => {
     if (!horarioHoy) return
     const texto =
-      `🕯️ *Horarios de Shabat · ${ciudad.nombre}*\n\n` +
-      `📖 *Parashat ${horarioHoy.parasha}*\n` +
-      `🌅 Entrada: *${horarioHoy.entrada}*\n` +
-      `🌇 Salida: *${horarioHoy.salida}*\n\n` +
+      `🕯️ Horarios de Shabat · ${ciudad.nombre}\n\n` +
+      `📖 Parashat ${horarioHoy.parasha}\n` +
+      `🌅 Entrada: ${horarioHoy.entrada}\n` +
+      `🌇 Salida: ${horarioHoy.salida}\n\n` +
       `Via Beit Midrash Bene Israel · Los Teques\n${url}`
     window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank')
   }
