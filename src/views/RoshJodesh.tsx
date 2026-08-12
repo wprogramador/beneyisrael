@@ -1,14 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ChevronRight, Moon } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Moon, ChevronUp } from 'lucide-react'
 import { seccionesRoshJodesh } from '@/data/rosh-jodesh'
 import ShareButton from '@/components/ShareButton'
-import ScrollToTop from '@/components/ScrollToTop'
 
 export default function RoshJodesh() {
   const [seccionActiva, setSeccionActiva] = useState('')
+  const navRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,6 +30,23 @@ export default function RoshJodesh() {
     return () => observer.disconnect()
   }, [])
 
+  // Auto-scroll horizontal de la barra móvil para mantener visible la sección activa
+  useEffect(() => {
+    if (navRef.current) {
+      const activeBtn = navRef.current.querySelector(`[data-section="${seccionActiva}"]`)
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      }
+    }
+  }, [seccionActiva])
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
       {/* Header */}
@@ -48,9 +65,33 @@ export default function RoshJodesh() {
         </div>
       </header>
 
+      {/* ===== BARRA DE NAVEGACIÓN MÓVIL (sticky) ===== */}
+      <div className="lg:hidden sticky top-14 z-30 border-b border-[#d4af37]/10 bg-[#0c0a07]/95 backdrop-blur-md">
+        <div
+          ref={navRef}
+          className="mx-auto max-w-6xl px-4 flex gap-2 overflow-x-auto py-3"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {seccionesRoshJodesh.map((sec) => (
+            <button
+              key={sec.id}
+              data-section={sec.id}
+              onClick={() => scrollToSection(sec.id)}
+              className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
+                seccionActiva === sec.id
+                  ? 'bg-[#d4af37] text-[#14100a]'
+                  : 'bg-[#d4af37]/10 text-[#a89b8c] border border-[#d4af37]/20'
+              }`}
+            >
+              {sec.titulo}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="mx-auto max-w-6xl px-4 sm:px-5 py-10 flex flex-col lg:flex-row gap-8">
         {/* ===== SIDEBAR NAVEGACIÓN ===== */}
-        <aside className="lg:w-64 lg:shrink-0">
+        <aside className="hidden lg:block lg:w-64 lg:shrink-0">
           <div className="lg:sticky lg:top-24 space-y-4">
             <div className="rounded-xl border border-[#d4af37]/15 bg-[#141009] p-4 shadow-lg shadow-black/40">
               <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#d4af37]">
@@ -63,7 +104,7 @@ export default function RoshJodesh() {
                     href={`#${seccion.id}`}
                     onClick={(e) => {
                       e.preventDefault()
-                      document.getElementById(seccion.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      scrollToSection(seccion.id)
                     }}
                     className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors ${
                       seccionActiva === seccion.id
@@ -176,7 +217,13 @@ export default function RoshJodesh() {
       </div>
 
       {/* Botón volver arriba */}
-      <ScrollToTop />
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-6 left-6 z-40 flex size-10 items-center justify-center rounded-full bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/20 hover:bg-[#d4af37]/20 transition-colors"
+        title="Volver arriba"
+      >
+        <ChevronUp className="size-5" />
+      </button>
     </div>
   )
 }

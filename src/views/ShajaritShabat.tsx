@@ -1,18 +1,49 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ArrowLeft, ChevronUp, BookOpen, Sun } from 'lucide-react'
 import Link from 'next/link'
 import { seccionesShajaritShabat } from '@/data/shajarit-shabat'
 
 export default function ShajaritShabat() {
   const [seccionActiva, setSeccionActiva] = useState(seccionesShajaritShabat[0].id)
+  const navRef = useRef<HTMLDivElement>(null)
+
+  // IntersectionObserver: resalta la sección visible al hacer scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setSeccionActiva(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    )
+
+    seccionesShajaritShabat.forEach((s) => {
+      const el = document.getElementById(s.id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Auto-scroll horizontal de la barra móvil para mantener visible la sección activa
+  useEffect(() => {
+    if (navRef.current) {
+      const activeBtn = navRef.current.querySelector(`[data-section="${seccionActiva}"]`)
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      }
+    }
+  }, [seccionActiva])
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      setSeccionActiva(id)
     }
   }
 
@@ -29,9 +60,33 @@ export default function ShajaritShabat() {
         </div>
       </header>
 
+      {/* ===== BARRA DE NAVEGACIÓN MÓVIL (sticky) ===== */}
+      <div className="lg:hidden sticky top-14 z-30 border-b border-[#d4af37]/10 bg-[#0c0a07]/95 backdrop-blur-md">
+        <div
+          ref={navRef}
+          className="mx-auto max-w-6xl px-4 flex gap-2 overflow-x-auto py-3"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {seccionesShajaritShabat.map((sec) => (
+            <button
+              key={sec.id}
+              data-section={sec.id}
+              onClick={() => scrollToSection(sec.id)}
+              className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
+                seccionActiva === sec.id
+                  ? 'bg-[#d4af37] text-[#14100a]'
+                  : 'bg-[#d4af37]/10 text-[#a89b8c] border border-[#d4af37]/20'
+              }`}
+            >
+              {sec.titulo}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14 flex flex-col lg:flex-row gap-8">
-        {/* ===== SIDEBAR NAVEGACIÓN ===== */}
-        <aside className="lg:w-64 lg:shrink-0">
+        {/* ===== SIDEBAR NAVEGACIÓN (solo desktop) ===== */}
+        <aside className="hidden lg:block lg:w-64 lg:shrink-0">
           <div className="lg:sticky lg:top-20">
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-1">
@@ -41,12 +96,12 @@ export default function ShajaritShabat() {
               <p className="text-xs text-[#a89b8c]">Oración de la Mañana del Shabat — Hebreo · Fonética · Español</p>
             </div>
 
-            <nav className="flex flex-row lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+            <nav className="flex flex-col gap-1">
               {seccionesShajaritShabat.map((sec) => (
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className={`text-left px-3 py-2 rounded-lg text-sm transition-colors whitespace-nowrap lg:whitespace-normal ${
+                  className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                     seccionActiva === sec.id
                       ? 'bg-[#d4af37]/15 text-[#d4af37] font-medium'
                       : 'text-[#a89b8c] hover:text-[#d4af37] hover:bg-[#d4af37]/5'
@@ -57,7 +112,7 @@ export default function ShajaritShabat() {
               ))}
             </nav>
 
-            <div className="mt-6 hidden lg:block rounded-lg border border-[#d4af37]/15 bg-[#141009] p-4">
+            <div className="mt-6 rounded-lg border border-[#d4af37]/15 bg-[#141009] p-4">
               <div className="flex items-center gap-2 text-[#d4af37] mb-2">
                 <BookOpen className="size-4" />
                 <span className="text-xs font-semibold uppercase tracking-wider">Siddur Sefardí</span>
@@ -93,7 +148,7 @@ export default function ShajaritShabat() {
               <div className="rounded-xl border border-[#d4af37]/10 bg-[#141009] p-4 sm:p-6 space-y-1">
                 {seccion.bloques.map((bloque, idx) => (
                   <div key={idx} className="border-b border-[#d4af37]/10 py-5 last:border-b-0">
-                     {/* Nota */}
+                    {/* Nota */}
                     {bloque.nota && (
                       <p className="mb-3 text-xs text-[#d4af37]/70 italic bg-[#d4af37]/5 rounded-md px-3 py-2">
                         {bloque.nota}
