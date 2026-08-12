@@ -2643,16 +2643,6 @@ export const nombresHebreos: NombreHebreo[] = [
   referencia: '2 Reyes 12:1',
 },
 {
-  hebreo: 'יְהוֹאַדָּן',
-  nombre: 'Joadán',
-  transliteracion: 'Yehoaddan',
-  aliases: ['yehoaddan', 'joadan', 'jehoaddan', 'יהועדן', 'יְהוֹאַדָּן'],
-  significado: '"YHVH es el placer". Madre del rey Amasías.',
-  genero: 'F',
-  categoria: 'Reina',
-  referencia: '2 Reyes 14:2',
-},
-{
   hebreo: 'יְכָלְיָה',
   nombre: 'Jecalías',
   transliteracion: 'Yejolyah',
