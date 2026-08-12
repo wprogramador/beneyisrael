@@ -8,6 +8,7 @@ import { nombresHebreos, categorias } from '@/lib/nombresHebreos'
 
 export default function NombresHebreos() {
   const [busqueda, setBusqueda] = useState('')
+  const [generoActivo, setGeneroActivo] = useState<'todos' | 'M' | 'F'>('todos')
   const [categoriaActiva, setCategoriaActiva] = useState('Todos')
   const [copiadoId, setCopiadoId] = useState<string | null>(null)
 
@@ -16,27 +17,56 @@ export default function NombresHebreos() {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[']/g, '')
+      .replace(/[\s\-']/g, '')
       .trim()
 
   const filtrados = useMemo(() => {
-    const termino = normalizar(busqueda)
-
-    return nombresHebreos.filter((n) => {
-      const matchCategoria =
-        categoriaActiva === 'Todos' || n.categoria === categoriaActiva
-
-      if (!termino) return matchCategoria
-
-      const matchBusqueda =
-        normalizar(n.nombre).includes(termino) ||
-        normalizar(n.transliteracion).includes(termino) ||
-        normalizar(n.hebreo).includes(termino) ||
-        n.aliases.some((a) => normalizar(a).includes(termino))
-
-      return matchCategoria && matchBusqueda
+    // 1. Filtrar por género
+    let resultado = nombresHebreos.filter((n) => {
+      if (generoActivo !== 'todos' && n.genero !== generoActivo) return false
+      if (categoriaActiva !== 'Todos' && n.categoria !== categoriaActiva) return false
+      return true
     })
-  }, [busqueda, categoriaActiva])
+
+    // 2. Búsqueda jerárquica
+    const termino = normalizar(busqueda)
+    if (!termino) return resultado
+
+    // Grupo 1: Coincidencia EXACTA
+    const exactos = resultado.filter(
+      (n) =>
+        normalizar(n.nombre) === termino ||
+        normalizar(n.transliteracion) === termino ||
+        normalizar(n.hebreo) === termino ||
+        n.aliases.some((a) => normalizar(a) === termino)
+    )
+
+    // Grupo 2: Comienza con (startsWith)
+    const starts = resultado.filter(
+      (n) =>
+        !exactos.includes(n) &&
+        (normalizar(n.nombre).startsWith(termino) ||
+          normalizar(n.transliteracion).startsWith(termino) ||
+          normalizar(n.hebreo).startsWith(termino) ||
+          n.aliases.some((a) => normalizar(a).startsWith(termino)))
+    )
+
+    // Grupo 3: Contiene (includes) — solo si el término tiene 3+ caracteres
+    let includes: typeof resultado = []
+    if (termino.length >= 3) {
+      includes = resultado.filter(
+        (n) =>
+          !exactos.includes(n) &&
+          !starts.includes(n) &&
+          (normalizar(n.nombre).includes(termino) ||
+            normalizar(n.transliteracion).includes(termino) ||
+            normalizar(n.hebreo).includes(termino) ||
+            n.aliases.some((a) => normalizar(a).includes(termino)))
+      )
+    }
+
+    return [...exactos, ...starts, ...includes]
+  }, [busqueda, generoActivo, categoriaActiva])
 
   const compartirWhatsApp = (n: (typeof nombresHebreos)[0]) => {
     const texto =
@@ -107,16 +137,38 @@ export default function NombresHebreos() {
             )}
           </div>
 
-          {/* Filtros */}
+          {/* Filtro de GÉNERO */}
+          <div className="flex justify-center gap-2 mb-4">
+            {[
+              { id: 'todos' as const, label: 'Todos', count: nombresHebreos.length },
+              { id: 'M' as const, label: 'Masculinos', count: nombresHebreos.filter((n) => n.genero === 'M').length },
+              { id: 'F' as const, label: 'Femeninos', count: nombresHebreos.filter((n) => n.genero === 'F').length },
+            ].map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setGeneroActivo(g.id)}
+                className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
+                  generoActivo === g.id
+                    ? 'bg-[#d4af37] text-[#14100a]'
+                    : 'border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/10'
+                }`}
+              >
+                {g.label}{' '}
+                <span className="opacity-70 text-[10px]">({g.count})</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Filtros de CATEGORÍA */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {categorias.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategoriaActiva(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   categoriaActiva === cat
-                    ? 'bg-[#d4af37] text-[#14100a]'
-                    : 'border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/10'
+                    ? 'bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]'
+                    : 'border border-[#d4af37]/30 text-[#a89b8c] hover:text-[#d4af37] hover:border-[#d4af37]/60'
                 }`}
               >
                 {cat}
@@ -131,87 +183,99 @@ export default function NombresHebreos() {
                 No se encontró ningún nombre
               </p>
               <p className="text-[#a89b8c]/60 text-sm">
-                Intenta con otra búsqueda o revisa la ortografía
+                Intenta con otra búsqueda o cambia los filtros
               </p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtrados.map((n) => (
-                <article
-                  key={n.hebreo}
-                  className="group relative bg-[#141009] border border-[#d4af37]/20 rounded-2xl p-5 hover:border-[#d4af37]/60 transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  {/* Badge género */}
-                  <div className="flex justify-between items-start mb-3">
-                    <span
-                      className={`text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full ${
-                        n.genero === 'M'
-                          ? 'bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30'
-                          : 'bg-[#a83232]/15 text-[#c0392b] border border-[#a83232]/30'
-                      }`}
-                    >
-                      {n.genero === 'M' ? 'Masculino' : 'Femenino'}
-                    </span>
-                    <span className="text-[11px] text-[#8a7e72]">
-                      {n.referencia}
-                    </span>
-                  </div>
-
-                  {/* Hebreo */}
-                  <p
-                    className="text-2xl font-bold text-[#d4af37] mb-1"
-                    dir="rtl"
-                    lang="he"
+            <>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filtrados.map((n) => (
+                  <article
+                    key={n.hebreo}
+                    className="group relative bg-[#141009] border border-[#d4af37]/20 rounded-2xl p-5 hover:border-[#d4af37]/60 transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    {n.hebreo}
-                  </p>
+                    {/* Badge género */}
+                    <div className="flex justify-between items-start mb-3">
+                      <span
+                        className={`text-[10px] uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded-full ${
+                          n.genero === 'M'
+                            ? 'bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30'
+                            : 'bg-[#a83232]/15 text-[#c0392b] border border-[#a83232]/30'
+                        }`}
+                      >
+                        {n.genero === 'M' ? 'Masculino' : 'Femenino'}
+                      </span>
+                      <span className="text-[11px] text-[#8a7e72]">
+                        {n.referencia}
+                      </span>
+                    </div>
 
-                  {/* Nombres */}
-                  <h3 className="text-lg font-bold text-foreground mb-0.5">
-                    {n.transliteracion}
-                  </h3>
-                  <p className="text-sm text-[#a89b8c] mb-3">{n.nombre}</p>
+                    {/* Hebreo */}
+                    <p
+                      className="text-2xl font-bold text-[#d4af37] mb-1"
+                      dir="rtl"
+                      lang="he"
+                    >
+                      {n.hebreo}
+                    </p>
 
-                  {/* Significado */}
-                  <p className="text-sm text-foreground/75 leading-relaxed mb-4">
-                    {n.significado}
-                  </p>
+                    {/* Nombres */}
+                    <h3 className="text-lg font-bold text-foreground mb-0.5">
+                      {n.transliteracion}
+                    </h3>
+                    <p className="text-sm text-[#a89b8c] mb-3">{n.nombre}</p>
 
-                  {/* Categoría */}
-                  <span className="inline-block text-[10px] uppercase tracking-wider text-[#8a7e72] bg-[#0c0a07] px-2 py-1 rounded-md border border-[#d4af37]/10">
-                    {n.categoria}
+                    {/* Significado */}
+                    <p className="text-sm text-foreground/75 leading-relaxed mb-4">
+                      {n.significado}
+                    </p>
+
+                    {/* Categoría */}
+                    <span className="inline-block text-[10px] uppercase tracking-wider text-[#8a7e72] bg-[#0c0a07] px-2 py-1 rounded-md border border-[#d4af37]/10">
+                      {n.categoria}
+                    </span>
+
+                    {/* Botones compartir */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1.5">
+                      <button
+                        onClick={() => compartirWhatsApp(n)}
+                        title="Compartir en WhatsApp"
+                        className="p-1.5 rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors"
+                      >
+                        <MessageCircle size={14} />
+                      </button>
+                      <button
+                        onClick={() => copiarNombre(n)}
+                        title="Copiar"
+                        className="p-1.5 rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors"
+                      >
+                        {copiadoId === n.hebreo ? (
+                          <Check size={14} className="text-green-500" />
+                        ) : (
+                          <Copy size={14} />
+                        )}
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              {/* Contador */}
+              <p className="text-center text-xs text-[#8a7e72] mt-8">
+                Mostrando {filtrados.length} de {nombresHebreos.length} nombres
+                {generoActivo !== 'todos' && (
+                  <span>
+                    {' '}
+                    · Filtrado:{' '}
+                    {generoActivo === 'M' ? 'Masculinos' : 'Femeninos'}
                   </span>
-
-                  {/* Botones compartir (aparecen en hover) */}
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1.5">
-                    <button
-                      onClick={() => compartirWhatsApp(n)}
-                      title="Compartir en WhatsApp"
-                      className="p-1.5 rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors"
-                    >
-                      <MessageCircle size={14} />
-                    </button>
-                    <button
-                      onClick={() => copiarNombre(n)}
-                      title="Copiar"
-                      className="p-1.5 rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#14100a] transition-colors"
-                    >
-                      {copiadoId === n.hebreo ? (
-                        <Check size={14} className="text-green-500" />
-                      ) : (
-                        <Copy size={14} />
-                      )}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
+                )}
+                {categoriaActiva !== 'Todos' && (
+                  <span> · Categoría: {categoriaActiva}</span>
+                )}
+              </p>
+            </>
           )}
-
-          {/* Contador */}
-          <p className="text-center text-xs text-[#8a7e72] mt-8">
-            Mostrando {filtrados.length} de {nombresHebreos.length} nombres
-          </p>
         </div>
       </main>
 
