@@ -133,6 +133,14 @@ export default function Navbar() {
                     Horarios de Shabat
                   </Link>
                   <Link
+                    href="/nombres-hebreos"
+                    onClick={() => setDropOpen(false)}
+                    className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                  >
+                    <span className="text-xs">א</span>
+                    Nombres Hebreos
+                  </Link>
+                  <Link
                     href="/calendario"
                     onClick={() => setDropOpen(false)}
                     className="flex items-center gap-2 px-5 py-2.5 text-sm text-foreground/80 hover:text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
@@ -222,6 +230,14 @@ export default function Navbar() {
               >
                 <Clock size={16} />
                 Horarios de Shabat
+              </Link>
+              <Link
+                href="/nombres-hebreos"
+                onClick={() => setOpen(false)}
+                className="py-2.5 text-base text-foreground/85 hover:text-[#d4af37] transition-colors inline-flex items-center gap-2"
+              >
+                <span className="text-xs">א</span>
+                Nombres Hebreos
               </Link>
               <Link
                 href="/calendario"
