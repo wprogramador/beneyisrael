@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, Library, BookText, Flame } from 'lucide-react'
+import { ArrowLeft, BookOpen, BookMarked, Languages, Scroll, ExternalLink, Search, Filter, Library, BookText, Flame, Moon } from 'lucide-react'
 import Link from 'next/link'
 
 interface Recurso {
@@ -35,6 +35,17 @@ const recursos: Recurso[] = [
     descripcion: 'Oraciones de la mañana de Shabat en hebreo, fonética y español. Preparado por Bene Israel.',
     url: '/siddur/shajarit-shabat',
     icono: <BookOpen className="size-6" />,
+    badge: 'Siddur',
+    badgeColor: '#d4af37',
+    esInterno: true,
+  },
+  {
+    id: 'seder-rosh-jodesh',
+    titulo: 'Seder Rosh Jodesh',
+    categoria: 'tefila',
+    descripcion: 'Seder para la noche de Rosh Jodesh: Yaaleh Veyavo, Birkat Halevaná, bendiciones del vino, reflexiones y Hallel. Hebreo, fonética y español.',
+    url: '/siddur/rosh-jodesh',
+    icono: <Moon className="size-6" />,
     badge: 'Siddur',
     badgeColor: '#d4af37',
     esInterno: true,
