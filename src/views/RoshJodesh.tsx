@@ -85,8 +85,11 @@ export default function RoshJodesh() {
 
             <div className="rounded-xl border border-[#d4af37]/15 bg-[#141009] p-4 shadow-lg shadow-black/40">
               <ShareButton
-                title="Seder Rosh Jodesh · Bene Israel"
-                text="Seder para la noche de Rosh Jodesh en hebreo, fonética y español."
+                data={{
+                  title: 'Seder Rosh Jodesh · Bene Israel',
+                  text: 'Seder para la noche de Rosh Jodesh en hebreo, fonética y español.',
+                  url: typeof window !== 'undefined' ? window.location.href : 'https://beneyisrael-gc5o.vercel.app/siddur/rosh-jodesh',
+                }}
               />
             </div>
           </div>
