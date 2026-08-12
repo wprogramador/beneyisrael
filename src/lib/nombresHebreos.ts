@@ -2645,7 +2645,7 @@ export const nombresHebreos: NombreHebreo[] = [
 {
   hebreo: 'יְהוֹאַדָּן',
   nombre: 'Joadán',
-  transliteracion: 'Yeho'addan',
+  transliteracion: 'Yehoaddan',
   aliases: ['yehoaddan', 'joadan', 'jehoaddan', 'יהועדן', 'יְהוֹאַדָּן'],
   significado: '"YHVH es el placer". Madre del rey Amasías.',
   genero: 'F',
