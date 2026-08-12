@@ -22,20 +22,20 @@ export const seccionesRoshJodesh: SeccionSiddur[] = [
         hebreo: ``,
         fonetica: ``,
         espanol: `Bendito sea el Santo, bendito sea. Damos la bienvenida a este nuevo mes, tiempo de renovación y esperanza. Como está escrito: "Este mes será para ustedes el principio de los meses; será el primero de los meses del año" (Éxodo 12:2).`,
-        nota: `Líder: En esta noche, al contemplar la luna nueva, recordamos que así como ella se renueva, también nosotros tenemos la oportunidad de renovar nuestro espíritu. Que este Rosh Jodesh sea para nosotros un momento de reflexión, de comunidad y de cercanía con el Creador.`,
+        nota: `Líder: En esta noche de Rosh Jodesh, la luna se oculta para renacer. Así como ella desaparece del cielo para iniciar un nuevo ciclo, nosotros también tenemos la oportunidad de renovar nuestro espíritu en esta oscuridad que precede a la luz. Que este Rosh Jodesh sea para nosotros un momento de reflexión, de comunidad y de cercanía con el Creador.`,
       },
     ],
   },
   {
     id: `yaaleh-veyavo`,
     titulo: `Yaaleh Veyavo`,
-    subtitulo: `Inserción en la Amidá de Maariv`,
+    subtitulo: `Plegaria para Rosh Jodesh`,
     bloques: [
       {
         hebreo: ``,
         fonetica: ``,
-        espanol: `En la noche de Rosh Jodesh se reza Maariv de forma habitual, con la adición de Yaaleh Veyavo en la bendición de Retzé de la Amidá.`,
-        nota: `Se recita la Amidá completa en silencio y luego se repite en voz alta por el líder. Si Rosh Jodesh coincide con Shabat, Yaaleh Veyavo se añade también en Retzé de la Amidá de Maariv, Shajarit y Minjá, así como en el Birkat Hamazón.`,
+        espanol: `En la noche de Rosh Jodesh se recita la plegaria de Yaaleh Veyavo como oración independiente, dando gracias por la renovación del mes y pidiendo bendición para el pueblo de Israel.`,
+        nota: `Líder: Se recita en pie, con intención y devoción.`,
       },
       {
         hebreo: `יַעֲלֶה וְיָבוֹא וְיַגִּיעַ וְיֵרָאֶה וְיֵרָצֶה וְיִשָּׁמַע וְיִפָּקֵד וְיִזָּכֵר זִכְרוֹנֵנוּ וּפִקְדוֹנֵנוּ וְזִכְרוֹן אֲבוֹתֵינוּ וְזִכְרוֹן מָשִׁיחַ בֶּן דָּוִד עַבְדֶּךָ וְזִכְרוֹן יְרוּשָׁלַיִם עִיר קָדְשֶׁךָ וְזִכְרוֹן כָּל עַמְּךָ בֵּית יִשְׂרָאֵל לְפָנֶיךָ לִפְלֵטָה לְטוֹבָה לְחֵן וּלְחֶסֶד וּלְרַחֲמִים לְחַיִּים טוֹבִים וּלְשָׁלוֹם בְּיוֹם רֹאשׁ הַחֹדֶשׁ הַזֶּה. זָכְרֵנוּ יְיָ אֱלֹהֵינוּ בּוֹ לְטוֹבָה, וּפָקְדֵנוּ בוֹ לִבְרָכָה, וְהוֹשִׁיעֵנוּ בוֹ לְחַיִּים. בִּדְבַר יְשׁוּעָה וְרַחֲמִים, חוּס וְחָנֵּנוּ, וְרַחֵם עָלֵינוּ וְהוֹשִׁיעֵנוּ, כִּי אֵלֶיךָ עֵינֵינוּ, כִּי אֵל מֶלֶךְ חַנּוּן וְרַחוּם אָתָּה.`,
@@ -45,31 +45,20 @@ export const seccionesRoshJodesh: SeccionSiddur[] = [
     ],
   },
   {
-    id: `birkat-halevana`,
-    titulo: `Birkat Halevaná`,
-    subtitulo: `Bendición de la Luna Nueva`,
+    id: `luna-oculta`,
+    titulo: `Reflexión sobre la Luna Oculta`,
+    subtitulo: `Significado espiritual de Rosh Jodesh`,
     bloques: [
       {
         hebreo: ``,
         fonetica: ``,
-        espanol: `Si el cielo está despejado y se puede ver la luna nueva desde la sinagoga o el lugar de reunión, es costumbre recitar esta bendición en grupo después de Maariv, durante los primeros días del mes.`,
-        nota: `Líder: Se recita en pie, mirando la luna nueva.`,
+        espanol: `En esta noche, la luna no se ve en el cielo. Para nosotros, esto no es ausencia, sino el momento más sagrado del ciclo: la luna se oculta para renacer. Así como la luna nueva comienza en la oscuridad, también nuestra renovación espiritual comienza cuando reconocemos nuestra pequeñez ante el Creador, confiando en que Su luz volverá a brillar sobre nosotros.`,
+        nota: `Líder: En esta tradición, Rosh Jodesh es el día de la luna oculta — el verdadero inicio del mes, cuando el sol y la luna se alinean en conjunción. No buscamos ver la luna, sino reconocer la soberanía del Creador sobre los tiempos y las estaciones.`,
       },
       {
-        hebreo: `בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר בִּמְאֹמָרוֹ בָּרָא שְׁחָקִים, וּבְרוּחַ פִּיו כָּל צְבָאָם. חֹק וּזְמַן נָתַן לָהֶם, שֶׁלֹּא יְשַׁנּוּ אֶת תַּפְקִידָם. שָׂשִׂים וּשְׂמֵחִים לַעֲשׂוֹת רְצוֹן קוֹנָם, פֹּעֵל אֱמֶת שֶׁפְּעֻלָּתוֹ אֱמֶת. וְלַלְּבָנָה אָמַר שֶׁתִּתְחַדֵּשׁ, עֲטֶרֶת תִּפְאֶרֶת לַעֲמוּסֵי בָטֶן, שֶׁהֵם עֲתִידִים לְהִתְחַדֵּשׁ כְּמוֹתָהּ, וּלְפָאֵר לְיוֹצְרָם עַל שֵׁם כְּבוֹד מַלְכוּתוֹ. בָּרוּךְ אַתָּה יְיָ, מְחַדֵּשׁ חֳדָשִׁים.`,
-        fonetica: `Barúj atá Adonai Elohénu mélej ha'olám, ashér bema'amaró bará shejakím, uverúaj pív kol tzeva'ám. Jok uzmán natán lahem, shelo yeshanú et tafkidám. Sasím usmejím laasót retzón konám, po'él emet shepeulató emet. Ve'lalevaná amár shetitjadesh, atéret tiferet la'amuséi váten, shehem atidím lehitjadésh kemotáh, ulefa'er leyotzrám al shém kevod maljutó. Barúj atá Adonai, mejadésh jodashím.`,
-        espanol: `Bendito eres Tú, Adonai nuestro Dios, Rey del universo, que con su palabra creó los cielos, y con el aliento de su boca a todos sus ejércitos. Les dio una ley y un tiempo, para que no alteren su función. Se alegran y se regocijan al hacer la voluntad de su Creador, el Dios de verdad, cuya obra es verdad. Y a la luna le dijo que se renueve, como corona de esplendor para los que son llevados en el vientre (Israel), que están destinados a renovarse como ella, y para glorificar a su Creador por el honor de su reino. Bendito eres Tú, Adonai, que renueva los meses.`,
-      },
-      {
-        hebreo: `שָׁלוֹם עֲלֵיכֶם`,
-        fonetica: `Shalóm aleijem`,
-        espanol: `Paz sobre ustedes.`,
-        nota: `Se saluda a tres personas diferentes, o se dice tres veces girando hacia distintas direcciones.`,
-      },
-      {
-        hebreo: `סִימָן טוֹב וּמַזָּל טוֹב יְהֵא לָנוּ וּלְכָל יִשְׂרָאֵל.`,
-        fonetica: `Simán tov umazál tov yehé lanu ulejol Israel.`,
-        espanol: `Buen augurio y buena suerte tengamos nosotros y todo Israel.`,
+        hebreo: ``,
+        fonetica: ``,
+        espanol: `Que esta oscuridad sea para nosotros un recordatorio de que antes de toda revelación hay un momento de ocultamiento, antes de toda luz hay una noche de espera. Así fue con nuestros padres en Egipto, así es con cada nuevo comienzo.`,
       },
     ],
   },
@@ -117,7 +106,7 @@ export const seccionesRoshJodesh: SeccionSiddur[] = [
       {
         hebreo: ``,
         fonetica: ``,
-        espanol: `Que sea tu voluntad, Adonai nuestro Dios y Dios de nuestros antepasados, que nos concedas un mes de bendición, de alegría y de paz. Que este nuevo mes sea para nosotros un tiempo de renovación espiritual, de crecimiento y de cercanía a ti. Bendice a nuestra comunidad, a la casa de Israel y al mundo entero con tu luz y tu misericordia. Como la luna se renueva cada mes, renueva también nuestros corazones para servirte con alegría.`,
+        espanol: `Que sea tu voluntad, Adonai nuestro Dios y Dios de nuestros antepasados, que nos concedas un mes de bendición, de alegría y de paz. Que este nuevo mes sea para nosotros un tiempo de renovación espiritual, de crecimiento y de cercanía a ti. Bendice a nuestra comunidad, a la casa de Israel y al mundo entero con tu luz y tu misericordia. Como la luna se renueva cada mes en su ocultamiento, renueva también nuestros corazones para servirte con alegría.`,
       },
     ],
   },
@@ -131,6 +120,17 @@ export const seccionesRoshJodesh: SeccionSiddur[] = [
         fonetica: ``,
         espanol: `Que este mes nuevo nos traiga paz, salud y crecimiento espiritual. Que merezcamos ver la realización de la promesa: "La luna será avergonzada y el sol confundido, porque Adonai de los ejércitos reinará en el monte de Sion y en Jerusalén" (Isaías 24:23).`,
         nota: `Líder`,
+      },
+      {
+        hebreo: `שָׁלוֹם עֲלֵיכֶם`,
+        fonetica: `Shalóm aleijem`,
+        espanol: `Paz sobre ustedes.`,
+        nota: `Se saluda a tres personas diferentes, o se dice tres veces.`,
+      },
+      {
+        hebreo: `סִימָן טוֹב וּמַזָּל טוֹב יְהֵא לָנוּ וּלְכָל יִשְׂרָאֵל.`,
+        fonetica: `Simán tov umazál tov yehé lanu ulejol Israel.`,
+        espanol: `Buen augurio y buena suerte tengamos nosotros y todo Israel.`,
       },
       {
         hebreo: `חֹדֶשׁ טוֹב`,
@@ -149,7 +149,7 @@ export const seccionesRoshJodesh: SeccionSiddur[] = [
         hebreo: ``,
         fonetica: ``,
         espanol: `Los siguientes elementos pertenecen al servicio de Shajarit (oración de la mañana) del día de Rosh Jodesh. Se incluyen aquí como referencia para quienes deseen preparar también el servicio matutino.`,
-        nota: `En Rosh Jodesh se recita el Hallel parcial, que consiste en los Salmos 113-118, omitiendo ciertas secciones. Se recita después de la Amidá de Shajarit.`,
+        nota: `En Rosh Jodesh se recita el Hallel parcial, que consiste en los Salmos 113-118, omitiendo ciertas secciones. Se recita durante el servicio de Shajarit.`,
       },
       {
         hebreo: `בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו, וְצִוָּנוּ לִקְרֹא אֶת הַהַלֵּל.`,
