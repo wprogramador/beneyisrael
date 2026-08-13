@@ -9,8 +9,13 @@ export async function generateStaticParams() {
   return articulos.map((a) => ({ slug: a.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const articulo = getArticuloBySlug(params.slug)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const articulo = getArticuloBySlug(slug)
   if (!articulo) return { title: 'No encontrado' }
   return {
     title: `${articulo.frontmatter.titulo} · Bene Israel`,
@@ -18,8 +23,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function ArticuloPage({ params }: { params: { slug: string } }) {
-  const articulo = getArticuloBySlug(params.slug)
+export default async function ArticuloPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const articulo = getArticuloBySlug(slug)
   if (!articulo) notFound()
 
   return (
@@ -33,7 +43,11 @@ export default function ArticuloPage({ params }: { params: { slug: string } }) {
             <ArrowLeft size={18} />
             Volver a Estudios
           </Link>
-          <span className="font-hebrew text-[#d4af37] text-sm" dir="rtl" lang="he">
+          <span
+            className="font-hebrew text-[#d4af37] text-sm"
+            dir="rtl"
+            lang="he"
+          >
             בית מדרש בני ישראל
           </span>
         </div>
@@ -77,7 +91,8 @@ export default function ArticuloPage({ params }: { params: { slug: string } }) {
 
         <div className="mt-16 border-t border-[#d4af37]/10 pt-8 text-center">
           <p className="text-xs text-[#8a7e72]">
-            © {new Date().getFullYear()} Centro de Estudios Hebraicos Bene Israel — Los Teques, Venezuela
+            © {new Date().getFullYear()} Centro de Estudios Hebraicos Bene
+            Israel — Los Teques, Venezuela
           </p>
           <p className="mt-1 text-xs text-[#8a7e72]/70">
             Uso libre para estudio y difusión. No para venta.
