@@ -14,6 +14,7 @@ interface Recurso {
   badge: string
   badgeColor: string
   esInterno?: boolean
+  botonTexto?: string
 }
 
 const recursos: Recurso[] = [
@@ -27,6 +28,7 @@ const recursos: Recurso[] = [
     badge: 'Siddur',
     badgeColor: '#d4af37',
     esInterno: true,
+    botonTexto: 'Abrir Siddur',
   },
   {
     id: 'siddur-shabat',
@@ -38,6 +40,7 @@ const recursos: Recurso[] = [
     badge: 'Siddur',
     badgeColor: '#d4af37',
     esInterno: true,
+    botonTexto: 'Abrir Siddur',
   },
   {
     id: 'seder-rosh-jodesh',
@@ -49,6 +52,7 @@ const recursos: Recurso[] = [
     badge: 'Siddur',
     badgeColor: '#d4af37',
     esInterno: true,
+    botonTexto: 'Abrir Siddur',
   },
   {
     id: 'articulos-estudios',
@@ -60,6 +64,7 @@ const recursos: Recurso[] = [
     badge: 'Estudios',
     badgeColor: '#2d8a4e',
     esInterno: true,
+    botonTexto: 'Leer estudios',
   },
   {
     id: 'tanaj-he',
@@ -244,7 +249,7 @@ export default function Biblioteca() {
                 </p>
                 <div className="inline-flex items-center gap-2 rounded-md bg-[#d4af37]/10 px-4 py-2 text-sm font-medium text-[#d4af37] border border-[#d4af37]/20 group-hover:bg-[#d4af37]/20 transition-colors">
                   {recurso.esInterno ? <BookOpen className="size-4" /> : <ExternalLink className="size-4" />}
-                  {recurso.esInterno ? 'Abrir Siddur' : 'Abrir recurso'}
+                  {recurso.botonTexto || (recurso.esInterno ? 'Abrir' : 'Abrir recurso')}
                 </div>
               </div>
             )
