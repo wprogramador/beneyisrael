@@ -22,14 +22,20 @@ export const seccionesSlijot: SeccionSiddur[] = [
         hebreo: `קוֹבֵעַ מְקוֹמוֹ — מְקוֹעֵם אֶת לִבּוֹ`,
         fonetica: `Kovéa makómo — mekojém et libó.`,
         espanol: `Fija su lugar — fija su corazón.`,
-        nota: `Antes de abrir la boca, fija tu lugar. Siéntate. No te recuestes. La espalda recta es la columna del alma. Enciende una vela, si puedes. La luz del fuego en la oscuridad de la madrugada no es decoración. Es memoria de que aunque todo parezca negro, una chispa basta. Respira tres veces. Dile a tu alma: "Estoy aquí para volver. No para fingir. No para cumplir. Para volver." Esa es la kavaná.`,
+        nota: `Antes de abrir la boca, fija tu lugar. Siéntate. No te recuestes. La espalda recta es la columna del alma. Enciende una vela, si puedes. La luz del fuego en la oscuridad de la madrugada no es decoración. Es memoria de que aunque todo parezca negro, una chispa basta. Respira tres veces. No es meditación oriental. Es simplemente dejar que el cuerpo sepa que está aquí, ahora, presente. Las Slijot no funcionan con la mente ausente. Dile a tu alma, en voz baja o en silencio: "Estoy aquí para volver. No para fingir. No para cumplir. Para volver." Esa es la kavaná. Todo lo demás depende de ella.`,
+      },
+      {
+        hebreo: `הַשְׁכִּיבֵנוּ יְיָ אֱלֹהֵינוּ לְשָׁלוֹם וְהַעֲמִידֵנוּ מַלְכֵּנוּ לְחַיִּים`,
+        fonetica: `Hashkivénu Adonai Eloheinu leshalóm, veamidénu Malkeinu lejáyim.`,
+        espanol: `Haznos acostar, Adonai nuestro Dios, en paz, y haznos permanecer, nuestro Rey, en vida.`,
+        nota: `Si rezas las Slijot antes de dormir, esta bendición cierra el día. Si las rezas al madrugar, es la bendición que abre la noche que terminó. En ambos casos, es reconocimiento de que la paz y la vida no son nuestras. Son préstamos.`,
       },
     ],
   },
   {
     id: `ana-bejoaj`,
     titulo: `Ana Bejoaj`,
-    subtitulo: `La plegaria maestra de las Slijot`,
+    subtitulo: `La plegaria maestra de las Slijot — compuesta por Moisés en el Sinaí`,
     bloques: [
       {
         hebreo: `אָנָּא בְּכֹחַ גְּדֻלַּת יְמִינְךָ תַּתִּיר צְרוּרָה`,
@@ -47,7 +53,7 @@ export const seccionesSlijot: SeccionSiddur[] = [
         hebreo: `נָא גִבּוֹר דּוֹרְשֵׁי יִחוּדְךָ כְּבַבְּכַת שָׁמְרֵם`,
         fonetica: `Ná gibor dorsheij jijudejá, kevavat shomrem.`,
         espanol: `Por favor, oh Fuerte, guarda como la niña de los ojos a los que buscan Tu unidad.`,
-        nota: `Kevavat — la pupila, la parte más sensible y protegida del ojo. Así pide Moisés que sean protegidos quienes buscan jijud, la conciencia de que todo es uno.`,
+        nota: `Kevavat — la pupila, la parte más sensible y protegida del ojo. Así pide Moisés que sean protegidos quienes buscan jijud, la conciencia de que todo es uno. No pide protección para los perfectos. Pide para los dorsheij — los que buscan. El que busca, aunque no haya llegado, ya está en el camino.`,
       },
       {
         hebreo: `בְּרָכֵם טַהֲרֵם רַחֲמֵי צִדְקָתְךָ תָּמִיד גָּמְלֵם`,
@@ -59,19 +65,19 @@ export const seccionesSlijot: SeccionSiddur[] = [
         hebreo: `חֲסִין קָדוֹשׁ בְּרוֹב טוּבְךָ נַהֵל עֲדָתֶךָ`,
         fonetica: `Jasin kadosh bejov tuvjá nahel adatejá.`,
         espanol: `Poderoso y Santo, con Tu abundante bondad, guía Tu congregación.`,
-        nota: `Jasin — poderoso, pero no el poder del tirano. El poder de quien puede contenerse. La verdadera fuerza no es destruir, sino contener la propia ira.`,
+        nota: `Jasin — poderoso, pero no el poder del tirano. El poder de quien puede contenerse. La Cábala enseña que la verdadera fuerza no es destruir, sino contener la propia ira. Y kadosh — santo, separado. Lo santo no es lo etéreo, lo lejano. Es lo separado para un propósito.`,
       },
       {
         hebreo: `יָחִיד גֵּאֶה לְעַמְּךָ פְּנֵה זוֹכְרֵי קְדֻשָּׁתֶךָ`,
         fonetica: `Jajid geé leamjá pene, zojreme kedushatejá.`,
         espanol: `Único y Excelso, vuelve Tu rostro a los que recuerdan Tu santidad.`,
-        nota: `Jajid — único, pero también unido. En hebreo, la misma raíz da jibur, unión. Dios es uno no en el sentido numérico, sino en el sentido de que toda multiplicidad emerge de Él y retorna a Él.`,
+        nota: `Jajid — único, pero también unido. En hebreo, la misma raíz da jibur, unión. Dios es uno no en el sentido numérico, sino en el sentido de que toda multiplicidad emerge de Él y retorna a Él. Y geé — excelso, pero también el que se revela. La Shejiná no siempre está oculta. Hay momentos en que se revela, y esos momentos dependen de que nosotros zojrem — recordemos. Recordar no es nostalgia. Es traer algo del pasado al presente con tal fuerza que cambia el futuro.`,
       },
       {
         hebreo: `שַׁוְעָתֵנוּ קַבֵּל וּשְׁמַע צְעָקָתֵנוּ יוֹדֵעַ תַּעֲלוּמוֹת`,
         fonetica: `Shavateinu kabél ushma tzeakaténu, Jodeá taalumot.`,
         espanol: `Recibe nuestro clamor y escucha nuestro grito, Tú que conoces los secretos.`,
-        nota: `Shavá es el llanto contenido, el que duele en el pecho. Tzeaká es el grito que ya no cabe. Moisés pide que ambos sean escuchados. Y se dirige a Jodeá taalumot — el que conoce los secretos del corazón humano. Lo que no le contamos a nadie. Lo que ni nosotros mismos queremos ver.`,
+        nota: `Shavá es el llanto contenido, el que duele en el pecho. Tzeaká es el grito que ya no cabe. Moisés pide que ambos sean escuchados. Y se dirige a Jodeá taalumot — el que conoce los secretos del corazón humano. Lo que no le contamos a nadie. Lo que ni nosotros mismos queremos ver. Ese Dios es al que le rezamos.`,
       },
       {
         hebreo: `בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד`,
@@ -141,6 +147,12 @@ export const seccionesSlijot: SeccionSiddur[] = [
         espanol: `Y Tú eres justo en todo lo que viene sobre nosotros, porque verdad hiciste, y nosotros fuimos malvados.`,
         nota: `Este es el giro. La confesión no termina en la culpa. Termina en el reconocimiento de la justicia divina. No decimos "nos castigaste injustamente". Decimos "verdad hiciste". Lo que nos pasa, incluso lo difícil, es respuesta a nuestras acciones. No venganza. Consecuencia.`,
       },
+      {
+        hebreo: `אֲבָל אֲנַחְנוּ וַאֲבוֹתֵינוּ חָטָאנוּ בּוֹשַׁנוּ גָּנַבְנוּ דִּבַּרְנוּ שֶׁקֶר`,
+        fonetica: `Aval anajnu vaavoteinu jatánu, boshánu, ganavnu, dibarnu sheker.`,
+        espanol: `Pero nosotros y nuestros padres hemos pecado, hemos avergonzado, hemos robado, hemos hablado mentira.`,
+        nota: `Aval — pero. La conjunción del reconocimiento. No negamos nuestra historia. No negamos a nuestros padres. Reconocemos que la cadena del error es larga y que nosotros somos eslabón, no origen.`,
+      },
     ],
   },
   {
@@ -165,6 +177,12 @@ export const seccionesSlijot: SeccionSiddur[] = [
         fonetica: `Pokéd avon avot al banim veal bené vanim, al shileshim veal ribeim.`,
         espanol: `Visitador de la iniquidad de los padres sobre los hijos y sobre los hijos de los hijos, sobre la tercera y la cuarta generación.`,
         nota: `Este versículo asusta a muchos. Pero la Cábala lo interpreta de otra manera: no es castigo heredado. Es patrón heredado. El hijo que ve al padre mentir, aprende a mentir. El nieto que ve al abuelo beber, normaliza la bebida. Dios no castiga a los descendientes por los errores de los antepasados. Los antepasados, con sus errores, crean un campo en el que los descendientes crecen. Y ese campo puede ser fértil o venenoso. La Teshuvá de un hijo puede romper la cadena. Eso es lo que las Slijot hacen: romper la cadena. No con magia. Con conciencia. Con elección. Con el grito que dice "hasta aquí".`,
+      },
+      {
+        hebreo: `וְסָלַחְתָּ לַעֲוֹנֵנוּ וּלְחַטָּאתֵנוּ וּנְקַדְּשֵׁנוּ בְּכָל מִצְוֹתֶיךָ`,
+        fonetica: `Vesalajta laavoneinu ulejatáteinu, unekadéshenu bejol mitzvotejá.`,
+        espanol: `Y perdona nuestra iniquidad y nuestro pecado, y santifícanos con todos Tus mandamientos.`,
+        nota: `Vesalajta — y perdonarás. No "y olvidarás". Perdonar es distinto de olvidar. Perdonar es dejar de castigar. Olvidar es dejar de recordar. Dios perdona, pero no olvida. Porque el recuerdo es la lección. Y santifícanos — no solo límpianos. Santifícanos. La santidad no es ausencia de pecado. Es presencia de propósito.`,
       },
     ],
   },
@@ -197,6 +215,12 @@ export const seccionesSlijot: SeccionSiddur[] = [
         fonetica: `Utajadésh aleinu shaná tová umetuká.`,
         espanol: `Y renueves sobre nosotros un año bueno y dulce.`,
         nota: `Metuká — dulce. No solo bueno. Dulce. Que el año que viene tenga sabor. Que no sea solo supervivencia. Que haya momentos de miel. De risa. De encuentro. De paz.`,
+      },
+      {
+        hebreo: `וְכָל הָאוֹמֵר אָמֵן בְּכָל כֹּחוֹ פּוֹתְחִין לוֹ שַׁעֲרֵי הַגְּדֻלָּה`,
+        fonetica: `Vejol haomer amén bejol kojó, potjín lo shaarei hagdulá.`,
+        espanol: `Y a todo el que dice amén con toda su fuerza, se le abren las puertas de la grandeza.`,
+        nota: `Esta frase del Talmud en Shabat 119b cierra el seder con una promesa. El amén no es mero acuerdo. Es entrega total. Es decir "así sea" con todo el cuerpo, con toda la voz, con toda la intención. Cuando el amén es completo, las puertas se abren. No por mérito. Por sinceridad.`,
       },
       {
         hebreo: `אָמֵן`,
@@ -252,6 +276,12 @@ export const seccionesSlijot: SeccionSiddur[] = [
         fonetica: `Haim ani tzarij mikvé o tzom?`,
         espanol: `¿Necesito mikvé o ayuno para que esto funcione?`,
         nota: `No. La Teshuvá funciona con honestidad, no con agua ni con hambre. El mikvé y el ayuno son herramientas auxiliares. La herramienta principal es el corazón que dice verdad.`,
+      },
+      {
+        hebreo: `מָה אִם אֲנִי בֵּן אָנוּס?`,
+        fonetica: `Má im ani ben anús?`,
+        espanol: `¿Y si soy Benei Anusim?`,
+        nota: `Si eres descendiente de judíos conversos forzados, este seder es especialmente para ti. No necesitas permiso de tribunal. Necesitas volver. Enciende la vela. Abre la Torá. Di el Shemá. Tu sangre ya sabe el camino. Solo necesita que tu boca lo nombre.`,
       },
     ],
   },
