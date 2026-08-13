@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import {
   Flame,
   BookOpen,
@@ -219,65 +218,58 @@ export default function Biblioteca() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode="popLayout">
-            {recursosFiltrados.map((recurso) => (
-              <motion.div
-                key={recurso.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.2 }}
-                className="group relative bg-[#1c1917] border border-[#292524] rounded-xl p-6 hover:border-[#d4af37]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#d4af37]/5"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div
-                    className="p-3 rounded-lg bg-[#0a0908] text-[#d4af37]"
-                    style={{ color: recurso.badgeColor }}
-                  >
-                    {recurso.icono}
-                  </div>
-                  <span
-                    className="px-2 py-1 rounded-full text-xs font-medium bg-[#0a0908]"
-                    style={{ color: recurso.badgeColor }}
-                  >
-                    {recurso.badge}
-                  </span>
+          {recursosFiltrados.map((recurso) => (
+            <div
+              key={recurso.id}
+              className="group relative bg-[#1c1917] border border-[#292524] rounded-xl p-6 hover:border-[#d4af37]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#d4af37]/5"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div
+                  className="p-3 rounded-lg bg-[#0a0908] text-[#d4af37]"
+                  style={{ color: recurso.badgeColor }}
+                >
+                  {recurso.icono}
                 </div>
+                <span
+                  className="px-2 py-1 rounded-full text-xs font-medium bg-[#0a0908]"
+                  style={{ color: recurso.badgeColor }}
+                >
+                  {recurso.badge}
+                </span>
+              </div>
 
-                <h3 className="text-xl font-semibold text-[#e7e5e4] mb-2 group-hover:text-[#d4af37] transition-colors">
-                  {recurso.titulo}
-                </h3>
+              <h3 className="text-xl font-semibold text-[#e7e5e4] mb-2 group-hover:text-[#d4af37] transition-colors">
+                {recurso.titulo}
+              </h3>
 
-                <p className="text-[#a8a29e] text-sm mb-6 leading-relaxed">
-                  {recurso.descripcion}
-                </p>
+              <p className="text-[#a8a29e] text-sm mb-6 leading-relaxed">
+                {recurso.descripcion}
+              </p>
 
-                <div className="flex gap-2">
-                  {recurso.esInterno ? (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
-                      onClick={() => setRecursoSeleccionado(recurso)}
-                    >
-                      {recurso.botonTexto || 'Abrir'}
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
-                      onClick={() => setRecursoSeleccionado(recurso)}
-                    >
-                      <ExternalLink className="size-4 mr-2" />
-                      {recurso.botonTexto || 'Visitar'}
-                    </Button>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              <div className="flex gap-2">
+                {recurso.esInterno ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
+                    onClick={() => setRecursoSeleccionado(recurso)}
+                  >
+                    {recurso.botonTexto || 'Abrir'}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
+                    onClick={() => setRecursoSeleccionado(recurso)}
+                  >
+                    <ExternalLink className="size-4 mr-2" />
+                    {recurso.botonTexto || 'Visitar'}
+                  </Button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
 
         {recursosFiltrados.length === 0 && (
