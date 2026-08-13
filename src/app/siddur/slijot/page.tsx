@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { seccionesSlijot } from '@/data/slijot'
 
 export const metadata: Metadata = {
   title: 'Seder de Slijot · Siddur Comunitario',
@@ -31,40 +32,42 @@ export default function SlijotPage() {
         </p>
       </header>
 
-      {/* Aquí importa tu componente de vista o mapea las secciones directamente */}
-      {/* Ejemplo con mapeo directo: */}
-      {/*
-      import { seccionesSlijot } from '@/data/slijot'
-
-      {seccionesSlijot.map((seccion) => (
-        <section key={seccion.id} className="mb-12">
-          <h2 className="text-2xl font-bold text-amber-200 mb-2">{seccion.titulo}</h2>
-          {seccion.subtitulo && (
-            <p className="text-amber-200/50 mb-6">{seccion.subtitulo}</p>
-          )}
-          <div className="space-y-6">
-            {seccion.bloques.map((bloque, i) => (
-              <div key={i} className="border-l-2 border-amber-500/20 pl-4">
-                <p className="text-amber-100/90 text-lg leading-relaxed font-serif" dir="rtl">
-                  {bloque.hebreo}
-                </p>
-                <p className="text-amber-300/70 text-sm mt-1 italic">
-                  {bloque.fonetica}
-                </p>
-                <p className="text-amber-200/80 mt-2">
-                  {bloque.espanol}
-                </p>
-                {bloque.nota && (
-                  <p className="text-amber-200/40 text-sm mt-2 italic">
-                    {bloque.nota}
+      <div className="space-y-16">
+        {seccionesSlijot.map((seccion) => (
+          <section key={seccion.id} id={seccion.id}>
+            <h2 className="text-2xl font-bold text-amber-200 mb-2">
+              {seccion.titulo}
+            </h2>
+            {seccion.subtitulo && (
+              <p className="text-amber-200/50 mb-6">{seccion.subtitulo}</p>
+            )}
+            <div className="space-y-6">
+              {seccion.bloques.map((bloque, i) => (
+                <div
+                  key={i}
+                  className="border-l-2 border-amber-500/20 pl-4 py-2"
+                >
+                  <p
+                    className="text-amber-100/90 text-lg leading-relaxed font-serif"
+                    dir="rtl"
+                  >
+                    {bloque.hebreo}
                   </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      ))}
-      */}
+                  <p className="text-amber-300/70 text-sm mt-1 italic">
+                    {bloque.fonetica}
+                  </p>
+                  <p className="text-amber-200/80 mt-2">{bloque.espanol}</p>
+                  {bloque.nota && (
+                    <p className="text-amber-200/40 text-sm mt-3 italic leading-relaxed">
+                      {bloque.nota}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   )
 }
