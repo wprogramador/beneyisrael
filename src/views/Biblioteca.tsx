@@ -43,11 +43,22 @@ const recursos: Recurso[] = [
     id: 'seder-rosh-jodesh',
     titulo: 'Seder Rosh Jodesh',
     categoria: 'tefila',
-    descripcion: 'Seder para la noche de Rosh Jodesh: Yaaleh Veyavo, Birkat Halevaná, bendiciones del vino, reflexiones y Hallel. Hebreo, fonética y español.',
+    descripcion: 'Seder para la noche de Rosh Jodesh: Yaaleh Veyavo, reflexión sobre la luna oculta, bendiciones del vino y Hallel. Hebreo, fonética y español.',
     url: '/siddur/rosh-jodesh',
     icono: <Moon className="size-6" />,
     badge: 'Siddur',
     badgeColor: '#d4af37',
+    esInterno: true,
+  },
+  {
+    id: 'articulos-estudios',
+    titulo: 'Artículos y Estudios',
+    categoria: 'general',
+    descripcion: 'Reflexiones, estudios y enseñanzas de la comunidad Bene Israel sobre Torá, Cábala, festividades y vida espiritual.',
+    url: '/estudios',
+    icono: <BookText className="size-6" />,
+    badge: 'Estudios',
+    badgeColor: '#2d8a4e',
     esInterno: true,
   },
   {
@@ -233,7 +244,7 @@ export default function Biblioteca() {
                 </p>
                 <div className="inline-flex items-center gap-2 rounded-md bg-[#d4af37]/10 px-4 py-2 text-sm font-medium text-[#d4af37] border border-[#d4af37]/20 group-hover:bg-[#d4af37]/20 transition-colors">
                   {recurso.esInterno ? <BookOpen className="size-4" /> : <ExternalLink className="size-4" />}
-                  {recurso.esInterno ? 'Abir Siddur' : 'Abrir recurso'}
+                  {recurso.esInterno ? 'Abrir Siddur' : 'Abrir recurso'}
                 </div>
               </div>
             )

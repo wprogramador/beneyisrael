@@ -19,8 +19,8 @@ module.exports = {
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--destructive) / )",
+          foreground: "hsl(var(--destructive-foreground) / )",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -78,7 +78,31 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
       },
+      // ===== NUEVO: tema para artículos MDX =====
+      typography: {
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': '#d5cfc5',
+            '--tw-prose-headings': '#f5f0e6',
+            '--tw-prose-links': '#d4af37',
+            '--tw-prose-bold': '#f5f0e6',
+            '--tw-prose-counters': '#d4af37',
+            '--tw-prose-bullets': '#d4af37',
+            '--tw-prose-quotes': '#a89b8c',
+            '--tw-prose-quote-borders': '#d4af37',
+            '--tw-prose-captions': '#8a7e72',
+            '--tw-prose-code': '#f5f0e6',
+            '--tw-prose-pre-code': '#d5cfc5',
+            '--tw-prose-pre-bg': '#141009',
+            '--tw-prose-th-borders': 'rgba(212,175,55,0.3)',
+            '--tw-prose-td-borders': 'rgba(212,175,55,0.15)',
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"), // ← NUEVO
+  ],
 }
