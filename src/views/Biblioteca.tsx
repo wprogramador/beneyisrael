@@ -12,13 +12,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog'
 
 interface Recurso {
   id: string
@@ -111,8 +104,6 @@ const categorias = [
 export default function Biblioteca() {
   const [categoriaActiva, setCategoriaActiva] = useState('todos')
   const [busqueda, setBusqueda] = useState('')
-  const [recursoSeleccionado, setRecursoSeleccionado] =
-    useState<Recurso | null>(null)
 
   const recursosFiltrados = recursos.filter((recurso) => {
     const coincideCategoria =
@@ -200,9 +191,11 @@ export default function Biblioteca() {
                     variant="outline"
                     size="sm"
                     className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
-                    onClick={() => setRecursoSeleccionado(recurso)}
+                    asChild
                   >
-                    {recurso.botonTexto || 'Abrir'}
+                    <a href={recurso.url}>
+                      {recurso.botonTexto || 'Abrir'}
+                    </a>
                   </Button>
                 ) : (
                   <Button
@@ -245,62 +238,6 @@ export default function Biblioteca() {
           </div>
         )}
       </div>
-
-      <Dialog
-        open={!!recursoSeleccionado}
-        onOpenChange={() => setRecursoSeleccionado(null)}
-      >
-        <DialogContent className="bg-[#1c1917] border-[#292524] text-[#e7e5e4] max-w-2xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-[#d4af37] flex items-center gap-3">
-              {recursoSeleccionado?.icono}
-              {recursoSeleccionado?.titulo}
-            </DialogTitle>
-            <DialogDescription className="text-[#a8a29e]">
-              {recursoSeleccionado?.descripcion}
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span
-                className="px-3 py-1 rounded-full text-sm font-medium bg-[#0a0908]"
-                style={{ color: recursoSeleccionado?.badgeColor }}
-              >
-                {recursoSeleccionado?.badge}
-              </span>
-            </div>
-
-            <div className="bg-[#0a0908] rounded-lg p-4 border border-[#292524]">
-              <p className="text-sm text-[#a8a29e] mb-2">Enlace:</p>
-              <code className="text-sm text-[#d4af37] break-all">
-                {recursoSeleccionado?.url}
-              </code>
-            </div>
-
-            <div className="flex gap-3">
-              <Button
-                className="bg-[#d4af37] text-[#0a0908] hover:bg-[#b8941f]"
-                onClick={() => {
-                  if (recursoSeleccionado) {
-                    window.location.href = recursoSeleccionado.url
-                  }
-                }}
-              >
-                {recursoSeleccionado?.botonTexto || 'Abrir Recurso'}
-              </Button>
-
-              <Button
-                variant="outline"
-                className="border-[#44403c] text-[#a8a29e] hover:bg-[#292524]"
-                onClick={() => setRecursoSeleccionado(null)}
-              >
-                Cerrar
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
