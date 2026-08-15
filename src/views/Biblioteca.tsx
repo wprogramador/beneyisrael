@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import Navbar from '@/sections/Navbar'
 
 interface Recurso {
   id: string
@@ -116,7 +117,8 @@ export default function Biblioteca() {
 
   return (
     <div className="min-h-screen bg-[#0a0908] text-[#e7e5e4]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Navbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-[#d4af37] mb-4">
             Biblioteca

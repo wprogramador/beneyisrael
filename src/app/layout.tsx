@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import '@/index.css'
-import Navbar from '@/sections/Navbar'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import ScrollToTop from '@/components/ScrollToTop'
 
@@ -124,7 +123,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Navbar />
         {children}
         <WhatsAppFloat />
         <ScrollToTop />
