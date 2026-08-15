@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllArticulos, getArticuloBySlug } from '@/lib/articulos'
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
 import Link from 'next/link'
+import ShareButton from '@/components/ShareButton'
 
 export async function generateStaticParams() {
   const articulos = getAllArticulos()
@@ -31,6 +32,8 @@ export default async function ArticuloPage({
   const { slug } = await params
   const articulo = getArticuloBySlug(slug)
   if (!articulo) notFound()
+
+  const shareUrl = `https://teques.beneyisrael.com/estudios/${slug}`
 
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
@@ -87,6 +90,16 @@ export default async function ArticuloPage({
 
         <div className="prose prose-invert prose-gold max-w-none">
           <MDXRemote source={articulo.content} />
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <ShareButton
+            data={{
+              title: articulo.frontmatter.titulo,
+              text: articulo.frontmatter.resumen || '',
+              url: shareUrl,
+            }}
+          />
         </div>
 
         <div className="mt-16 border-t border-[#d4af37]/10 pt-8 text-center">
