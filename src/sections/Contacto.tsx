@@ -56,7 +56,7 @@ export default function Contacto() {
                   <Clock className="shrink-0 text-[#d4af37] mt-1" size={20} />
                   <div>
                     <p className="font-semibold text-foreground">Horarios</p>
-                    <p className="text-sm text-foreground/70">Shabbat: Viernes al atardecer<br/>Estudios: Consulta el calendario</p>
+                    <p className="text-sm text-foreground/70">Shabbat: sexto día atardecer<br/>Estudios: Consulta el calendario</p>
                   </div>
                 </div>
               </div>
