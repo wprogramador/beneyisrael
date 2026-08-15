@@ -7,10 +7,6 @@ import {
   Moon,
   Heart,
   BookText,
-  Languages,
-  Scroll,
-  BookMarked,
-  FileText,
   ExternalLink,
   Search,
 } from 'lucide-react'
@@ -102,54 +98,6 @@ const recursos: Recurso[] = [
     badgeColor: '#d4af37',
     esInterno: true,
     botonTexto: 'Ver Artículos',
-  },
-  {
-    id: 'tanaj-hebreo',
-    titulo: 'Tanaj en Hebreo',
-    categoria: 'estudio',
-    descripcion: 'Texto completo de la Biblia Hebrea (Tanaj) en hebreo original.',
-    url: 'https://www.tanach.us',
-    icono: <Languages className="size-6" />,
-    badge: 'Recurso Externo',
-    badgeColor: '#d4af37',
-    esInterno: false,
-    botonTexto: 'Visitar',
-  },
-  {
-    id: 'mishne-tora',
-    titulo: 'Mishné Torá',
-    categoria: 'estudio',
-    descripcion: 'Código de leyes de Maimónides (Rambam) en hebreo original.',
-    url: 'https://www.mechon-mamre.org/i/0.htm',
-    icono: <Scroll className="size-6" />,
-    badge: 'Recurso Externo',
-    badgeColor: '#d4af37',
-    esInterno: false,
-    botonTexto: 'Visitar',
-  },
-  {
-    id: 'shuljan-aruj',
-    titulo: 'Shulján Aruj',
-    categoria: 'estudio',
-    descripcion: 'Código de leyes judías de Yosef Caro en hebreo original.',
-    url: 'https://www.sefaria.org/Shulchan_Arukh',
-    icono: <BookMarked className="size-6" />,
-    badge: 'Recurso Externo',
-    badgeColor: '#d4af37',
-    esInterno: false,
-    botonTexto: 'Visitar',
-  },
-  {
-    id: 'guia-kashrut',
-    titulo: 'Guía de Kashrut',
-    categoria: 'halaja',
-    descripcion: 'Guía práctica sobre las leyes de Kashrut y alimentación judía.',
-    url: 'https://www.kashrut.com',
-    icono: <FileText className="size-6" />,
-    badge: 'Recurso Externo',
-    badgeColor: '#d4af37',
-    esInterno: false,
-    botonTexto: 'Visitar',
   },
 ]
 
@@ -261,10 +209,16 @@ export default function Biblioteca() {
                     variant="outline"
                     size="sm"
                     className="border-[#d4af37]/30 text-[#d4af37] hover:bg-[#d4af37]/10 hover:border-[#d4af37]/50"
-                    onClick={() => setRecursoSeleccionado(recurso)}
+                    asChild
                   >
-                    <ExternalLink className="size-4 mr-2" />
-                    {recurso.botonTexto || 'Visitar'}
+                    <a
+                      href={recurso.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="size-4 mr-2" />
+                      {recurso.botonTexto || 'Visitar'}
+                    </a>
                   </Button>
                 )}
               </div>
@@ -325,30 +279,16 @@ export default function Biblioteca() {
             </div>
 
             <div className="flex gap-3">
-              {recursoSeleccionado?.esInterno ? (
-                <Button
-                  className="bg-[#d4af37] text-[#0a0908] hover:bg-[#b8941f]"
-                  onClick={() => {
-                    if (recursoSeleccionado) {
-                      window.location.href = recursoSeleccionado.url
-                    }
-                  }}
-                >
-                  {recursoSeleccionado?.botonTexto || 'Abrir Recurso'}
-                </Button>
-              ) : (
-                <Button
-                  className="bg-[#d4af37] text-[#0a0908] hover:bg-[#b8941f]"
-                  onClick={() => {
-                    if (recursoSeleccionado) {
-                      window.open(recursoSeleccionado.url, '_blank')
-                    }
-                  }}
-                >
-                  <ExternalLink className="size-4 mr-2" />
-                  {recursoSeleccionado?.botonTexto || 'Visitar'}
-                </Button>
-              )}
+              <Button
+                className="bg-[#d4af37] text-[#0a0908] hover:bg-[#b8941f]"
+                onClick={() => {
+                  if (recursoSeleccionado) {
+                    window.location.href = recursoSeleccionado.url
+                  }
+                }}
+              >
+                {recursoSeleccionado?.botonTexto || 'Abrir Recurso'}
+              </Button>
 
               <Button
                 variant="outline"
