@@ -1,9 +1,12 @@
 import type { MetadataRoute } from 'next'
+import { getAllArticulos } from '@/lib/articulos'
 
 const BASE_URL = 'https://teques.beneyisrael.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const articulos = getAllArticulos()
+
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/`,
       lastModified: new Date(),
@@ -24,6 +27,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE_URL}/biblioteca`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/estudios`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -77,4 +86,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
   ]
+
+  const dynamicRoutes: MetadataRoute.Sitemap = articulos.map((articulo) => ({
+    url: `${BASE_URL}/estudios/${articulo.slug}`,
+    lastModified: new Date(articulo.frontmatter.fecha),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes, ...dynamicRoutes]
 }
