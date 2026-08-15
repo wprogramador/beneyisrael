@@ -4,6 +4,7 @@ import { getAllArticulos, getArticuloBySlug } from '@/lib/articulos'
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
 import Link from 'next/link'
 import ShareButton from '@/components/ShareButton'
+import Footer from '@/sections/Footer'
 
 export async function generateStaticParams() {
   const articulos = getAllArticulos()
@@ -92,6 +93,7 @@ export default async function ArticuloPage({
           <MDXRemote source={articulo.content} />
         </div>
 
+        {/* Botón compartir */}
         <div className="mt-12 flex justify-center">
           <ShareButton
             data={{
@@ -101,17 +103,10 @@ export default async function ArticuloPage({
             }}
           />
         </div>
-
-        <div className="mt-16 border-t border-[#d4af37]/10 pt-8 text-center">
-          <p className="text-xs text-[#8a7e72]">
-            © {new Date().getFullYear()} Centro de Estudios Hebraicos Bene
-            Israel — Los Teques, Venezuela
-          </p>
-          <p className="mt-1 text-xs text-[#8a7e72]/70">
-            Uso libre para estudio y difusión. No para venta.
-          </p>
-        </div>
       </article>
+
+      {/* ✅ FOOTER COMPLETO DEL HOME */}
+      <Footer />
     </div>
   )
 }
