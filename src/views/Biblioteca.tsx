@@ -46,7 +46,7 @@ const recursos: Recurso[] = [
     categoria: 'tefila',
     descripcion:
       'Orden de la oración matutina de Shabat con todas las bendiciones, lecturas y plegarias.',
-    url: '/siddur/shajarit',
+    url: '/siddur/shajarit-shabat',
     icono: <BookOpen className="size-6" />,
     badge: 'Siddur',
     badgeColor: '#d4af37',
