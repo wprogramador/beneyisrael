@@ -1,31 +1,50 @@
-'use client'
+"use client"
 
-import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
 import {
-  ChevronLeft, ChevronRight, CalendarDays, ArrowLeftRight, BookOpen, Sparkles,
-  Cake, Share2,
-} from 'lucide-react'
-import Navbar from '@/sections/Navbar'
-import Footer from '@/sections/Footer'
-import { useReveal } from '@/hooks/useReveal'
+  ChevronLeft,
+  ChevronRight,
+  CalendarDays,
+  ArrowLeftRight,
+  BookOpen,
+  Sparkles,
+  Cake,
+  Share2,
+} from "lucide-react"
+import Navbar from "@/sections/Navbar"
+import Footer from "@/sections/Footer"
+import { useReveal } from "@/hooks/useReveal"
 import {
-  gregorianToHebrew, hebrewToGregorian, jdFromGregorian, gregorianFromJd,
-  hebrewDayNumeral, formatHebrewDate, hebrewMonthOptions, daysInHebrewMonth,
-  monthsInHebrewYear, isHebrewLeapYear, hebrewMonthIndex, hebrewMonthNumberFromIndex,
+  gregorianToHebrew,
+  hebrewToGregorian,
+  jdFromGregorian,
+  gregorianFromJd,
+  hebrewDayNumeral,
+  formatHebrewDate,
+  hebrewMonthOptions,
+  daysInHebrewMonth,
+  monthsInHebrewYear,
+  isHebrewLeapYear,
+  hebrewMonthIndex,
+  hebrewMonthNumberFromIndex,
   type HebrewDate,
-} from '@/lib/hebrew'
+} from "@/lib/hebrew"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select"
 import {
-  useParasha, useEventosMes, useProximasMoedim, parashaDeSemana,
-  type EventoHebreo, type ParashaInfo,
-} from '@/lib/hebcal'
+  useParasha,
+  useEventosMes,
+  useProximasMoedim,
+  parashaDeSemana,
+  type EventoHebreo,
+  type ParashaInfo,
+} from "@/lib/hebcal"
 import {
   SightingRecord,
   calculateLunarCycles,
@@ -34,11 +53,32 @@ import {
   getSighting,
   fmtShort,
   fmtFull,
-} from '@/lib/lunarSighting'
+} from "@/lib/lunarSighting"
 
-const DIAS_SEMANA = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
-const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-const DIAS_ES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+const DIAS_SEMANA = ["Dom", "Lun", "Mar", "Mi\u00e9", "Jue", "Vie", "S\u00e1b"]
+const MESES_ES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+]
+const DIAS_ES = [
+  "domingo",
+  "lunes",
+  "martes",
+  "mi\u00e9rcoles",
+  "jueves",
+  "viernes",
+  "s\u00e1bado",
+]
 
 function fmtSecular(y: number, m: number, d: number): string {
   return `${d} de ${MESES_ES[m - 1]} de ${y}`
@@ -61,7 +101,11 @@ function TarjetaHoy() {
   const hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate())
   const fechaHebrea = new Date(hoy)
   if (esNoche) fechaHebrea.setDate(fechaHebrea.getDate() + 1)
-  const hebreo = gregorianToHebrew(fechaHebrea.getFullYear(), fechaHebrea.getMonth() + 1, fechaHebrea.getDate())
+  const hebreo = gregorianToHebrew(
+    fechaHebrea.getFullYear(),
+    fechaHebrea.getMonth() + 1,
+    fechaHebrea.getDate()
+  )
   const parasha = useParasha(hoy)
 
   return (
@@ -70,40 +114,53 @@ function TarjetaHoy() {
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 15% 20%, #d4af37 0, transparent 45%), radial-gradient(circle at 90% 85%, #d4af37 0, transparent 45%)',
+            "radial-gradient(circle at 15% 20%, #d4af37 0, transparent 45%), radial-gradient(circle at 90% 85%, #d4af37 0, transparent 45%)",
         }}
       />
-      <div className="relative grid md:grid-cols-2 gap-10">
+      <div className="relative grid gap-10 md:grid-cols-2">
         <div>
-          <p className="flex items-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
+          <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
             <CalendarDays size={17} /> Hoy
           </p>
-          <p className="mt-4 text-2xl md:text-3xl font-hebrew font-bold text-foreground capitalize">
+          <p className="mt-4 text-2xl font-bold capitalize text-foreground md:text-3xl">
             {fechaCompleta(hoy)}
           </p>
           <div className="mt-3 flex items-center gap-3">
-            <p className="font-hebrew text-3xl md:text-4xl text-[#d4af37]" dir="rtl" lang="he">
+            <p
+              className="font-hebrew text-3xl text-[#d4af37] md:text-4xl"
+              dir="rtl"
+              lang="he"
+            >
               {hebrewDayNumeral(hebreo.d)} {hebreo.monthNameHe} {hebreo.y}
             </p>
           </div>
           <p className="mt-1.5 text-foreground/70">{formatHebrewDate(hebreo)}</p>
           {esNoche && (
             <p className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 px-3 py-1 text-xs text-[#d4af37]">
-              🌙 El día hebreo comenzó al atardecer
+              🌙 El d\u00eda hebreo comenz\u00f3 al atardecer
             </p>
           )}
         </div>
-        <div className="md:border-l md:border-[#d4af37]/25 md:pl-10 flex flex-col justify-center">
-          <p className="flex items-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
-            <BookOpen size={17} /> Parashat Hashavúa
+        <div className="flex flex-col justify-center md:border-l md:border-[#d4af37]/25 md:pl-10">
+          <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
+            <BookOpen size={17} /> Parashat Hashav\u00faa
           </p>
-          <p className="mt-4 font-hebrew text-3xl md:text-4xl font-bold">
-            Parashat <span className="gold-gradient-text">{parasha.nombre}</span>
+          <p className="mt-4 font-hebrew text-3xl font-bold md:text-4xl">
+            Parashat{" "}
+            <span className="gold-gradient-text">{parasha.nombre}</span>
           </p>
-          <p className="mt-2 font-hebrew text-lg text-[#d4af37]/90" dir="rtl" lang="he">
+          <p
+            className="mt-2 font-hebrew text-lg text-[#d4af37]/90"
+            dir="rtl"
+            lang="he"
+          >
             {parasha.hebreo}
           </p>
-          {parasha.lectura && <p className="mt-1.5 text-sm text-foreground/60">{parasha.lectura}</p>}
+          {parasha.lectura && (
+            <p className="mt-1.5 text-sm text-foreground/60">
+              {parasha.lectura}
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -111,7 +168,15 @@ function TarjetaHoy() {
 }
 
 /* ===================== Vista MES ===================== */
-function VistaMes({ year, month, eventos }: { year: number; month: number; eventos: EventoHebreo[] }) {
+function VistaMes({
+  year,
+  month,
+  eventos,
+}: {
+  year: number
+  month: number
+  eventos: EventoHebreo[]
+}) {
   const hoy = new Date()
   const primerDia = new Date(year, month - 1, 1)
   const inicioJd = jdFromGregorian(year, month, 1) - primerDia.getDay()
@@ -127,63 +192,88 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
   const celdas = []
   for (let i = 0; i < 42; i++) {
     const g = gregorianFromJd(inicioJd + i)
-    const esHoy = g.y === hoy.getFullYear() && g.m === hoy.getMonth() + 1 && g.d === hoy.getDate()
+    const esHoy =
+      g.y === hoy.getFullYear() &&
+      g.m === hoy.getMonth() + 1 &&
+      g.d === hoy.getDate()
     const enMes = g.m === month
     const heb = gregorianToHebrew(g.y, g.m, g.d)
-    const iso = `${g.y}-${String(g.m).padStart(2, '0')}-${String(g.d).padStart(2, '0')}`
+    const iso = `${g.y}-${String(g.m).padStart(2, "0")}-${String(g.d).padStart(2, "0")}`
     const evs = eventosPorFecha[iso] || []
     const esRoshJodesh = heb.d === 1
 
     const gSig = gregorianFromJd(inicioJd + i + 1)
     const hebSig = gregorianToHebrew(gSig.y, gSig.m, gSig.d)
-    const isoSig = `${gSig.y}-${String(gSig.m).padStart(2, '0')}-${String(gSig.d).padStart(2, '0')}`
-    const evsSig = (eventosPorFecha[isoSig] || []).filter((e) => e.categoria !== 'parashat')
+    const isoSig = `${gSig.y}-${String(gSig.m).padStart(2, "0")}-${String(gSig.d).padStart(2, "0")}`
+    const evsSig = (eventosPorFecha[isoSig] || []).filter(
+      (e) => e.categoria !== "parashat"
+    )
     const nocheEspecial = evsSig.length > 0
 
     celdas.push(
       <div
         key={i}
-        className={`group relative min-h-[64px] sm:min-h-[86px] md:min-h-[108px] rounded-md sm:rounded-lg border p-1 sm:p-1.5 md:p-2 transition-colors ${
+        className={`group relative min-h-[64px] rounded-md border p-1 transition-colors sm:min-h-[86px] sm:rounded-lg sm:p-1.5 md:min-h-[108px] md:p-2 ${
           esHoy
-            ? 'border-[#d4af37] bg-[#d4af37]/15 shadow-lg shadow-[#d4af37]/10'
+            ? "border-[#d4af37] bg-[#d4af37]/15 shadow-lg shadow-[#d4af37]/10"
             : enMes
-              ? 'border-[#d4af37]/15 bg-[#141009] hover:border-[#d4af37]/50'
-              : 'border-transparent bg-transparent opacity-35'
+              ? "border-[#d4af37]/15 bg-[#141009] hover:border-[#d4af37]/50"
+              : "border-transparent bg-transparent opacity-35"
         }`}
         title={[
           formatHebrewDate(heb),
           ...evs.map((e) => e.titulo),
-          `Al atardecer comienza ${formatHebrewDate(hebSig)}${evsSig.length ? ` · ${evsSig.map((e) => e.titulo).join(', ')}` : ''}`,
+          `Al atardecer comienza ${formatHebrewDate(hebSig)}${
+            evsSig.length
+              ? ` \u00b7 ${evsSig.map((e) => e.titulo).join(", ")}`
+              : ""
+          }`,
         ]
           .filter(Boolean)
-          .join(' · ')}
+          .join(" \u00b7 ")}
       >
         <div className="flex items-start justify-between gap-0.5">
-          <span className={`text-xs sm:text-sm md:text-base font-semibold ${esHoy ? 'text-[#d4af37]' : 'text-foreground'}`}>
+          <span
+            className={`text-xs font-semibold sm:text-sm md:text-base ${
+              esHoy ? "text-[#d4af37]" : "text-foreground"
+            }`}
+          >
             {g.d}
           </span>
           <span className="flex items-center gap-0.5 sm:gap-1">
-            <span className="font-hebrew text-[10px] sm:text-xs md:text-sm text-[#d4af37]/70" dir="rtl" lang="he">
+            <span
+              className="font-hebrew text-[10px] text-[#d4af37]/70 sm:text-xs md:text-sm"
+              dir="rtl"
+              lang="he"
+            >
               {hebrewDayNumeral(heb.d)}
             </span>
           </span>
         </div>
         {(evs.length > 0 || esRoshJodesh) && (
-          <div className="mt-0.5 sm:mt-1 space-y-0.5">
+          <div className="mt-0.5 space-y-0.5 sm:mt-1">
             {esRoshJodesh && (
-              <p className="hidden sm:block text-[10px] md:text-[11px] leading-tight text-[#d4af37] font-medium">
+              <p className="hidden font-medium text-[10px] leading-tight text-[#d4af37] sm:block md:text-[11px]">
                 Rosh Jodesh {heb.monthName}
               </p>
             )}
-            <div className="sm:hidden flex gap-0.5 mt-0.5" aria-hidden="true">
-              {esRoshJodesh && <span className="h-1 w-1 rounded-full bg-[#d4af37]" />}
+            <div className="mt-0.5 flex gap-0.5 sm:hidden" aria-hidden="true">
+              {esRoshJodesh && (
+                <span className="h-1 w-1 rounded-full bg-[#d4af37]" />
+              )}
               {evs.slice(0, 2).map((_, j) => (
-                <span key={j} className="h-1 w-1 rounded-full bg-[#d4af37]/70" />
+                <span
+                  key={j}
+                  className="h-1 w-1 rounded-full bg-[#d4af37]/70"
+                />
               ))}
             </div>
-            <div className="hidden sm:block space-y-0.5">
+            <div className="hidden space-y-0.5 sm:block">
               {evs.slice(0, 2).map((e, j) => (
-                <p key={j} className="text-[10px] md:text-[11px] leading-tight text-foreground/70 truncate">
+                <p
+                  key={j}
+                  className="truncate text-[10px] leading-tight text-foreground/70 md:text-[11px]"
+                >
                   {e.titulo}
                 </p>
               ))}
@@ -192,16 +282,19 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
         )}
         {enMes && (
           <div
-            className={`mt-1 sm:mt-1.5 rounded px-0.5 sm:px-1 py-0.5 ${
-              nocheEspecial ? 'bg-[#d4af37]/15 border border-[#d4af37]/30 max-sm:hidden' : 'border-t border-[#d4af37]/10 max-sm:hidden'
+            className={`mt-1 rounded px-0.5 py-0.5 sm:mt-1.5 sm:px-1 ${
+              nocheEspecial
+                ? "border border-[#d4af37]/30 bg-[#d4af37]/15 max-sm:hidden"
+                : "border-t border-[#d4af37]/10 max-sm:hidden"
             }`}
           >
-            <p className="flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[9px] md:text-[10px] leading-tight text-[#d4af37]/90">
+            <p className="flex items-center gap-0.5 text-[8px] leading-tight text-[#d4af37]/90 sm:gap-1 sm:text-[9px] md:text-[10px]">
               <span aria-hidden="true">🌙→</span>
-              <span className="hidden md:inline">esta noche:</span>{hebrewDayNumeral(hebSig.d)}
+              <span className="hidden md:inline">esta noche:</span>
+              {hebrewDayNumeral(hebSig.d)}
             </p>
             {nocheEspecial && (
-              <p className="hidden sm:block text-[9px] md:text-[10px] text-foreground/50 mt-0.5 truncate">
+              <p className="mt-0.5 hidden truncate text-[9px] text-foreground/50 sm:block md:text-[10px]">
                 {evsSig[0].titulo}
               </p>
             )}
@@ -213,21 +306,34 @@ function VistaMes({ year, month, eventos }: { year: number; month: number; event
 
   return (
     <div>
-      <div className="grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2 mb-2">
+      <div className="mb-2 grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2">
         {DIAS_SEMANA.map((d, i) => (
-          <p key={d} className={`text-center text-[10px] sm:text-xs md:text-sm font-semibold tracking-wide uppercase ${i === 6 ? 'text-[#d4af37]' : 'text-foreground/60'}`}>
+          <p
+            key={d}
+            className={`text-center text-[10px] font-semibold uppercase tracking-wide sm:text-xs md:text-sm ${
+              i === 6 ? "text-[#d4af37]" : "text-foreground/60"
+            }`}
+          >
             <span className="sm:hidden">{d.charAt(0)}</span>
             <span className="hidden sm:inline">{d}</span>
           </p>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2">{celdas}</div>
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1.5 md:gap-2">
+        {celdas}
+      </div>
     </div>
   )
 }
 
 /* ===================== Vista SEMANA ===================== */
-function VistaSemana({ fechaBase, eventos }: { fechaBase: Date; eventos: EventoHebreo[] }) {
+function VistaSemana({
+  fechaBase,
+  eventos,
+}: {
+  fechaBase: Date
+  eventos: EventoHebreo[]
+}) {
   const inicio = new Date(fechaBase)
   inicio.setDate(inicio.getDate() - inicio.getDay())
   const hoy = new Date()
@@ -244,48 +350,79 @@ function VistaSemana({ fechaBase, eventos }: { fechaBase: Date; eventos: EventoH
   for (let i = 0; i < 7; i++) {
     const d = new Date(inicio)
     d.setDate(inicio.getDate() + i)
-    const heb = gregorianToHebrew(d.getFullYear(), d.getMonth() + 1, d.getDate())
+    const heb = gregorianToHebrew(
+      d.getFullYear(),
+      d.getMonth() + 1,
+      d.getDate()
+    )
     const esHoy = d.toDateString() === hoy.toDateString()
     const esShabat = i === 6
-    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
     const evs = eventosPorFecha[iso] || []
 
     dias.push(
       <div
         key={i}
-        className={`rounded-2xl border p-4 md:p-5 text-center transition-colors ${
+        className={`rounded-2xl border p-4 text-center transition-colors md:p-5 ${
           esHoy
-            ? 'border-[#d4af37] bg-[#d4af37]/15 shadow-lg shadow-[#d4af37]/10'
+            ? "border-[#d4af37] bg-[#d4af37]/15 shadow-lg shadow-[#d4af37]/10"
             : esShabat
-              ? 'border-[#d4af37]/40 bg-[#1a150d]'
-              : 'border-[#d4af37]/15 bg-[#141009]'
+              ? "border-[#d4af37]/40 bg-[#1a150d]"
+              : "border-[#d4af37]/15 bg-[#141009]"
         }`}
       >
-        <p className={`text-xs tracking-[0.2em] uppercase font-semibold ${esShabat ? 'text-[#d4af37]' : 'text-foreground/60'}`}>
+        <p
+          className={`text-xs font-semibold uppercase tracking-[0.2em] ${
+            esShabat ? "text-[#d4af37]" : "text-foreground/60"
+          }`}
+        >
           {DIAS_SEMANA[i]}
         </p>
-        <p className={`mt-2 text-2xl md:text-3xl font-bold font-hebrew ${esHoy ? 'text-[#d4af37]' : 'text-foreground'}`}>
+        <p
+          className={`mt-2 text-2xl font-bold font-hebrew md:text-3xl ${
+            esHoy ? "text-[#d4af37]" : "text-foreground"
+          }`}
+        >
           {d.getDate()}
         </p>
         <p className="text-xs text-foreground/50">{MESES_ES[d.getMonth()]}</p>
-        <p className="mt-2 font-hebrew text-lg text-[#d4af37]" dir="rtl" lang="he">
+        <p
+          className="mt-2 font-hebrew text-lg text-[#d4af37]"
+          dir="rtl"
+          lang="he"
+        >
           {hebrewDayNumeral(heb.d)}
         </p>
         <p className="text-[11px] text-foreground/50">{heb.monthName}</p>
-        {heb.d === 1 && <p className="mt-1.5 text-[11px] font-medium text-[#d4af37]">Rosh Jodesh</p>}
+        {heb.d === 1 && (
+          <p className="mt-1.5 text-[11px] font-medium text-[#d4af37]">
+            Rosh Jodesh
+          </p>
+        )}
         {evs.map((e, j) => (
-          <p key={j} className="mt-1.5 text-[11px] leading-snug text-foreground/70">{e.titulo}</p>
+          <p
+            key={j}
+            className="mt-1.5 text-[11px] leading-snug text-foreground/70"
+          >
+            {e.titulo}
+          </p>
         ))}
         {esShabat && <ParashaDelShabat fecha={d} />}
         {(() => {
           const dSig = new Date(d)
           dSig.setDate(d.getDate() + 1)
-          const hebSig = gregorianToHebrew(dSig.getFullYear(), dSig.getMonth() + 1, dSig.getDate())
+          const hebSig = gregorianToHebrew(
+            dSig.getFullYear(),
+            dSig.getMonth() + 1,
+            dSig.getDate()
+          )
           return (
             <div className="mt-3 border-t border-[#d4af37]/15 pt-2">
               <p className="flex items-center justify-center gap-1 text-[10px] text-[#d4af37]/80">
                 <span aria-hidden="true">🌙→</span> atardecer →
-                <span className="font-hebrew" dir="rtl" lang="he">{hebrewDayNumeral(hebSig.d)}</span>
+                <span className="font-hebrew" dir="rtl" lang="he">
+                  {hebrewDayNumeral(hebSig.d)}
+                </span>
               </p>
             </div>
           )
@@ -294,16 +431,30 @@ function VistaSemana({ fechaBase, eventos }: { fechaBase: Date; eventos: EventoH
     )
   }
 
-  return <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">{dias}</div>
+  return (
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+      {dias}
+    </div>
+  )
 }
 
 function ParashaDelShabat({ fecha }: { fecha: Date }) {
   const p = useParasha(fecha)
   return (
     <div className="mt-3 rounded-lg border border-[#d4af37]/30 bg-[#0c0a07] px-2 py-2">
-      <p className="text-[10px] uppercase tracking-wider text-[#d4af37]">Parashá</p>
-      <p className="text-xs font-semibold text-foreground mt-0.5">{p.nombre}</p>
-      <p className="font-hebrew text-sm text-[#d4af37]/90" dir="rtl" lang="he">{p.hebreo}</p>
+      <p className="text-[10px] uppercase tracking-wider text-[#d4af37]">
+        Parash\u00e1
+      </p>
+      <p className="mt-0.5 text-xs font-semibold text-foreground">
+        {p.nombre}
+      </p>
+      <p
+        className="font-hebrew text-sm text-[#d4af37]/90"
+        dir="rtl"
+        lang="he"
+      >
+        {p.hebreo}
+      </p>
     </div>
   )
 }
@@ -316,10 +467,21 @@ interface ResultadoNacimiento {
   anioProximo: number
 }
 
-function proximoCumpleHebreo(nac: HebrewDate): { fecha: Date; anio: number } {
+function proximoCumpleHebreo(nac: HebrewDate): {
+  fecha: Date
+  anio: number
+} {
   const hoy = new Date()
-  const hoyDia = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())
-  const hyHoy = gregorianToHebrew(hoy.getFullYear(), hoy.getMonth() + 1, hoy.getDate()).y
+  const hoyDia = new Date(
+    hoy.getFullYear(),
+    hoy.getMonth(),
+    hoy.getDate()
+  )
+  const hyHoy = gregorianToHebrew(
+    hoy.getFullYear(),
+    hoy.getMonth() + 1,
+    hoy.getDate()
+  ).y
 
   const calcular = (hy: number): Date => {
     let idx = hebrewMonthIndex(nac.y, nac.m)
@@ -341,10 +503,10 @@ function proximoCumpleHebreo(nac: HebrewDate): { fecha: Date; anio: number } {
 }
 
 const triggerCls =
-  'w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground hover:border-[#d4af37]/60 focus:border-[#d4af37] focus:ring-[#d4af37]/25 data-[placeholder]:text-foreground/45'
+  "w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground hover:border-[#d4af37]/60 focus:border-[#d4af37] focus:ring-[#d4af37]/25 data-[placeholder]:text-foreground/45"
 
 const contentCls =
-  'max-h-56 border-[#d4af37]/30 bg-[#141009] text-foreground shadow-xl'
+  "max-h-56 border-[#d4af37]/30 bg-[#141009] text-foreground shadow-xl"
 
 function CampoSelect({
   label,
@@ -360,8 +522,10 @@ function CampoSelect({
   options: { value: string; label: string }[]
 }) {
   return (
-    <label className="flex flex-col gap-1.5 text-left min-w-0">
-      <span className="text-[10px] tracking-[0.2em] uppercase text-[#d4af37]/80">{label}</span>
+    <label className="flex min-w-0 flex-col gap-1.5 text-left">
+      <span className="text-[10px] uppercase tracking-[0.2em] text-[#d4af37]/80">
+        {label}
+      </span>
       <Select value={value || undefined} onValueChange={onChange}>
         <SelectTrigger className={triggerCls}>
           <SelectValue placeholder={placeholder} />
@@ -410,12 +574,17 @@ function SelectoresFechaSecular({
   const maxDia = diasDelMesSecular(y, m)
   const anios = useMemo(() => {
     const lista: { value: string; label: string }[] = []
-    for (let a = anioMax; a >= anioMin; a--) lista.push({ value: String(a), label: String(a) })
+    for (let a = anioMax; a >= anioMin; a--)
+      lista.push({ value: String(a), label: String(a) })
     return lista
   }, [anioMin, anioMax])
 
   const dias = useMemo(
-    () => Array.from({ length: maxDia }, (_, i) => ({ value: String(i + 1), label: String(i + 1) })),
+    () =>
+      Array.from({ length: maxDia }, (_, i) => ({
+        value: String(i + 1),
+        label: String(i + 1),
+      })),
     [maxDia]
   )
 
@@ -434,21 +603,39 @@ function SelectoresFechaSecular({
   }, [maxDia, dia, onDia])
 
   return (
-    <div className="grid grid-cols-3 gap-2.5 flex-1 min-w-0">
-      <CampoSelect label="Día" value={dia} placeholder="…" onChange={onDia} options={dias} />
-      <CampoSelect label="Mes" value={mes} placeholder="…" onChange={onMes} options={meses} />
-      <CampoSelect label="Año" value={anio} placeholder="…" onChange={onAnio} options={anios} />
+    <div className="grid min-w-0 flex-1 grid-cols-3 gap-2.5">
+      <CampoSelect
+        label="D\u00eda"
+        value={dia}
+        placeholder="…"
+        onChange={onDia}
+        options={dias}
+      />
+      <CampoSelect
+        label="Mes"
+        value={mes}
+        placeholder="…"
+        onChange={onMes}
+        options={meses}
+      />
+      <CampoSelect
+        label="A\u00f1o"
+        value={anio}
+        placeholder="…"
+        onChange={onAnio}
+        options={anios}
+      />
     </div>
   )
 }
 
 function NacimientoHebreo() {
   const hoy = useMemo(() => new Date(), [])
-  const [dia, setDia] = useState('')
-  const [mes, setMes] = useState('')
-  const [anio, setAnio] = useState('')
+  const [dia, setDia] = useState("")
+  const [mes, setMes] = useState("")
+  const [anio, setAnio] = useState("")
   const [cargando, setCargando] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState("")
   const [res, setRes] = useState<ResultadoNacimiento | null>(null)
 
   const buscar = async () => {
@@ -456,7 +643,7 @@ function NacimientoHebreo() {
     const m = parseInt(mes, 10)
     const y = parseInt(anio, 10)
     if (!d || !m || !y) {
-      setError('Elige día, mes y año de nacimiento.')
+      setError("Elige d\u00eda, mes y a\u00f1o de nacimiento.")
       setRes(null)
       return
     }
@@ -468,11 +655,11 @@ function NacimientoHebreo() {
       y < 1900 ||
       candidata > hoy
     ) {
-      setError('Esa fecha no es válida. Revisa día, mes y año.')
+      setError("Esa fecha no es v\u00e1lida. Revisa d\u00eda, mes y a\u00f1o.")
       setRes(null)
       return
     }
-    setError('')
+    setError("")
     setCargando(true)
     try {
       const hebreo = gregorianToHebrew(y, m, d)
@@ -486,8 +673,17 @@ function NacimientoHebreo() {
 
   const compartir = () => {
     if (!res) return
-    const texto = `Mi cumpleaños hebreo es ${formatHebrewDate(res.hebreo)} (${hebrewDayNumeral(res.hebreo.d)} ${res.hebreo.monthNameHe} ${res.hebreo.y}) y nací en la semana de Parashat ${res.parasha.nombre}. Calculado en el Calendario Hebreo de Beit Midrash Bene Israel, Los Teques.`
-    window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank')
+    const texto = `Mi cumplea\u00f1os hebreo es ${formatHebrewDate(
+      res.hebreo
+    )} (${hebrewDayNumeral(res.hebreo.d)} ${
+      res.hebreo.monthNameHe
+    } ${res.hebreo.y}) y nac\u00ed en la semana de Parashat ${
+      res.parasha.nombre
+    }. Calculado en el Calendario Hebreo de Beit Midrash Bene Israel, Los Teques.`
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(texto)}`,
+      "_blank"
+    )
   }
 
   return (
@@ -496,21 +692,23 @@ function NacimientoHebreo() {
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 85% 15%, #d4af37 0, transparent 45%), radial-gradient(circle at 10% 90%, #d4af37 0, transparent 45%)',
+            "radial-gradient(circle at 85% 15%, #d4af37 0, transparent 45%), radial-gradient(circle at 10% 90%, #d4af37 0, transparent 45%)",
         }}
       />
-      <div className="relative text-center max-w-2xl mx-auto">
-        <p className="flex items-center justify-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
+      <div className="relative mx-auto max-w-2xl text-center">
+        <p className="flex items-center justify-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
           <Cake size={17} /> Tu fecha de nacimiento hebrea
         </p>
-        <h2 className="mt-3 font-hebrew text-2xl md:text-3xl font-bold">
-          ¿En qué fecha hebrea <span className="gold-gradient-text">naciste</span>?
+        <h2 className="mt-3 font-hebrew text-2xl font-bold md:text-3xl">
+          \u00bfEn qu\u00e9 fecha hebrea{" "}
+          <span className="gold-gradient-text">naciste</span>?
         </h2>
         <p className="mt-2 text-sm text-foreground/60">
-          Descubre tu cumpleaños hebreo y la parashá de la semana en que llegaste al mundo
+          Descubre tu cumplea\u00f1os hebreo y la parash\u00e1 de la semana en
+          que llegaste al mundo
         </p>
 
-        <div className="mt-7 flex flex-col sm:flex-row items-end justify-center gap-3 max-w-xl mx-auto">
+        <div className="mx-auto mt-7 flex max-w-xl flex-col items-end justify-center gap-3 sm:flex-row">
           <SelectoresFechaSecular
             dia={dia}
             mes={mes}
@@ -524,41 +722,69 @@ function NacimientoHebreo() {
           <button
             onClick={buscar}
             disabled={cargando}
-            className="w-full sm:w-auto bg-[#d4af37] text-[#14100a] font-semibold px-7 py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm disabled:opacity-60"
+            className="w-full rounded-md bg-[#d4af37] px-7 py-2.5 text-sm font-semibold text-[#14100a] transition-colors hover:bg-[#e9c65a] disabled:opacity-60 sm:w-auto"
           >
-            {cargando ? 'Buscando…' : 'Descubrir'}
+            {cargando ? "Buscando\u2026" : "Descubrir"}
           </button>
         </div>
-        {error && <p className="mt-3 text-center text-sm text-[#e08080]">{error}</p>}
+        {error && (
+          <p className="mt-3 text-center text-sm text-[#e08080]">{error}</p>
+        )}
 
         {res && (
-          <div className="mt-8 grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="mx-auto mt-8 grid max-w-4xl gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]">Tu cumpleaños hebreo</p>
-              <p className="mt-3 font-hebrew text-2xl text-[#d4af37]" dir="rtl" lang="he">
-                {hebrewDayNumeral(res.hebreo.d)} {res.hebreo.monthNameHe} {res.hebreo.y}
+              <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
+                Tu cumplea\u00f1os hebreo
               </p>
-              <p className="mt-1.5 text-sm text-foreground/80">{formatHebrewDate(res.hebreo)}</p>
+              <p
+                className="mt-3 font-hebrew text-2xl text-[#d4af37]"
+                dir="rtl"
+                lang="he"
+              >
+                {hebrewDayNumeral(res.hebreo.d)} {res.hebreo.monthNameHe}{" "}
+                {res.hebreo.y}
+              </p>
+              <p className="mt-1.5 text-sm text-foreground/80">
+                {formatHebrewDate(res.hebreo)}
+              </p>
             </div>
             <div className="rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]">Parashá de tu semana</p>
-              <p className="mt-3 font-hebrew text-2xl font-bold">
-                Parashat <span className="gold-gradient-text">{res.parasha.nombre}</span>
+              <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
+                Parash\u00e1 de tu semana
               </p>
-              <p className="mt-1 font-hebrew text-lg text-[#d4af37]/90" dir="rtl" lang="he">
+              <p className="mt-3 font-hebrew text-2xl font-bold">
+                Parashat{" "}
+                <span className="gold-gradient-text">
+                  {res.parasha.nombre}
+                </span>
+              </p>
+              <p
+                className="mt-1 font-hebrew text-lg text-[#d4af37]/90"
+                dir="rtl"
+                lang="he"
+              >
                 {res.parasha.hebreo}
               </p>
-              {res.parasha.lectura && <p className="mt-1 text-xs text-foreground/60">{res.parasha.lectura}</p>}
+              {res.parasha.lectura && (
+                <p className="mt-1 text-xs text-foreground/60">
+                  {res.parasha.lectura}
+                </p>
+              )}
             </div>
-            <div className="rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center flex flex-col">
-              <p className="text-xs tracking-[0.2em] uppercase text-[#d4af37]">Este año cae el</p>
+            <div className="flex flex-col rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
+                Este a\u00f1o cae el
+              </p>
               <p className="mt-3 font-hebrew text-xl font-bold capitalize">
                 {fechaCompleta(res.proximoCumple)}
               </p>
-              <p className="mt-1.5 text-xs text-foreground/60">año hebreo {res.anioProximo}</p>
+              <p className="mt-1.5 text-xs text-foreground/60">
+                a\u00f1o hebreo {res.anioProximo}
+              </p>
               <button
                 onClick={compartir}
-                className="mt-4 inline-flex items-center justify-center gap-2 self-center rounded-full border border-[#d4af37]/50 px-5 py-2 text-xs font-semibold text-[#d4af37] hover:bg-[#d4af37]/15 transition-colors"
+                className="mt-4 inline-flex items-center justify-center gap-2 self-center rounded-full border border-[#d4af37]/50 px-5 py-2 text-xs font-semibold text-[#d4af37] transition-colors hover:bg-[#d4af37]/15"
               >
                 <Share2 size={14} /> Compartir por WhatsApp
               </button>
@@ -586,11 +812,14 @@ function Conversor() {
   const [hDia, setHDia] = useState(String(hebreoHoy.d))
   const [hMes, setHMes] = useState(String(hebreoHoy.m))
   const [hAnio, setHAnio] = useState(String(hebreoHoy.y))
-  const [resH, setResH] = useState('')
+  const [resH, setResH] = useState("")
 
   const anioHeb = parseInt(hAnio, 10) || hebreoHoy.y
   const mesesHeb = hebrewMonthOptions(anioHeb)
-  const diasEnMes = daysInHebrewMonth(anioHeb, parseInt(hMes, 10) || 1)
+  const diasEnMes = daysInHebrewMonth(
+    anioHeb,
+    parseInt(hMes, 10) || 1
+  )
 
   useEffect(() => {
     const d = parseInt(hDia, 10)
@@ -600,13 +829,18 @@ function Conversor() {
   useEffect(() => {
     const m = parseInt(hMes, 10)
     if (!mesesHeb.some((o) => o.value === m)) {
-      setHMes(String(mesesHeb[Math.min(5, mesesHeb.length - 1)]?.value ?? 1))
+      setHMes(
+        String(
+          mesesHeb[Math.min(5, mesesHeb.length - 1)]?.value ?? 1
+        )
+      )
     }
   }, [anioHeb]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const aniosHeb = useMemo(() => {
     const lista: number[] = []
-    for (let y = hebreoHoy.y - 120; y <= hebreoHoy.y + 5; y++) lista.push(y)
+    for (let y = hebreoHoy.y - 120; y <= hebreoHoy.y + 5; y++)
+      lista.push(y)
     return lista
   }, [hebreoHoy.y])
 
@@ -633,33 +867,40 @@ function Conversor() {
     const y = parseInt(hAnio, 10)
     if (!d || !m || !y) return
     if (m < 1 || m > monthsInHebrewYear(y)) {
-      setResH(`El año ${y} no tiene ese mes.`)
+      setResH(`El a\u00f1o ${y} no tiene ese mes.`)
       return
     }
     const max = daysInHebrewMonth(y, m)
     if (d > max) {
-      setResH(`Ese mes solo tiene ${max} días en el año ${y}.`)
+      setResH(
+        `Ese mes solo tiene ${max} d\u00edas en el a\u00f1o ${y}.`
+      )
       return
     }
     const g = hebrewToGregorian(y, m, d)
     const fecha = new Date(g.y, g.m - 1, g.d)
-    setResH(`${DIAS_ES[fecha.getDay()]} ${fmtSecular(g.y, g.m, g.d)}`)
+    setResH(
+      `${DIAS_ES[fecha.getDay()]} ${fmtSecular(g.y, g.m, g.d)}`
+    )
   }
 
   return (
     <div className="reveal rounded-3xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] to-[#100d08] p-8 md:p-10">
       <div className="text-center">
-        <p className="flex items-center justify-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
+        <p className="flex items-center justify-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
           <ArrowLeftRight size={16} /> Conversor de fechas
         </p>
         <p className="mt-2 text-sm text-foreground/60">
-          Cumpleaños hebreos, aniversarios, planificación de festividades
+          Cumplea\u00f1os hebreos, aniversarios, planificaci\u00f3n de
+          festividades
         </p>
       </div>
 
-      <div className="mt-8 grid md:grid-cols-2 gap-8">
+      <div className="mt-8 grid gap-8 md:grid-cols-2">
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
-          <h3 className="font-hebrew text-lg font-bold text-foreground">Fecha secular → hebrea</h3>
+          <h3 className="font-hebrew text-lg font-bold text-foreground">
+            Fecha secular \u2192 hebrea
+          </h3>
           <div className="mt-4">
             <SelectoresFechaSecular
               dia={gDia}
@@ -674,31 +915,39 @@ function Conversor() {
           </div>
           <button
             onClick={convertirAHebreo}
-            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm"
+            className="mt-4 w-full rounded-md bg-[#d4af37] py-2.5 text-sm font-semibold text-[#14100a] transition-colors hover:bg-[#e9c65a]"
           >
             Convertir
           </button>
           {resG && (
             <div className="mt-4 rounded-xl border border-[#d4af37]/40 bg-[#d4af37]/10 px-4 py-3 text-center">
-              <p className="font-hebrew text-xl text-[#d4af37]" dir="rtl" lang="he">
+              <p
+                className="font-hebrew text-xl text-[#d4af37]"
+                dir="rtl"
+                lang="he"
+              >
                 {hebrewDayNumeral(resG.d)} {resG.monthNameHe} {resG.y}
               </p>
-              <p className="text-sm text-foreground/80 mt-1">{formatHebrewDate(resG)}</p>
+              <p className="mt-1 text-sm text-foreground/80">
+                {formatHebrewDate(resG)}
+              </p>
             </div>
           )}
         </div>
 
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
-          <h3 className="font-hebrew text-lg font-bold text-foreground">Fecha hebrea → secular</h3>
-          <div className="mt-4 grid grid-cols-3 gap-2.5 min-w-0">
+          <h3 className="font-hebrew text-lg font-bold text-foreground">
+            Fecha hebrea \u2192 secular
+          </h3>
+          <div className="mt-4 grid grid-cols-3 gap-2.5">
             <CampoSelect
-              label="Día"
+              label="D\u00eda"
               value={hDia}
               placeholder="…"
               onChange={setHDia}
               options={Array.from({ length: diasEnMes }, (_, i) => ({
                 value: String(i + 1),
-                label: `${i + 1} · ${hebrewDayNumeral(i + 1)}`,
+                label: `${i + 1} \u00b7 ${hebrewDayNumeral(i + 1)}`,
               }))}
             />
             <CampoSelect
@@ -706,25 +955,33 @@ function Conversor() {
               value={hMes}
               placeholder="…"
               onChange={setHMes}
-              options={mesesHeb.map((o) => ({ value: String(o.value), label: o.label }))}
+              options={mesesHeb.map((o) => ({
+                value: String(o.value),
+                label: o.label,
+              }))}
             />
             <CampoSelect
-              label="Año"
+              label="A\u00f1o"
               value={hAnio}
               placeholder="…"
               onChange={setHAnio}
-              options={aniosHeb.map((y) => ({ value: String(y), label: String(y) }))}
+              options={aniosHeb.map((y) => ({
+                value: String(y),
+                label: String(y),
+              }))}
             />
           </div>
           <button
             onClick={convertirASecular}
-            className="mt-4 w-full bg-[#d4af37] text-[#14100a] font-semibold py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm"
+            className="mt-4 w-full rounded-md bg-[#d4af37] py-2.5 text-sm font-semibold text-[#14100a] transition-colors hover:bg-[#e9c65a]"
           >
             Convertir
           </button>
           {resH && (
             <div className="mt-4 rounded-xl border border-[#d4af37]/40 bg-[#d4af37]/10 px-4 py-3 text-center">
-              <p className="text-foreground font-medium capitalize">{resH}</p>
+              <p className="font-medium capitalize text-foreground">
+                {resH}
+              </p>
             </div>
           )}
         </div>
@@ -737,10 +994,11 @@ function Conversor() {
 function PanelLunarObservacional() {
   const [sighting, setSighting] = useState<SightingRecord | null>(null)
   const [mostrarForm, setMostrarForm] = useState(false)
-  const [diaS, setDiaS] = useState('')
-  const [mesS, setMesS] = useState('')
-  const [anioS, setAnioS] = useState('')
-  const [photoUrl, setPhotoUrl] = useState('')
+  const [diaS, setDiaS] = useState("")
+  const [mesS, setMesS] = useState("")
+  const [anioS, setAnioS] = useState("")
+  const [photoUrl, setPhotoUrl] = useState("")
+  const [subiendo, setSubiendo] = useState(false)
 
   useEffect(() => {
     const hoy = new Date()
@@ -753,7 +1011,12 @@ function PanelLunarObservacional() {
     const m = parseInt(mesS, 10)
     const y = parseInt(anioS, 10)
     if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12) return
-    const nuevo: SightingRecord = { year: y, month: m, day: d, photoUrl: photoUrl || undefined }
+    const nuevo: SightingRecord = {
+      year: y,
+      month: m,
+      day: d,
+      photoUrl: photoUrl || undefined,
+    }
     saveSighting(nuevo)
     setSighting(nuevo)
     setMostrarForm(false)
@@ -768,34 +1031,40 @@ function PanelLunarObservacional() {
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 30% 30%, #d4af37 0, transparent 45%), radial-gradient(circle at 80% 70%, #d4af37 0, transparent 45%)',
+            "radial-gradient(circle at 30% 30%, #d4af37 0, transparent 45%), radial-gradient(circle at 80% 70%, #d4af37 0, transparent 45%)",
         }}
       />
       <div className="relative">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <h2 className="flex items-center gap-3 font-hebrew text-2xl md:text-3xl font-bold text-foreground">
-              <span className="text-3xl">🌙</span> Calendario Lunar Observacional
+            <h2 className="flex items-center gap-3 font-hebrew text-2xl font-bold text-foreground md:text-3xl">
+              <span className="text-3xl">🌙</span> Calendario Lunar
+              Observacional
             </h2>
             <p className="mt-1 text-sm text-foreground/60">
-              Avistamiento del primer filo → 4 ciclos de 7 días · Shabat lunar como información adicional
+              Avistamiento del primer filo \u2192 4 ciclos de 7 d\u00edas
+              \u00b7 Shabat lunar como informaci\u00f3n adicional
             </p>
           </div>
           {!mostrarForm && (
             <button
               onClick={() => setMostrarForm(true)}
-              className="px-5 py-2.5 rounded-lg bg-[#d4af37] text-[#0c0a07] text-sm font-semibold hover:bg-[#c49f2f] transition-colors"
+              className="rounded-lg bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#0c0a07] transition-colors hover:bg-[#c49f2f]"
             >
-              {sighting ? 'Editar avistamiento' : 'Confirmar avistamiento'}
+              {sighting
+                ? "Editar avistamiento"
+                : "Confirmar avistamiento"}
             </button>
           )}
         </div>
 
         {mostrarForm && (
-          <div className="rounded-xl border border-[#d4af37]/25 bg-[#141009] p-5 mb-6 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="mb-6 mt-6 space-y-4 rounded-xl border border-[#d4af37]/25 bg-[#141009] p-5">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div>
-                <label className="block text-[#d4af37] text-xs uppercase tracking-wider mb-1.5">Día</label>
+                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
+                  D\u00eda
+                </label>
                 <input
                   type="number"
                   min={1}
@@ -803,55 +1072,62 @@ function PanelLunarObservacional() {
                   value={diaS}
                   onChange={(e) => setDiaS(e.target.value)}
                   placeholder="13"
-                  className="w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
+                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
                 />
               </div>
               <div>
-                <label className="block text-[#d4af37] text-xs uppercase tracking-wider mb-1.5">Mes</label>
+                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
+                  Mes
+                </label>
                 <select
                   value={mesS}
                   onChange={(e) => setMesS(e.target.value)}
-                  className="w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
+                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
                 >
-                  <option value="">Selecciona…</option>
+                  <option value="">Selecciona\u2026</option>
                   {MESES_ES.map((m, i) => (
-                    <option key={i} value={String(i + 1)}>{m.charAt(0).toUpperCase() + m.slice(1)}</option>
+                    <option key={i} value={String(i + 1)}>
+                      {m.charAt(0).toUpperCase() + m.slice(1)}
+                    </option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-[#d4af37] text-xs uppercase tracking-wider mb-1.5">Año</label>
+                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
+                  A\u00f1o
+                </label>
                 <input
                   type="number"
                   value={anioS}
                   onChange={(e) => setAnioS(e.target.value)}
                   placeholder={String(hoy.getFullYear())}
-                  className="w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
+                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-[#d4af37] text-xs uppercase tracking-wider mb-1.5">
+              <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
                 URL de foto evidencia (opcional)
               </label>
               <input
                 type="text"
                 value={photoUrl}
                 onChange={(e) => setPhotoUrl(e.target.value)}
-                placeholder="/sightings/agosto-2026.jpg"
-                className="w-full h-11 rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
+                placeholder="https://res.cloudinary.com/.../sightings/agosto-2026.jpg"
+                className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
               />
             </div>
             <div className="flex gap-3">
               <button
                 onClick={confirmar}
-                className="px-5 py-2 rounded-lg bg-[#d4af37] text-[#0c0a07] text-sm font-semibold hover:bg-[#c49f2f] transition-colors"
+                disabled={subiendo}
+                className="rounded-lg bg-[#d4af37] px-5 py-2 text-sm font-semibold text-[#0c0a07] transition-colors hover:bg-[#c49f2f] disabled:opacity-60"
               >
-                ✅ Guardar avistamiento
+                {subiendo ? "Guardando\u2026" : "\u2705 Guardar avistamiento"}
               </button>
               <button
                 onClick={() => setMostrarForm(false)}
-                className="px-5 py-2 rounded-lg border border-[#d4af37]/30 text-[#a09070] text-sm hover:text-foreground transition-colors"
+                className="rounded-lg border border-[#d4af37]/30 px-5 py-2 text-sm text-[#a09070] transition-colors hover:text-foreground"
               >
                 Cancelar
               </button>
@@ -861,42 +1137,52 @@ function PanelLunarObservacional() {
 
         {sighting && cycles && (
           <div>
-            <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div className="mb-6 flex flex-wrap items-center gap-3">
               <div className="rounded-lg border border-[#d4af37]/30 bg-[#0c0a07] px-4 py-2">
-                <span className="text-[#a09070] text-xs uppercase">Primer filo confirmado</span>
-                <p className="text-foreground font-medium mt-0.5">
-                  {fmtFull(new Date(sighting.year, sighting.month - 1, sighting.day))}
+                <span className="text-xs uppercase text-[#a09070]">
+                  Primer filo confirmado
+                </span>
+                <p className="mt-0.5 font-medium text-foreground">
+                  {fmtFull(
+                    new Date(sighting.year, sighting.month - 1, sighting.day)
+                  )}
                 </p>
               </div>
               {sighting.photoUrl && (
                 <button
-                  onClick={() => { if (sighting.photoUrl) window.open(sighting.photoUrl, '_blank') }}
-                  className="inline-flex items-center gap-1.5 text-xs px-4 py-2 rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/10 transition-colors"
+                  onClick={() => {
+                    if (sighting.photoUrl)
+                      window.open(sighting.photoUrl, "_blank")
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#d4af37]/40 px-4 py-2 text-xs text-[#d4af37] transition-colors hover:bg-[#d4af37]/10"
                 >
-                  📸 Ver evidencia fotográfica
+                  📸 Ver evidencia fotogr\u00e1fica
                 </button>
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {cycles.map((c) => (
                 <div
                   key={c.cycleNum}
                   className="rounded-xl border border-[#d4af37]/20 bg-[#0c0a07] p-4 text-center"
                 >
-                  <div className="text-[#d4af37] text-xs uppercase tracking-wider font-semibold mb-1">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
                     Ciclo {c.cycleNum}
                   </div>
-                  <div className="text-[11px] text-[#a09070] mb-3 leading-tight">
+                  <div className="mb-3 text-[11px] leading-tight text-[#a09070]">
                     {c.phaseName}
                   </div>
                   <div className="text-sm font-medium text-foreground">
-                    {fmtShort(c.secularStart)} → {fmtShort(c.secularEnd)}
+                    {fmtShort(c.secularStart)} \u2192 {fmtShort(c.secularEnd)}
                   </div>
-                  <div className="mt-3 rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/30 px-3 py-2">
-                    <div className="text-[#d4af37] text-xs font-semibold">{c.shabatName}</div>
-                    <div className="text-[11px] text-[#e8e0d0] mt-0.5">
-                      {fmtShort(c.shabatStart)} noche → {fmtShort(c.shabatEnd)} tarde
+                  <div className="mt-3 rounded-lg border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-2">
+                    <div className="text-xs font-semibold text-[#d4af37]">
+                      {c.shabatName}
+                    </div>
+                    <div className="mt-0.5 text-[11px] text-[#e8e0d0]">
+                      {fmtShort(c.shabatStart)} noche \u2192{" "}
+                      {fmtShort(c.shabatEnd)} tarde
                     </div>
                   </div>
                 </div>
@@ -905,17 +1191,24 @@ function PanelLunarObservacional() {
 
             {/* Calendario visual del mes lunar */}
             <div className="mt-8">
-              <h3 className="text-[#d4af37] text-sm uppercase tracking-wider font-semibold mb-4">
-                Vista del mes lunar (30 días)
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#d4af37]">
+                Vista del mes lunar (30 d\u00edas)
               </h3>
               <div className="grid grid-cols-7 gap-1.5">
                 {DIAS_SEMANA.map((d) => (
-                  <div key={d} className="text-center text-[10px] uppercase text-[#d4af37]/70 py-1">
+                  <div
+                    key={d}
+                    className="py-1 text-center text-[10px] uppercase text-[#d4af37]/70"
+                  >
                     {d}
                   </div>
                 ))}
                 {(() => {
-                  const sightingDate = new Date(sighting.year, sighting.month - 1, sighting.day)
+                  const sightingDate = new Date(
+                    sighting.year,
+                    sighting.month - 1,
+                    sighting.day
+                  )
                   const firstDay = sightingDate.getDay()
                   const cells = []
                   for (let i = 0; i < firstDay; i++) {
@@ -927,28 +1220,47 @@ function PanelLunarObservacional() {
                     const cycleNum = Math.floor((day - 1) / 7)
                     const isShabat = day % 7 === 0
                     const phase = getLunarPhase(day)
-                    const isToday = d.toDateString() === new Date().toDateString()
+                    const isToday =
+                      d.toDateString() === new Date().toDateString()
 
-                    let bg = 'bg-[#0c0a07]'
-                    let border = 'border-[#d4af37]/10'
-                    if (isToday) { bg = 'bg-[#d4af37]/20'; border = 'border-[#d4af37]' }
-                    else if (isShabat) { bg = 'bg-[#d4af37]/8'; border = 'border-[#d4af37]/40' }
-                    else if (phase) { bg = 'bg-[#2a2015]'; border = 'border-[#d4af37]/25' }
+                    let bg = "bg-[#0c0a07]"
+                    let border = "border-[#d4af37]/10"
+                    if (isToday) {
+                      bg = "bg-[#d4af37]/20"
+                      border = "border-[#d4af37]"
+                    } else if (isShabat) {
+                      bg = "bg-[#d4af37]/8"
+                      border = "border-[#d4af37]/40"
+                    } else if (phase) {
+                      bg = "bg-[#2a2015]"
+                      border = "border-[#d4af37]/25"
+                    }
 
                     cells.push(
                       <div
                         key={day}
-                        className={`rounded-md border ${border} ${bg} p-2 text-center min-h-[72px] flex flex-col items-center justify-center`}
+                        className={`flex flex-col items-center justify-center rounded-md border ${border} ${bg} p-2 text-center min-h-[72px]`}
                       >
-                        <div className={`text-sm font-semibold ${isToday ? 'text-[#d4af37]' : 'text-foreground'}`}>
+                        <div
+                          className={`text-sm font-semibold ${
+                            isToday ? "text-[#d4af37]" : "text-foreground"
+                          }`}
+                        >
                           {day}
                         </div>
-                        <div className="text-[10px] text-[#a09070]">{d.getDate()}</div>
+                        <div className="text-[10px] text-[#a09070]">
+                          {d.getDate()}
+                        </div>
                         {phase && (
-                          <div className="text-lg mt-0.5" title={phase.name}>{phase.icon}</div>
+                          <div
+                            className="mt-0.5 text-lg"
+                            title={phase.name}
+                          >
+                            {phase.icon}
+                          </div>
                         )}
                         {isShabat && (
-                          <div className="text-[9px] text-[#d4af37] mt-0.5 font-semibold">
+                          <div className="mt-0.5 text-[9px] font-semibold text-[#d4af37]">
                             Shabat {cycleNum + 1}
                           </div>
                         )}
@@ -963,9 +1275,11 @@ function PanelLunarObservacional() {
         )}
 
         {!sighting && !mostrarForm && (
-          <div className="text-center py-10">
+          <div className="py-10 text-center">
             <p className="text-sm text-[#a09070]">
-              No hay avistamiento confirmado. Haz clic en "Confirmar avistamiento" para registrar el primer filo y calcular los 4 ciclos lunares del mes.
+              No hay avistamiento confirmado. Haz clic en "Confirmar
+              avistamiento" para registrar el primer filo y calcular los 4
+              ciclos lunares del mes.
             </p>
           </div>
         )}
@@ -974,12 +1288,15 @@ function PanelLunarObservacional() {
   )
 }
 
-/* ===================== Página ===================== */
+/* ===================== P\u00e1gina ===================== */
 export default function Calendario() {
   const ref = useReveal<HTMLDivElement>()
   const hoy = new Date()
-  const [vista, setVista] = useState<'mes' | 'semana'>('mes')
-  const [mesActual, setMesActual] = useState({ y: hoy.getFullYear(), m: hoy.getMonth() + 1 })
+  const [vista, setVista] = useState<"mes" | "semana">("mes")
+  const [mesActual, setMesActual] = useState({
+    y: hoy.getFullYear(),
+    m: hoy.getMonth() + 1,
+  })
   const [semanaBase, setSemanaBase] = useState<Date>(hoy)
 
   const eventosMes = useEventosMes(mesActual.y, mesActual.m)
@@ -987,9 +1304,16 @@ export default function Calendario() {
 
   const moverMes = (delta: number) => {
     setMesActual(({ y, m }) => {
-      let nm = m + delta, ny = y
-      if (nm > 12) { nm = 1; ny++ }
-      if (nm < 1) { nm = 12; ny-- }
+      let nm = m + delta,
+        ny = y
+      if (nm > 12) {
+        nm = 1
+        ny++
+      }
+      if (nm < 1) {
+        nm = 12
+        ny--
+      }
       return { y: ny, m: nm }
     })
   }
@@ -1007,23 +1331,30 @@ export default function Calendario() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-40 pb-12 md:pt-48 md:pb-16 overflow-hidden">
+        <section className="relative overflow-hidden pt-40 pb-12 md:pt-48 md:pb-16">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
               backgroundImage:
-                'radial-gradient(circle at 20% 20%, #d4af37 0, transparent 45%), radial-gradient(circle at 85% 80%, #d4af37 0, transparent 45%)',
+                "radial-gradient(circle at 20% 20%, #d4af37 0, transparent 45%), radial-gradient(circle at 85% 80%, #d4af37 0, transparent 45%)",
             }}
           />
           <div className="relative mx-auto max-w-4xl px-5 text-center">
-            <p className="hero-anim font-hebrew text-[#d4af37] text-xl md:text-2xl tracking-wide" dir="rtl" lang="he">
-              לוח השנה העברי
+            <p
+              className="hero-anim font-hebrew text-xl tracking-wide text-[#d4af37] md:text-2xl"
+              dir="rtl"
+              lang="he"
+            >
+              \u05dc\u05d5\u05d7 \u05d4\u05e9\u05e0\u05d4
+              \u05d4\u05e2\u05d1\u05e8\u05d9
             </p>
-            <h1 className="hero-anim hero-anim-1 font-hebrew text-4xl md:text-6xl font-bold mt-3 leading-tight">
-              Calendario <span className="gold-gradient-text">Hebreo</span>
+            <h1 className="hero-anim hero-anim-1 mt-3 font-hebrew text-4xl font-bold leading-tight md:text-6xl">
+              Calendario{" "}
+              <span className="gold-gradient-text">Hebreo</span>
             </h1>
-            <p className="hero-anim hero-anim-1 mt-3 text-sm tracking-[0.3em] uppercase text-foreground/60">
-              Fecha secular y hebrea · Parashat Hashavúa · Conversor
+            <p className="hero-anim hero-anim-1 mt-3 text-sm uppercase tracking-[0.3em] text-foreground/60">
+              Fecha secular y hebrea \u00b7 Parashat Hashav\u00faa \u00b7
+              Conversor
             </p>
           </div>
         </section>
@@ -1042,41 +1373,50 @@ export default function Calendario() {
         <section className="mx-auto max-w-6xl px-5 pb-14">
           <div className="reveal rounded-3xl border border-[#d4af37]/25 bg-[#100d08] p-5 md:p-8">
             {/* Controles */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+            <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => (vista === 'mes' ? moverMes(-1) : moverSemana(-1))}
+                  onClick={() =>
+                    vista === "mes" ? moverMes(-1) : moverSemana(-1)
+                  }
                   aria-label="Anterior"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/15 transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] transition-colors hover:bg-[#d4af37]/15"
                 >
                   <ChevronLeft size={19} />
                 </button>
-                <div className="text-center min-w-0 sm:min-w-[220px]">
-                  <p className="font-hebrew text-base sm:text-xl md:text-2xl font-bold capitalize leading-snug">
-                    {vista === 'mes'
+                <div className="min-w-0 text-center sm:min-w-[220px]">
+                  <p className="font-hebrew text-base font-bold capitalize leading-snug sm:text-xl md:text-2xl">
+                    {vista === "mes"
                       ? `${MESES_ES[mesActual.m - 1]} ${mesActual.y}`
-                      : `Semana del ${semanaBase.getDate()} de ${MESES_ES[semanaBase.getMonth()]}`}
+                      : `Semana del ${semanaBase.getDate()} de ${
+                          MESES_ES[semanaBase.getMonth()]
+                        }`}
                   </p>
-                  <p className="text-xs text-[#d4af37]/80 tracking-wide">
-                    {vista === 'mes' && `${mesHebreoRef.monthName} ${mesHebreoRef.y} · ${mesHebreoRef.monthNameHe}`}
+                  <p className="text-xs tracking-wide text-[#d4af37]/80">
+                    {vista === "mes" &&
+                      `${mesHebreoRef.monthName} ${mesHebreoRef.y} \u00b7 ${mesHebreoRef.monthNameHe}`}
                   </p>
                 </div>
                 <button
-                  onClick={() => (vista === 'mes' ? moverMes(1) : moverSemana(1))}
+                  onClick={() =>
+                    vista === "mes" ? moverMes(1) : moverSemana(1)
+                  }
                   aria-label="Siguiente"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37]/15 transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d4af37]/40 text-[#d4af37] transition-colors hover:bg-[#d4af37]/15"
                 >
                   <ChevronRight size={19} />
                 </button>
               </div>
 
-              <div className="flex rounded-full border border-[#d4af37]/40 overflow-hidden">
-                {(['mes', 'semana'] as const).map((v) => (
+              <div className="flex overflow-hidden rounded-full border border-[#d4af37]/40">
+                {(["mes", "semana"] as const).map((v) => (
                   <button
                     key={v}
                     onClick={() => setVista(v)}
                     className={`px-6 py-2 text-sm font-semibold capitalize transition-colors ${
-                      vista === v ? 'bg-[#d4af37] text-[#14100a]' : 'text-[#d4af37] hover:bg-[#d4af37]/10'
+                      vista === v
+                        ? "bg-[#d4af37] text-[#14100a]"
+                        : "text-[#d4af37] hover:bg-[#d4af37]/10"
                     }`}
                   >
                     {v}
@@ -1085,36 +1425,50 @@ export default function Calendario() {
               </div>
             </div>
 
-            {vista === 'mes' ? (
-              <VistaMes year={mesActual.y} month={mesActual.m} eventos={eventosMes} />
+            {vista === "mes" ? (
+              <VistaMes
+                year={mesActual.y}
+                month={mesActual.m}
+                eventos={eventosMes}
+              />
             ) : (
-              <VistaSemana fechaBase={semanaBase} eventos={eventosMes} />
+              <VistaSemana
+                fechaBase={semanaBase}
+                eventos={eventosMes}
+              />
             )}
           </div>
         </section>
 
-        {/* Próximas moedim + conversor */}
-        <section className="mx-auto max-w-6xl px-5 pb-24 md:pb-32 grid lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2 reveal rounded-2xl sm:rounded-3xl border border-[#d4af37]/25 bg-[#100d08] p-5 sm:p-8">
-            <p className="flex items-center gap-2 text-sm tracking-[0.25em] uppercase text-[#d4af37]">
-              <Sparkles size={16} /> Próximas festividades
+        {/* Pr\u00f3ximas moedim + conversor */}
+        <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-24 md:pb-32 lg:grid-cols-5">
+          <div className="reveal rounded-2xl border border-[#d4af37]/25 bg-[#100d08] p-5 sm:rounded-3xl sm:p-8 lg:col-span-2">
+            <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
+              <Sparkles size={16} /> Pr\u00f3ximas festividades
             </p>
             <ul className="mt-6 space-y-4">
               {proximas.length === 0 && (
-                <li className="text-sm text-foreground/50">Cargando festividades…</li>
+                <li className="text-sm text-foreground/50">
+                  Cargando festividades\u2026
+                </li>
               )}
               {proximas.map((p, i) => {
-                const [y, m, d] = p.fecha.split('-').map(Number)
+                const [y, m, d] = p.fecha.split("-").map(Number)
                 const heb = gregorianToHebrew(y, m, d)
                 return (
-                  <li key={i} className="flex items-start justify-between gap-3 border-b border-[#d4af37]/10 pb-3.5 last:border-0">
+                  <li
+                    key={i}
+                    className="flex items-start justify-between gap-3 border-b border-[#d4af37]/10 pb-3.5 last:border-0"
+                  >
                     <div>
-                      <p className="font-semibold text-foreground text-sm">{p.nombre}</p>
-                      <p className="text-xs text-[#d4af37]/80 mt-0.5">
+                      <p className="text-sm font-semibold text-foreground">
+                        {p.nombre}
+                      </p>
+                      <p className="mt-0.5 text-xs text-[#d4af37]/80">
                         {formatHebrewDate(heb)}
                       </p>
                     </div>
-                    <p className="text-xs text-foreground/60 whitespace-nowrap mt-0.5">
+                    <p className="mt-0.5 whitespace-nowrap text-xs text-foreground/60">
                       {d} {MESES_ES[m - 1].slice(0, 3)} {y}
                     </p>
                   </li>
@@ -1123,9 +1477,9 @@ export default function Calendario() {
             </ul>
             <Link
               href="/moedim"
-              className="mt-6 inline-block text-sm text-[#d4af37] hover:text-[#e9c65a] transition-colors"
+              className="mt-6 inline-block text-sm text-[#d4af37] transition-colors hover:text-[#e9c65a]"
             >
-              Conoce el significado de cada moed →
+              Conoce el significado de cada moed \u2192
             </Link>
           </div>
 
@@ -1134,7 +1488,7 @@ export default function Calendario() {
           </div>
         </section>
 
-        {/* Panel Lunar Observacional — NUEVO, separado del calendario híbrido */}
+        {/* Panel Lunar Observacional \u2014 separado del calendario h\u00edbrido */}
         <section className="mx-auto max-w-6xl px-5 pb-24 md:pb-32">
           <PanelLunarObservacional />
         </section>
