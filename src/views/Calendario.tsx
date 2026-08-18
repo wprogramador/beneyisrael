@@ -45,39 +45,14 @@ import {
   type EventoHebreo,
   type ParashaInfo,
 } from "@/lib/hebcal"
-import {
-  SightingRecord,
-  calculateLunarCycles,
-  getLunarPhase,
-  saveSighting,
-  getSighting,
-  fmtShort,
-  fmtFull,
-} from "@/lib/lunarSighting"
 
-const DIAS_SEMANA = ["Dom", "Lun", "Mar", "Mi\u00e9", "Jue", "Vie", "S\u00e1b"]
+const DIAS_SEMANA = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 const MESES_ES = [
-  "enero",
-  "febrero",
-  "marzo",
-  "abril",
-  "mayo",
-  "junio",
-  "julio",
-  "agosto",
-  "septiembre",
-  "octubre",
-  "noviembre",
-  "diciembre",
+  "enero", "febrero", "marzo", "abril", "mayo", "junio",
+  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
 ]
 const DIAS_ES = [
-  "domingo",
-  "lunes",
-  "martes",
-  "mi\u00e9rcoles",
-  "jueves",
-  "viernes",
-  "s\u00e1bado",
+  "domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado",
 ]
 
 function fmtSecular(y: number, m: number, d: number): string {
@@ -137,13 +112,13 @@ function TarjetaHoy() {
           <p className="mt-1.5 text-foreground/70">{formatHebrewDate(hebreo)}</p>
           {esNoche && (
             <p className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#d4af37]/40 bg-[#d4af37]/10 px-3 py-1 text-xs text-[#d4af37]">
-              🌙 El d\u00eda hebreo comenz\u00f3 al atardecer
+              🌙 El día hebreo comenzó al atardecer
             </p>
           )}
         </div>
         <div className="flex flex-col justify-center md:border-l md:border-[#d4af37]/25 md:pl-10">
           <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
-            <BookOpen size={17} /> Parashat Hashav\u00faa
+            <BookOpen size={17} /> Parashat Hashavúa
           </p>
           <p className="mt-4 font-hebrew text-3xl font-bold md:text-4xl">
             Parashat{" "}
@@ -225,12 +200,12 @@ function VistaMes({
           ...evs.map((e) => e.titulo),
           `Al atardecer comienza ${formatHebrewDate(hebSig)}${
             evsSig.length
-              ? ` \u00b7 ${evsSig.map((e) => e.titulo).join(", ")}`
+              ? ` · ${evsSig.map((e) => e.titulo).join(", ")}`
               : ""
           }`,
         ]
           .filter(Boolean)
-          .join(" \u00b7 ")}
+          .join(" · ")}
       >
         <div className="flex items-start justify-between gap-0.5">
           <span
@@ -289,7 +264,7 @@ function VistaMes({
             }`}
           >
             <p className="flex items-center gap-0.5 text-[8px] leading-tight text-[#d4af37]/90 sm:gap-1 sm:text-[9px] md:text-[10px]">
-              <span aria-hidden="true">🌙→</span>
+              <span aria-hidden="true">→</span>
               <span className="hidden md:inline">esta noche:</span>
               {hebrewDayNumeral(hebSig.d)}
             </p>
@@ -419,7 +394,7 @@ function VistaSemana({
           return (
             <div className="mt-3 border-t border-[#d4af37]/15 pt-2">
               <p className="flex items-center justify-center gap-1 text-[10px] text-[#d4af37]/80">
-                <span aria-hidden="true">🌙→</span> atardecer →
+                <span aria-hidden="true">→</span> atardecer →
                 <span className="font-hebrew" dir="rtl" lang="he">
                   {hebrewDayNumeral(hebSig.d)}
                 </span>
@@ -443,7 +418,7 @@ function ParashaDelShabat({ fecha }: { fecha: Date }) {
   return (
     <div className="mt-3 rounded-lg border border-[#d4af37]/30 bg-[#0c0a07] px-2 py-2">
       <p className="text-[10px] uppercase tracking-wider text-[#d4af37]">
-        Parash\u00e1
+        Parashá
       </p>
       <p className="mt-0.5 text-xs font-semibold text-foreground">
         {p.nombre}
@@ -605,7 +580,7 @@ function SelectoresFechaSecular({
   return (
     <div className="grid min-w-0 flex-1 grid-cols-3 gap-2.5">
       <CampoSelect
-        label="D\u00eda"
+        label="Día"
         value={dia}
         placeholder="…"
         onChange={onDia}
@@ -619,7 +594,7 @@ function SelectoresFechaSecular({
         options={meses}
       />
       <CampoSelect
-        label="A\u00f1o"
+        label="Año"
         value={anio}
         placeholder="…"
         onChange={onAnio}
@@ -643,7 +618,7 @@ function NacimientoHebreo() {
     const m = parseInt(mes, 10)
     const y = parseInt(anio, 10)
     if (!d || !m || !y) {
-      setError("Elige d\u00eda, mes y a\u00f1o de nacimiento.")
+      setError("Elige día, mes y año de nacimiento.")
       setRes(null)
       return
     }
@@ -655,7 +630,7 @@ function NacimientoHebreo() {
       y < 1900 ||
       candidata > hoy
     ) {
-      setError("Esa fecha no es v\u00e1lida. Revisa d\u00eda, mes y a\u00f1o.")
+      setError("Esa fecha no es válida. Revisa día, mes y año.")
       setRes(null)
       return
     }
@@ -673,11 +648,11 @@ function NacimientoHebreo() {
 
   const compartir = () => {
     if (!res) return
-    const texto = `Mi cumplea\u00f1os hebreo es ${formatHebrewDate(
+    const texto = `Mi cumpleaños hebreo es ${formatHebrewDate(
       res.hebreo
     )} (${hebrewDayNumeral(res.hebreo.d)} ${
       res.hebreo.monthNameHe
-    } ${res.hebreo.y}) y nac\u00ed en la semana de Parashat ${
+    } ${res.hebreo.y}) y nací en la semana de Parashat ${
       res.parasha.nombre
     }. Calculado en el Calendario Hebreo de Beit Midrash Bene Israel, Los Teques.`
     window.open(
@@ -700,11 +675,11 @@ function NacimientoHebreo() {
           <Cake size={17} /> Tu fecha de nacimiento hebrea
         </p>
         <h2 className="mt-3 font-hebrew text-2xl font-bold md:text-3xl">
-          \u00bfEn qu\u00e9 fecha hebrea{" "}
+          ¿En qué fecha hebrea{" "}
           <span className="gold-gradient-text">naciste</span>?
         </h2>
         <p className="mt-2 text-sm text-foreground/60">
-          Descubre tu cumplea\u00f1os hebreo y la parash\u00e1 de la semana en
+          Descubre tu cumpleaños hebreo y la parashá de la semana en
           que llegaste al mundo
         </p>
 
@@ -724,7 +699,7 @@ function NacimientoHebreo() {
             disabled={cargando}
             className="w-full rounded-md bg-[#d4af37] px-7 py-2.5 text-sm font-semibold text-[#14100a] transition-colors hover:bg-[#e9c65a] disabled:opacity-60 sm:w-auto"
           >
-            {cargando ? "Buscando\u2026" : "Descubrir"}
+            {cargando ? "Buscando…" : "Descubrir"}
           </button>
         </div>
         {error && (
@@ -735,7 +710,7 @@ function NacimientoHebreo() {
           <div className="mx-auto mt-8 grid max-w-4xl gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
               <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
-                Tu cumplea\u00f1os hebreo
+                Tu cumpleaños hebreo
               </p>
               <p
                 className="mt-3 font-hebrew text-2xl text-[#d4af37]"
@@ -751,7 +726,7 @@ function NacimientoHebreo() {
             </div>
             <div className="rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
               <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
-                Parash\u00e1 de tu semana
+                Parashá de tu semana
               </p>
               <p className="mt-3 font-hebrew text-2xl font-bold">
                 Parashat{" "}
@@ -774,13 +749,13 @@ function NacimientoHebreo() {
             </div>
             <div className="flex flex-col rounded-2xl border border-[#d4af37]/40 bg-[#d4af37]/10 p-6 text-center">
               <p className="text-xs uppercase tracking-[0.2em] text-[#d4af37]">
-                Este a\u00f1o cae el
+                Este año cae el
               </p>
               <p className="mt-3 font-hebrew text-xl font-bold capitalize">
                 {fechaCompleta(res.proximoCumple)}
               </p>
               <p className="mt-1.5 text-xs text-foreground/60">
-                a\u00f1o hebreo {res.anioProximo}
+                año hebreo {res.anioProximo}
               </p>
               <button
                 onClick={compartir}
@@ -867,13 +842,13 @@ function Conversor() {
     const y = parseInt(hAnio, 10)
     if (!d || !m || !y) return
     if (m < 1 || m > monthsInHebrewYear(y)) {
-      setResH(`El a\u00f1o ${y} no tiene ese mes.`)
+      setResH(`El año ${y} no tiene ese mes.`)
       return
     }
     const max = daysInHebrewMonth(y, m)
     if (d > max) {
       setResH(
-        `Ese mes solo tiene ${max} d\u00edas en el a\u00f1o ${y}.`
+        `Ese mes solo tiene ${max} días en el año ${y}.`
       )
       return
     }
@@ -891,7 +866,7 @@ function Conversor() {
           <ArrowLeftRight size={16} /> Conversor de fechas
         </p>
         <p className="mt-2 text-sm text-foreground/60">
-          Cumplea\u00f1os hebreos, aniversarios, planificaci\u00f3n de
+          Cumpleaños hebreos, aniversarios, planificación de
           festividades
         </p>
       </div>
@@ -899,7 +874,7 @@ function Conversor() {
       <div className="mt-8 grid gap-8 md:grid-cols-2">
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
           <h3 className="font-hebrew text-lg font-bold text-foreground">
-            Fecha secular \u2192 hebrea
+            Fecha secular → hebrea
           </h3>
           <div className="mt-4">
             <SelectoresFechaSecular
@@ -937,17 +912,17 @@ function Conversor() {
 
         <div className="rounded-2xl border border-[#d4af37]/20 bg-[#0c0a07] p-6">
           <h3 className="font-hebrew text-lg font-bold text-foreground">
-            Fecha hebrea \u2192 secular
+            Fecha hebrea → secular
           </h3>
           <div className="mt-4 grid grid-cols-3 gap-2.5">
             <CampoSelect
-              label="D\u00eda"
+              label="Día"
               value={hDia}
               placeholder="…"
               onChange={setHDia}
               options={Array.from({ length: diasEnMes }, (_, i) => ({
                 value: String(i + 1),
-                label: `${i + 1} \u00b7 ${hebrewDayNumeral(i + 1)}`,
+                label: `${i + 1} · ${hebrewDayNumeral(i + 1)}`,
               }))}
             />
             <CampoSelect
@@ -961,7 +936,7 @@ function Conversor() {
               }))}
             />
             <CampoSelect
-              label="A\u00f1o"
+              label="Año"
               value={hAnio}
               placeholder="…"
               onChange={setHAnio}
@@ -990,305 +965,7 @@ function Conversor() {
   )
 }
 
-/* ===================== Panel Lunar Observacional ===================== */
-function PanelLunarObservacional() {
-  const [sighting, setSighting] = useState<SightingRecord | null>(null)
-  const [mostrarForm, setMostrarForm] = useState(false)
-  const [diaS, setDiaS] = useState("")
-  const [mesS, setMesS] = useState("")
-  const [anioS, setAnioS] = useState("")
-  const [photoUrl, setPhotoUrl] = useState("")
-  const [subiendo, setSubiendo] = useState(false)
-
-  useEffect(() => {
-    const hoy = new Date()
-    const s = getSighting(hoy.getFullYear(), hoy.getMonth() + 1)
-    setSighting(s)
-  }, [])
-
-  const confirmar = () => {
-    const d = parseInt(diaS, 10)
-    const m = parseInt(mesS, 10)
-    const y = parseInt(anioS, 10)
-    if (!d || !m || !y || d < 1 || d > 31 || m < 1 || m > 12) return
-    const nuevo: SightingRecord = {
-      year: y,
-      month: m,
-      day: d,
-      photoUrl: photoUrl || undefined,
-    }
-    saveSighting(nuevo)
-    setSighting(nuevo)
-    setMostrarForm(false)
-  }
-
-  const cycles = sighting ? calculateLunarCycles(sighting) : null
-  const hoy = new Date()
-
-  return (
-    <div className="reveal relative overflow-hidden rounded-3xl border border-[#d4af37]/30 bg-gradient-to-br from-[#1a150d] via-[#141009] to-[#0c0a07] p-8 md:p-12">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 30% 30%, #d4af37 0, transparent 45%), radial-gradient(circle at 80% 70%, #d4af37 0, transparent 45%)",
-        }}
-      />
-      <div className="relative">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <div>
-            <h2 className="flex items-center gap-3 font-hebrew text-2xl font-bold text-foreground md:text-3xl">
-              <span className="text-3xl">🌙</span> Calendario Lunar
-              Observacional
-            </h2>
-            <p className="mt-1 text-sm text-foreground/60">
-              Avistamiento del primer filo \u2192 4 ciclos de 7 d\u00edas
-              \u00b7 Shabat lunar como informaci\u00f3n adicional
-            </p>
-          </div>
-          {!mostrarForm && (
-            <button
-              onClick={() => setMostrarForm(true)}
-              className="rounded-lg bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#0c0a07] transition-colors hover:bg-[#c49f2f]"
-            >
-              {sighting
-                ? "Editar avistamiento"
-                : "Confirmar avistamiento"}
-            </button>
-          )}
-        </div>
-
-        {mostrarForm && (
-          <div className="mb-6 mt-6 space-y-4 rounded-xl border border-[#d4af37]/25 bg-[#141009] p-5">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div>
-                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
-                  D\u00eda
-                </label>
-                <input
-                  type="number"
-                  min={1}
-                  max={31}
-                  value={diaS}
-                  onChange={(e) => setDiaS(e.target.value)}
-                  placeholder="13"
-                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
-                />
-              </div>
-              <div>
-                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
-                  Mes
-                </label>
-                <select
-                  value={mesS}
-                  onChange={(e) => setMesS(e.target.value)}
-                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
-                >
-                  <option value="">Selecciona\u2026</option>
-                  {MESES_ES.map((m, i) => (
-                    <option key={i} value={String(i + 1)}>
-                      {m.charAt(0).toUpperCase() + m.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
-                  A\u00f1o
-                </label>
-                <input
-                  type="number"
-                  value={anioS}
-                  onChange={(e) => setAnioS(e.target.value)}
-                  placeholder={String(hoy.getFullYear())}
-                  className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="mb-1.5 block text-xs uppercase tracking-wider text-[#d4af37]">
-                URL de foto evidencia (opcional)
-              </label>
-              <input
-                type="text"
-                value={photoUrl}
-                onChange={(e) => setPhotoUrl(e.target.value)}
-                placeholder="https://res.cloudinary.com/.../sightings/agosto-2026.jpg"
-                className="h-11 w-full rounded-lg border border-[#d4af37]/25 bg-[#0c0a07] px-3 text-foreground placeholder:text-foreground/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]/25"
-              />
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={confirmar}
-                disabled={subiendo}
-                className="rounded-lg bg-[#d4af37] px-5 py-2 text-sm font-semibold text-[#0c0a07] transition-colors hover:bg-[#c49f2f] disabled:opacity-60"
-              >
-                {subiendo ? "Guardando\u2026" : "\u2705 Guardar avistamiento"}
-              </button>
-              <button
-                onClick={() => setMostrarForm(false)}
-                className="rounded-lg border border-[#d4af37]/30 px-5 py-2 text-sm text-[#a09070] transition-colors hover:text-foreground"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        )}
-
-        {sighting && cycles && (
-          <div>
-            <div className="mb-6 flex flex-wrap items-center gap-3">
-              <div className="rounded-lg border border-[#d4af37]/30 bg-[#0c0a07] px-4 py-2">
-                <span className="text-xs uppercase text-[#a09070]">
-                  Primer filo confirmado
-                </span>
-                <p className="mt-0.5 font-medium text-foreground">
-                  {fmtFull(
-                    new Date(sighting.year, sighting.month - 1, sighting.day)
-                  )}
-                </p>
-              </div>
-              {sighting.photoUrl && (
-                <button
-                  onClick={() => {
-                    if (sighting.photoUrl)
-                      window.open(sighting.photoUrl, "_blank")
-                  }}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[#d4af37]/40 px-4 py-2 text-xs text-[#d4af37] transition-colors hover:bg-[#d4af37]/10"
-                >
-                  📸 Ver evidencia fotogr\u00e1fica
-                </button>
-              )}
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {cycles.map((c) => (
-                <div
-                  key={c.cycleNum}
-                  className="rounded-xl border border-[#d4af37]/20 bg-[#0c0a07] p-4 text-center"
-                >
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
-                    Ciclo {c.cycleNum}
-                  </div>
-                  <div className="mb-3 text-[11px] leading-tight text-[#a09070]">
-                    {c.phaseName}
-                  </div>
-                  <div className="text-sm font-medium text-foreground">
-                    {fmtShort(c.secularStart)} \u2192 {fmtShort(c.secularEnd)}
-                  </div>
-                  <div className="mt-3 rounded-lg border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-2">
-                    <div className="text-xs font-semibold text-[#d4af37]">
-                      {c.shabatName}
-                    </div>
-                    <div className="mt-0.5 text-[11px] text-[#e8e0d0]">
-                      {fmtShort(c.shabatStart)} noche \u2192{" "}
-                      {fmtShort(c.shabatEnd)} tarde
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Calendario visual del mes lunar */}
-            <div className="mt-8">
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#d4af37]">
-                Vista del mes lunar (30 d\u00edas)
-              </h3>
-              <div className="grid grid-cols-7 gap-1.5">
-                {DIAS_SEMANA.map((d) => (
-                  <div
-                    key={d}
-                    className="py-1 text-center text-[10px] uppercase text-[#d4af37]/70"
-                  >
-                    {d}
-                  </div>
-                ))}
-                {(() => {
-                  const sightingDate = new Date(
-                    sighting.year,
-                    sighting.month - 1,
-                    sighting.day
-                  )
-                  const firstDay = sightingDate.getDay()
-                  const cells = []
-                  for (let i = 0; i < firstDay; i++) {
-                    cells.push(<div key={`empty-${i}`} className="p-2" />)
-                  }
-                  for (let day = 1; day <= 30; day++) {
-                    const d = new Date(sightingDate)
-                    d.setDate(d.getDate() + day - 1)
-                    const cycleNum = Math.floor((day - 1) / 7)
-                    const isShabat = day % 7 === 0
-                    const phase = getLunarPhase(day)
-                    const isToday =
-                      d.toDateString() === new Date().toDateString()
-
-                    let bg = "bg-[#0c0a07]"
-                    let border = "border-[#d4af37]/10"
-                    if (isToday) {
-                      bg = "bg-[#d4af37]/20"
-                      border = "border-[#d4af37]"
-                    } else if (isShabat) {
-                      bg = "bg-[#d4af37]/8"
-                      border = "border-[#d4af37]/40"
-                    } else if (phase) {
-                      bg = "bg-[#2a2015]"
-                      border = "border-[#d4af37]/25"
-                    }
-
-                    cells.push(
-                      <div
-                        key={day}
-                        className={`flex flex-col items-center justify-center rounded-md border ${border} ${bg} p-2 text-center min-h-[72px]`}
-                      >
-                        <div
-                          className={`text-sm font-semibold ${
-                            isToday ? "text-[#d4af37]" : "text-foreground"
-                          }`}
-                        >
-                          {day}
-                        </div>
-                        <div className="text-[10px] text-[#a09070]">
-                          {d.getDate()}
-                        </div>
-                        {phase && (
-                          <div
-                            className="mt-0.5 text-lg"
-                            title={phase.name}
-                          >
-                            {phase.icon}
-                          </div>
-                        )}
-                        {isShabat && (
-                          <div className="mt-0.5 text-[9px] font-semibold text-[#d4af37]">
-                            Shabat {cycleNum + 1}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  }
-                  return cells
-                })()}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!sighting && !mostrarForm && (
-          <div className="py-10 text-center">
-            <p className="text-sm text-[#a09070]">
-              No hay avistamiento confirmado. Haz clic en "Confirmar
-              avistamiento" para registrar el primer filo y calcular los 4
-              ciclos lunares del mes.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
-/* ===================== P\u00e1gina ===================== */
+/* ===================== Página ===================== */
 export default function Calendario() {
   const ref = useReveal<HTMLDivElement>()
   const hoy = new Date()
@@ -1345,16 +1022,14 @@ export default function Calendario() {
               dir="rtl"
               lang="he"
             >
-              \u05dc\u05d5\u05d7 \u05d4\u05e9\u05e0\u05d4
-              \u05d4\u05e2\u05d1\u05e8\u05d9
+              לוח השנה העברי
             </p>
             <h1 className="hero-anim hero-anim-1 mt-3 font-hebrew text-4xl font-bold leading-tight md:text-6xl">
               Calendario{" "}
               <span className="gold-gradient-text">Hebreo</span>
             </h1>
             <p className="hero-anim hero-anim-1 mt-3 text-sm uppercase tracking-[0.3em] text-foreground/60">
-              Fecha secular y hebrea \u00b7 Parashat Hashav\u00faa \u00b7
-              Conversor
+              Fecha secular y hebrea · Parashat Hashavúa · Conversor
             </p>
           </div>
         </section>
@@ -1394,7 +1069,7 @@ export default function Calendario() {
                   </p>
                   <p className="text-xs tracking-wide text-[#d4af37]/80">
                     {vista === "mes" &&
-                      `${mesHebreoRef.monthName} ${mesHebreoRef.y} \u00b7 ${mesHebreoRef.monthNameHe}`}
+                      `${mesHebreoRef.monthName} ${mesHebreoRef.y} · ${mesHebreoRef.monthNameHe}`}
                   </p>
                 </div>
                 <button
@@ -1440,16 +1115,16 @@ export default function Calendario() {
           </div>
         </section>
 
-        {/* Pr\u00f3ximas moedim + conversor */}
+        {/* Próximas moedim + conversor */}
         <section className="mx-auto grid max-w-6xl gap-8 px-5 pb-24 md:pb-32 lg:grid-cols-5">
           <div className="reveal rounded-2xl border border-[#d4af37]/25 bg-[#100d08] p-5 sm:rounded-3xl sm:p-8 lg:col-span-2">
             <p className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-[#d4af37]">
-              <Sparkles size={16} /> Pr\u00f3ximas festividades
+              <Sparkles size={16} /> Próximas festividades
             </p>
             <ul className="mt-6 space-y-4">
               {proximas.length === 0 && (
                 <li className="text-sm text-foreground/50">
-                  Cargando festividades\u2026
+                  Cargando festividades…
                 </li>
               )}
               {proximas.map((p, i) => {
@@ -1479,18 +1154,13 @@ export default function Calendario() {
               href="/moedim"
               className="mt-6 inline-block text-sm text-[#d4af37] transition-colors hover:text-[#e9c65a]"
             >
-              Conoce el significado de cada moed \u2192
+              Conoce el significado de cada moed →
             </Link>
           </div>
 
           <div className="lg:col-span-3">
             <Conversor />
           </div>
-        </section>
-
-        {/* Panel Lunar Observacional \u2014 separado del calendario h\u00edbrido */}
-        <section className="mx-auto max-w-6xl px-5 pb-24 md:pb-32">
-          <PanelLunarObservacional />
         </section>
       </main>
       <Footer />
