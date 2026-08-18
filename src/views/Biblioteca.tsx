@@ -9,6 +9,7 @@ import {
   BookText,
   ExternalLink,
   Search,
+  Sunrise,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,6 +29,19 @@ interface Recurso {
 }
 
 const recursos: Recurso[] = [
+  {
+    id: 'birkot-hashajar',
+    titulo: 'Birkot Hashajar',
+    categoria: 'tefila',
+    descripcion:
+      'Bendiciones de la mañana con texto hebreo, fonética sefardí y español. Modé Ani, Elohai Neshama, Asher Yatzar, Netilat Yadayim y todas las bendiciones matutinas con explicaciones detalladas.',
+    url: '/siddur/birkot-hashajar',
+    icono: <Sunrise className="size-6" />,
+    badge: 'Siddur',
+    badgeColor: '#d4af37',
+    esInterno: true,
+    botonTexto: 'Abrir Siddur',
+  },
   {
     id: 'kabalat-shabat',
     titulo: 'Kabalat Shabat',
