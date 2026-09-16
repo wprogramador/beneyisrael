@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Home from '@/views/Home'
+import { Analytics } from "@vercel/analytics/next"
+
 
 export const metadata: Metadata = {
   title: 'Centro de Estudios Hebreos · Los Teques',
