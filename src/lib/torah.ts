@@ -103,3 +103,22 @@ export function summarizeBooks(chapters: Chapter[]): BookSummary[] {
     }
   }).filter((b) => b.chapters > 0)
 }
+
+/** Mapa de nombres de libros en las citas de lectura (español) → slug de la Jumash. */
+const LIBRO_SLUG_LECTURA: Record<string, string> = {
+  Génesis: 'bereshit',
+  Éxodo: 'shemot',
+  Levítico: 'vaikra',
+  Números: 'bamidbar',
+  Deuteronomio: 'devarim',
+}
+
+/** Convierte una cita de lectura tipo "Génesis 1:1–6:8" en enlace a la Jumash
+ *  (/torah/bereshit/1?v=1). En parashot dobles toma el versículo inicial de la
+ *  primera porción. Devuelve null si la cita no se reconoce. */
+export function torahLinkFromLectura(lectura: string): string | null {
+  const m = /^(Génesis|Éxodo|Levítico|Números|Deuteronomio)\s+(\d+):(\d+)/.exec(lectura.trim())
+  if (!m) return null
+  const slug = LIBRO_SLUG_LECTURA[m[1]]
+  return slug ? `/torah/${slug}/${m[2]}?v=${m[3]}` : null
+}

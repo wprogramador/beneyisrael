@@ -11,6 +11,7 @@ import {
   Sparkles,
   Cake,
   Share2,
+  ScrollText,
 } from "lucide-react"
 import Navbar from "@/sections/Navbar"
 import Footer from "@/sections/Footer"
@@ -45,6 +46,7 @@ import {
   type EventoHebreo,
   type ParashaInfo,
 } from "@/lib/hebcal"
+import { torahLinkFromLectura } from "@/lib/torah"
 
 const DIAS_SEMANA = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 const MESES_ES = [
@@ -135,6 +137,14 @@ function TarjetaHoy() {
             <p className="mt-1.5 text-sm text-foreground/60">
               {parasha.lectura}
             </p>
+          )}
+          {parasha.lectura && torahLinkFromLectura(parasha.lectura) && (
+            <Link
+              href={torahLinkFromLectura(parasha.lectura)!}
+              className="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-[#d4af37] px-5 py-2 text-sm font-semibold text-[#0a0908] hover:bg-[#e9c65a] transition-colors"
+            >
+              <ScrollText size={15} /> Leer la Parashá
+            </Link>
           )}
         </div>
       </div>
