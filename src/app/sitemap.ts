@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { getAllArticulos } from '@/lib/articulos'
+import { getTorahData } from '@/lib/torahData'
+import { BOOK_SLUG } from '@/lib/torah'
+import type { BookId } from '@/lib/torah'
 
 const BASE_URL = 'https://www.beneyisrael.com'
 
@@ -94,5 +97,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticRoutes, ...dynamicRoutes]
+  const torahIndex: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/torah`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+  ]
+  const torahChapters: MetadataRoute.Sitemap = getTorahData().chapters.map((c) => ({
+    url: `${BASE_URL}/torah/${BOOK_SLUG[c.libro as BookId]}/${c.capitulo}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
+  return [...staticRoutes, ...dynamicRoutes, ...torahIndex, ...torahChapters]
 }

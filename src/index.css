@@ -55,6 +55,10 @@
   .font-hebrew {
     font-family: 'Frank Ruhl Libre', 'Heebo', serif;
   }
+  /* Jumash (sección /torah): serif para títulos y cuerpo bíblico */
+  .torah-display {
+    font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  }
   .text-gold {
     color: #d4af37;
   }

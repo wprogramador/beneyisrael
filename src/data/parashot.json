@@ -1,0 +1,866 @@
+[
+ {
+  "orden": 1,
+  "nombre": "Bereshit",
+  "sefaria_ref": "Bereshit",
+  "wholeRef": "Genesis 1:1-6:8",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 1,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 6,
+   "versiculo": 8
+  },
+  "n_versiculos": 146
+ },
+ {
+  "orden": 2,
+  "nombre": "Noaj",
+  "sefaria_ref": "Noach",
+  "wholeRef": "Genesis 6:9-11:32",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 6,
+   "versiculo": 9
+  },
+  "fin": {
+   "capitulo": 11,
+   "versiculo": 32
+  },
+  "n_versiculos": 153
+ },
+ {
+  "orden": 3,
+  "nombre": "Lej-Lejá",
+  "sefaria_ref": "Lech-Lecha",
+  "wholeRef": "Genesis 12:1-17:27",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 12,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 17,
+   "versiculo": 27
+  },
+  "n_versiculos": 126
+ },
+ {
+  "orden": 4,
+  "nombre": "Vayerá",
+  "sefaria_ref": "Vayera",
+  "wholeRef": "Genesis 18:1-22:24",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 18,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 22,
+   "versiculo": 24
+  },
+  "n_versiculos": 147
+ },
+ {
+  "orden": 5,
+  "nombre": "Hajei Sará",
+  "sefaria_ref": "Chayei Sara",
+  "wholeRef": "Genesis 23:1-25:18",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 23,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 25,
+   "versiculo": 18
+  },
+  "n_versiculos": 105
+ },
+ {
+  "orden": 6,
+  "nombre": "Toldot",
+  "sefaria_ref": "Toldot",
+  "wholeRef": "Genesis 25:19-28:9",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 25,
+   "versiculo": 19
+  },
+  "fin": {
+   "capitulo": 28,
+   "versiculo": 9
+  },
+  "n_versiculos": 106
+ },
+ {
+  "orden": 7,
+  "nombre": "Vaietsé",
+  "sefaria_ref": "Vayetzei",
+  "wholeRef": "Genesis 28:10-32:3",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 28,
+   "versiculo": 10
+  },
+  "fin": {
+   "capitulo": 32,
+   "versiculo": 3
+  },
+  "n_versiculos": 148
+ },
+ {
+  "orden": 8,
+  "nombre": "Vaishláh",
+  "sefaria_ref": "Vayishlach",
+  "wholeRef": "Genesis 32:4-36:43",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 32,
+   "versiculo": 4
+  },
+  "fin": {
+   "capitulo": 36,
+   "versiculo": 43
+  },
+  "n_versiculos": 153
+ },
+ {
+  "orden": 9,
+  "nombre": "Vayéshev",
+  "sefaria_ref": "Vayeshev",
+  "wholeRef": "Genesis 37:1-40:23",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 37,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 40,
+   "versiculo": 23
+  },
+  "n_versiculos": 112
+ },
+ {
+  "orden": 10,
+  "nombre": "Mikéts",
+  "sefaria_ref": "Miketz",
+  "wholeRef": "Genesis 41:1-44:17",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 41,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 44,
+   "versiculo": 17
+  },
+  "n_versiculos": 146
+ },
+ {
+  "orden": 11,
+  "nombre": "Vayigásh",
+  "sefaria_ref": "Vayigash",
+  "wholeRef": "Genesis 44:18-47:27",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 44,
+   "versiculo": 18
+  },
+  "fin": {
+   "capitulo": 47,
+   "versiculo": 27
+  },
+  "n_versiculos": 106
+ },
+ {
+  "orden": 12,
+  "nombre": "Vají",
+  "sefaria_ref": "Vayechi",
+  "wholeRef": "Genesis 47:28-50:26",
+  "libro": "BERESHIT",
+  "inicio": {
+   "capitulo": 47,
+   "versiculo": 28
+  },
+  "fin": {
+   "capitulo": 50,
+   "versiculo": 26
+  },
+  "n_versiculos": 85
+ },
+ {
+  "orden": 13,
+  "nombre": "Shemot",
+  "sefaria_ref": "Shemot",
+  "wholeRef": "Exodus 1:1-6:1",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 1,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 6,
+   "versiculo": 1
+  },
+  "n_versiculos": 124
+ },
+ {
+  "orden": 14,
+  "nombre": "Vaerá",
+  "sefaria_ref": "Vaera",
+  "wholeRef": "Exodus 6:2-9:35",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 6,
+   "versiculo": 2
+  },
+  "fin": {
+   "capitulo": 9,
+   "versiculo": 35
+  },
+  "n_versiculos": 121
+ },
+ {
+  "orden": 15,
+  "nombre": "Bo",
+  "sefaria_ref": "Bo",
+  "wholeRef": "Exodus 10:1-13:16",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 10,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 13,
+   "versiculo": 16
+  },
+  "n_versiculos": 106
+ },
+ {
+  "orden": 16,
+  "nombre": "Beshaláj",
+  "sefaria_ref": "Beshalach",
+  "wholeRef": "Exodus 13:17-17:16",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 13,
+   "versiculo": 17
+  },
+  "fin": {
+   "capitulo": 17,
+   "versiculo": 16
+  },
+  "n_versiculos": 116
+ },
+ {
+  "orden": 17,
+  "nombre": "Yitró",
+  "sefaria_ref": "Yitro",
+  "wholeRef": "Exodus 18:1-20:23",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 18,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 20,
+   "versiculo": 23
+  },
+  "n_versiculos": 75
+ },
+ {
+  "orden": 18,
+  "nombre": "Mishpatim",
+  "sefaria_ref": "Mishpatim",
+  "wholeRef": "Exodus 21:1-24:18",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 21,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 24,
+   "versiculo": 18
+  },
+  "n_versiculos": 118
+ },
+ {
+  "orden": 19,
+  "nombre": "Terumá",
+  "sefaria_ref": "Terumah",
+  "wholeRef": "Exodus 25:1-27:19",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 25,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 27,
+   "versiculo": 19
+  },
+  "n_versiculos": 96
+ },
+ {
+  "orden": 20,
+  "nombre": "Tetzavé",
+  "sefaria_ref": "Tetzaveh",
+  "wholeRef": "Exodus 27:20-30:10",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 27,
+   "versiculo": 20
+  },
+  "fin": {
+   "capitulo": 30,
+   "versiculo": 10
+  },
+  "n_versiculos": 101
+ },
+ {
+  "orden": 21,
+  "nombre": "Ki Tisá",
+  "sefaria_ref": "Ki Tisa",
+  "wholeRef": "Exodus 30:11-34:35",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 30,
+   "versiculo": 11
+  },
+  "fin": {
+   "capitulo": 34,
+   "versiculo": 35
+  },
+  "n_versiculos": 139
+ },
+ {
+  "orden": 22,
+  "nombre": "Vayajel",
+  "sefaria_ref": "Vayakhel",
+  "wholeRef": "Exodus 35:1-38:20",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 35,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 38,
+   "versiculo": 20
+  },
+  "n_versiculos": 122
+ },
+ {
+  "orden": 23,
+  "nombre": "Pekudé",
+  "sefaria_ref": "Pekudei",
+  "wholeRef": "Exodus 38:21-40:38",
+  "libro": "SHEMOT",
+  "inicio": {
+   "capitulo": 38,
+   "versiculo": 21
+  },
+  "fin": {
+   "capitulo": 40,
+   "versiculo": 38
+  },
+  "n_versiculos": 92
+ },
+ {
+  "orden": 24,
+  "nombre": "Vaikrá",
+  "sefaria_ref": "Vayikra",
+  "wholeRef": "Leviticus 1:1-5:26",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 1,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 5,
+   "versiculo": 26
+  },
+  "n_versiculos": 111
+ },
+ {
+  "orden": 25,
+  "nombre": "Tzav",
+  "sefaria_ref": "Tzav",
+  "wholeRef": "Leviticus 6:1-8:36",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 6,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 8,
+   "versiculo": 36
+  },
+  "n_versiculos": 97
+ },
+ {
+  "orden": 26,
+  "nombre": "Sheminí",
+  "sefaria_ref": "Shemini",
+  "wholeRef": "Leviticus 9:1-11:47",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 9,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 11,
+   "versiculo": 47
+  },
+  "n_versiculos": 91
+ },
+ {
+  "orden": 27,
+  "nombre": "Tazríá",
+  "sefaria_ref": "Tazria",
+  "wholeRef": "Leviticus 12:1-13:59",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 12,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 13,
+   "versiculo": 59
+  },
+  "n_versiculos": 67
+ },
+ {
+  "orden": 28,
+  "nombre": "Metzorá",
+  "sefaria_ref": "Metzora",
+  "wholeRef": "Leviticus 14:1-15:33",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 14,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 15,
+   "versiculo": 33
+  },
+  "n_versiculos": 90
+ },
+ {
+  "orden": 29,
+  "nombre": "Ajarei Mot",
+  "sefaria_ref": "Achrei Mot",
+  "wholeRef": "Leviticus 16:1-18:30",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 16,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 18,
+   "versiculo": 30
+  },
+  "n_versiculos": 80
+ },
+ {
+  "orden": 30,
+  "nombre": "Kedoshim",
+  "sefaria_ref": "Kedoshim",
+  "wholeRef": "Leviticus 19:1-20:27",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 19,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 20,
+   "versiculo": 27
+  },
+  "n_versiculos": 64
+ },
+ {
+  "orden": 31,
+  "nombre": "Emor",
+  "sefaria_ref": "Emor",
+  "wholeRef": "Leviticus 21:1-24:23",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 21,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 24,
+   "versiculo": 23
+  },
+  "n_versiculos": 124
+ },
+ {
+  "orden": 32,
+  "nombre": "Behar",
+  "sefaria_ref": "Behar",
+  "wholeRef": "Leviticus 25:1-26:2",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 25,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 26,
+   "versiculo": 2
+  },
+  "n_versiculos": 57
+ },
+ {
+  "orden": 33,
+  "nombre": "Behukkotai",
+  "sefaria_ref": "Bechukotai",
+  "wholeRef": "Leviticus 26:3-27:34",
+  "libro": "VAIKRA",
+  "inicio": {
+   "capitulo": 26,
+   "versiculo": 3
+  },
+  "fin": {
+   "capitulo": 27,
+   "versiculo": 34
+  },
+  "n_versiculos": 78
+ },
+ {
+  "orden": 34,
+  "nombre": "Bamidbar",
+  "sefaria_ref": "Bamidbar",
+  "wholeRef": "Numbers 1:1-4:20",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 1,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 4,
+   "versiculo": 20
+  },
+  "n_versiculos": 159
+ },
+ {
+  "orden": 35,
+  "nombre": "Nasó",
+  "sefaria_ref": "Naso",
+  "wholeRef": "Numbers 4:21-7:89",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 4,
+   "versiculo": 21
+  },
+  "fin": {
+   "capitulo": 7,
+   "versiculo": 89
+  },
+  "n_versiculos": 176
+ },
+ {
+  "orden": 36,
+  "nombre": "Behaalotejá",
+  "sefaria_ref": "Behaalotecha",
+  "wholeRef": "Numbers 8:1-12:16",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 8,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 12,
+   "versiculo": 16
+  },
+  "n_versiculos": 136
+ },
+ {
+  "orden": 37,
+  "nombre": "Shelaj-Lejá",
+  "sefaria_ref": "Shlach",
+  "wholeRef": "Numbers 13:1-15:41",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 13,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 15,
+   "versiculo": 41
+  },
+  "n_versiculos": 119
+ },
+ {
+  "orden": 38,
+  "nombre": "Koraj",
+  "sefaria_ref": "Korach",
+  "wholeRef": "Numbers 16:1-18:32",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 16,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 18,
+   "versiculo": 32
+  },
+  "n_versiculos": 95
+ },
+ {
+  "orden": 39,
+  "nombre": "Jukat",
+  "sefaria_ref": "Chukat",
+  "wholeRef": "Numbers 19:1-22:1",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 19,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 22,
+   "versiculo": 1
+  },
+  "n_versiculos": 87
+ },
+ {
+  "orden": 40,
+  "nombre": "Balak",
+  "sefaria_ref": "Balak",
+  "wholeRef": "Numbers 22:2-25:9",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 22,
+   "versiculo": 2
+  },
+  "fin": {
+   "capitulo": 25,
+   "versiculo": 9
+  },
+  "n_versiculos": 104
+ },
+ {
+  "orden": 41,
+  "nombre": "Pinjás",
+  "sefaria_ref": "Pinchas",
+  "wholeRef": "Numbers 25:10-30:1",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 25,
+   "versiculo": 10
+  },
+  "fin": {
+   "capitulo": 30,
+   "versiculo": 1
+  },
+  "n_versiculos": 168
+ },
+ {
+  "orden": 42,
+  "nombre": "Matot",
+  "sefaria_ref": "Matot",
+  "wholeRef": "Numbers 30:2-32:42",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 30,
+   "versiculo": 2
+  },
+  "fin": {
+   "capitulo": 32,
+   "versiculo": 42
+  },
+  "n_versiculos": 112
+ },
+ {
+  "orden": 43,
+  "nombre": "Maséi",
+  "sefaria_ref": "Masei",
+  "wholeRef": "Numbers 33:1-36:13",
+  "libro": "BAMIDBAR",
+  "inicio": {
+   "capitulo": 33,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 36,
+   "versiculo": 13
+  },
+  "n_versiculos": 132
+ },
+ {
+  "orden": 44,
+  "nombre": "Devarim",
+  "sefaria_ref": "Devarim",
+  "wholeRef": "Deuteronomy 1:1-3:22",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 1,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 3,
+   "versiculo": 22
+  },
+  "n_versiculos": 105
+ },
+ {
+  "orden": 45,
+  "nombre": "Vaetjanán",
+  "sefaria_ref": "Vaetchanan",
+  "wholeRef": "Deuteronomy 3:23-7:11",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 3,
+   "versiculo": 23
+  },
+  "fin": {
+   "capitulo": 7,
+   "versiculo": 11
+  },
+  "n_versiculos": 122
+ },
+ {
+  "orden": 46,
+  "nombre": "Eikev",
+  "sefaria_ref": "Eikev",
+  "wholeRef": "Deuteronomy 7:12-11:25",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 7,
+   "versiculo": 12
+  },
+  "fin": {
+   "capitulo": 11,
+   "versiculo": 25
+  },
+  "n_versiculos": 111
+ },
+ {
+  "orden": 47,
+  "nombre": "Reé",
+  "sefaria_ref": "Re'eh",
+  "wholeRef": "Deuteronomy 11:26-16:17",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 11,
+   "versiculo": 26
+  },
+  "fin": {
+   "capitulo": 16,
+   "versiculo": 17
+  },
+  "n_versiculos": 126
+ },
+ {
+  "orden": 48,
+  "nombre": "Shoftim",
+  "sefaria_ref": "Shoftim",
+  "wholeRef": "Deuteronomy 16:18-21:9",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 16,
+   "versiculo": 18
+  },
+  "fin": {
+   "capitulo": 21,
+   "versiculo": 9
+  },
+  "n_versiculos": 97
+ },
+ {
+  "orden": 49,
+  "nombre": "Ki Tetze",
+  "sefaria_ref": "Ki Teitzei",
+  "wholeRef": "Deuteronomy 21:10-25:19",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 21,
+   "versiculo": 10
+  },
+  "fin": {
+   "capitulo": 25,
+   "versiculo": 19
+  },
+  "n_versiculos": 110
+ },
+ {
+  "orden": 50,
+  "nombre": "Ki Tavo",
+  "sefaria_ref": "Ki Tavo",
+  "wholeRef": "Deuteronomy 26:1-29:8",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 26,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 29,
+   "versiculo": 8
+  },
+  "n_versiculos": 122
+ },
+ {
+  "orden": 51,
+  "nombre": "Nitzavim",
+  "sefaria_ref": "Nitzavim",
+  "wholeRef": "Deuteronomy 29:9-30:20",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 29,
+   "versiculo": 9
+  },
+  "fin": {
+   "capitulo": 30,
+   "versiculo": 20
+  },
+  "n_versiculos": 40
+ },
+ {
+  "orden": 52,
+  "nombre": "Vayelej",
+  "sefaria_ref": "Vayelech",
+  "wholeRef": "Deuteronomy 31:1-30",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 31,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 31,
+   "versiculo": 30
+  },
+  "n_versiculos": 30
+ },
+ {
+  "orden": 53,
+  "nombre": "Haazinu",
+  "sefaria_ref": "Haazinu",
+  "wholeRef": "Deuteronomy 32:1-52",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 32,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 32,
+   "versiculo": 52
+  },
+  "n_versiculos": 52
+ },
+ {
+  "orden": 54,
+  "nombre": "Vezot Habrajá",
+  "sefaria_ref": "Vezot Haberachah",
+  "wholeRef": "Deuteronomy 33:1-34:12",
+  "libro": "DEVARIM",
+  "inicio": {
+   "capitulo": 33,
+   "versiculo": 1
+  },
+  "fin": {
+   "capitulo": 34,
+   "versiculo": 12
+  },
+  "n_versiculos": 41
+ }
+]
