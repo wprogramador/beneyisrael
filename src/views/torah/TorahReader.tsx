@@ -29,7 +29,7 @@ import {
 } from '@/lib/torah'
 import type { BookId, Chapter, Parasha, Verse } from '@/lib/torah'
 import { CommentText } from '@/components/torah/RichText'
-import TorahBrand from '@/components/torah/TorahBrand'
+import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
 
 export interface TorahReaderProps {
@@ -102,6 +102,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <TorahHomeLink />
             <button
               onClick={() => idx > 0 && go(chapterNumbers[idx - 1])}
               disabled={idx <= 0}

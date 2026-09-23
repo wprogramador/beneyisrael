@@ -5,7 +5,7 @@ import { ChevronRight, LayoutGrid, MessageSquareQuote, Rows3 } from 'lucide-reac
 import { useEffect, useState } from 'react'
 import { BOOK_META, BOOK_ORDER, BOOK_SLUG } from '@/lib/torah'
 import type { BookId, BookSummary, Parasha } from '@/lib/torah'
-import TorahBrand from '@/components/torah/TorahBrand'
+import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
 
 export interface TorahLibraryProps {
@@ -29,6 +29,9 @@ export default function TorahLibrary({ books, parashot, totals }: TorahLibraryPr
       <header className="border-b border-stone-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-6 py-5">
           <TorahBrand subtitle="La Torá en español y hebreo, con comentarios por versículo" />
+          <div className="ml-auto">
+            <TorahHomeLink />
+          </div>
         </div>
       </header>
 
