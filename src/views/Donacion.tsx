@@ -127,7 +127,7 @@ export default function Donacion() {
             </p>
             <div className="rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 text-center">
               <img
-                src="http://www.beneyisrael.com/paypalqr.PNG"
+                src="/images/paypalqr.PNG"
                 alt="QR PayPal"
                 className="mx-auto mb-2 h-32 w-32 rounded-md object-contain"
                 loading="lazy"
@@ -161,7 +161,7 @@ export default function Donacion() {
             </p>
             <div className="rounded-lg bg-[#0c0a07] border border-[#d4af37]/10 p-3 text-center">
               <img
-                src="https://www.beneyisrael.com/binanqr.PNG"
+                src="/images/binanqr.PNG"
                 alt="QR Binance"
                 className="mx-auto mb-2 h-32 w-32 rounded-md object-contain"
                 loading="lazy"
@@ -176,7 +176,7 @@ export default function Donacion() {
               <CopyButton text={BINANCE_ID} label="Copiar" />
             </div>
             <a
-              href="https://www.beneyisrael.com/binanqr.PNG"
+              href="/images/binanqr.PNG"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-yellow-500 px-4 py-2 text-sm font-medium text-yellow-950 hover:bg-yellow-400 transition-colors"
