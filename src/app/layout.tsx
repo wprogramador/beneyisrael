@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Frank_Ruhl_Libre, Rubik, Cormorant_Garamond } from 'next/font/google'
 import Script from 'next/script'
-import './globals.css'
+import '../index.css'
 
 const frank = Frank_Ruhl_Libre({ subsets: ['hebrew', 'latin'], variable: '--font-hebrew', weight: ['400', '700', '900'] })
 const rubik = Rubik({ subsets: ['hebrew', 'latin'], variable: '--font-body' })
