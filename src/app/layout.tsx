@@ -1,131 +1,118 @@
-import type { Metadata, Viewport } from 'next'
-import '@/index.css'
-import WhatsAppFloat from '@/components/WhatsAppFloat'
-import ScrollToTop from '@/components/ScrollToTop'
+import type { Metadata } from 'next'
+import { Frank_Ruhl_Libre, Rubik, Cormorant_Garamond } from 'next/font/google'
+import Script from 'next/script'
+import './globals.css'
 
-const SITE_URL = 'https://teques.beneyisrael.com'
-const SITE_NAME = 'Beit Midrash Bene Israel'
-const DESCRIPTION =
-  'Centro de estudios hebreos Bene Israel en Los Teques, Venezuela. Torá, Musar, Cábala, Halajá Evolutiva, Hebreo y festividades judías. Estudia con nosotros.'
+const frank = Frank_Ruhl_Libre({ subsets: ['hebrew', 'latin'], variable: '--font-hebrew', weight: ['400', '700', '900'] })
+const rubik = Rubik({ subsets: ['hebrew', 'latin'], variable: '--font-body' })
+const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--font-serif', weight: ['400', '600', '700'] })
+
+const SITE_NAME = 'Centro de Estudios Hebraicos Bene Israel'
+const SITE_DESC = 'Torá semanal, reflexiones sobre la Parashá, calendario hebreo, artículos y estudios de la comunidad Bene Israel en Los Teques, Venezuela. Shabat, moedim, oraciones y más.'
+const SITE_URL = 'https://www.beneyisrael.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} · Centro de Estudios Hebreos · Los Teques`,
-    template: `%s · ${SITE_NAME}`,
+    default: `${SITE_NAME} — Torá, Parashá y Calendario Hebreo`,
+    template: `%s · Bene Israel`,
   },
-  description: DESCRIPTION,
+  description: SITE_DESC,
   keywords: [
-    'Torá',
-    'judaísmo',
-    'estudios hebreos',
-    'Bene Israel',
-    'Los Teques',
-    'Venezuela',
-    'Cábala',
-    'Musar',
-    'Halajá',
-    'hebreo',
-    'parashá',
-    'Shabbat',
+    'Torá', 'Parashá', 'parasha de la semana', 'estudios hebraicos', 'calendario hebreo',
+    'Shabat', 'moedim', 'festividades judías', 'Los Teques', 'Venezuela', 'comunidad judía',
+    'Bene Israel', 'reflexiones Torá', 'siddur', 'Cábala', 'Halajá', 'Musar',
   ],
   authors: [{ name: SITE_NAME }],
-  robots: { index: true, follow: true },
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   openGraph: {
     type: 'website',
     locale: 'es_VE',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} · Centro de Estudios Hebreos`,
-    description:
-      'Centro de estudios hebreos en Los Teques, Venezuela. Torá, Musar, Cábala, Halajá Evolutiva y Hebreo.',
+    title: `${SITE_NAME} — Torá, Parashá y Calendario Hebreo`,
+    description: SITE_DESC,
     images: [
       {
         url: '/images/logo-bet-midrash.png',
         width: 512,
         height: 512,
-        alt: SITE_NAME,
+        alt: `${SITE_NAME} — Logo`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} · Centro de Estudios Hebreos`,
-    description:
-      'Centro de estudios hebreos en Los Teques, Venezuela. Torá, Musar, Cábala, Halajá Evolutiva y Hebreo.',
+    title: `${SITE_NAME} — Torá, Parashá y Calendario Hebreo`,
+    description: SITE_DESC,
     images: ['/images/logo-bet-midrash.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+  verification: {
+    // Agrega aquí tu código cuando tengas Google Search Console
+    // google: 'TU_CODIGO_DE_VERIFICACION',
   },
   icons: {
     icon: '/images/logo-bet-midrash.png',
+    apple: '/images/logo-bet-midrash.png',
   },
 }
 
-export const viewport: Viewport = {
-  themeColor: '#0c0a07',
-  width: 'device-width',
-  initialScale: 1,
-}
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE_URL}/#organization`,
-      name: SITE_NAME,
-      alternateName: 'בית מדרש בני ישראל',
-      url: SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/images/logo-bet-midrash.png`,
-      },
-      description:
-        'Centro de estudios hebreos en Los Teques, Venezuela. Enseñanza de Torá, Musar, Cábala, Halajá Evolutiva y lengua hebrea.',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Los Teques',
-        addressRegion: 'Miranda',
-        addressCountry: 'VE',
-      },
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+58-412-4586537',
-        contactType: 'Información',
-        availableLanguage: ['Spanish', 'Hebrew'],
-      },
-      sameAs: ['https://instagram.com/beneisrael_'],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: SITE_NAME,
-      publisher: { '@id': `${SITE_URL}/#organization` },
-    },
-    {
-      '@type': 'WebPage',
-      '@id': `${SITE_URL}/#webpage`,
-      url: `${SITE_URL}/`,
-      name: `${SITE_NAME} · Centro de Estudios Hebreos`,
-      isPartOf: { '@id': `${SITE_URL}/#website` },
-      about: { '@id': `${SITE_URL}/#organization` },
-    },
-  ],
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        alternateName: ['Beit Midrash Bene Israel', 'בית מדרש בני ישראל'],
+        url: SITE_URL,
+        logo: `${SITE_URL}/images/logo-bet-midrash.png`,
+        sameAs: [
+          'https://www.instagram.com/beneisrael_/',
+          'https://www.tiktok.com/@beneisrael',
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Los Teques',
+          addressRegion: 'Miranda',
+          addressCountry: 'VE',
+        },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: '+58-412-4586537',
+          contactType: 'customer service',
+          email: 'info@beneyisrael.com',
+          availableLanguage: ['Spanish', 'Hebrew'],
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        inLanguage: 'es-VE',
+      },
+    ],
+  }
+
   return (
     <html lang="es">
-      <head>
-        <script
+      <body className={`${frank.variable} ${rubik.variable} ${cormorant.variable} antialiased`}>
+        {children}
+        <Script
+          id="ld-json-org"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body>
-        {children}
-        <WhatsAppFloat />
-        <ScrollToTop />
       </body>
     </html>
   )

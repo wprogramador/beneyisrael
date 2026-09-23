@@ -42,7 +42,7 @@ function TarjetaReflexion({ r, destacada = false }: { r: Reflexion; destacada?: 
   const shareData = {
     title: `Reflexión de Parashat ${r.nombre} — ${r.titulo}`,
     text: `${r.citaEspanol}\n\n${r.cuerpo[0]?.substring(0, 150) || ''}...`,
-    url: `https://teques.beneyisrael.com/reflexiones#${r.id}`,
+    url: `https://www.beneyisrael.com/reflexiones#${r.id}`,
   }
 
   return (

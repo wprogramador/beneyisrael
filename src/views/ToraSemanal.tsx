@@ -6,7 +6,7 @@ import Navbar from '@/sections/Navbar'
 import Footer from '@/sections/Footer'
 import ShareButton from '@/components/ShareButton'
 
-const DOMAIN = 'https://teques.beneyisrael.com'
+const DOMAIN = 'https://www.beneyisrael.com'
 import {
   BookOpen, Heart, Scale, Sparkles, Calendar, Languages, Gavel,
   AlertCircle, Share2

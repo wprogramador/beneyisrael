@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getAllArticulos } from '@/lib/articulos'
 
-const BASE_URL = 'https://teques.beneyisrael.com'
+const BASE_URL = 'https://www.beneyisrael.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articulos = getAllArticulos()

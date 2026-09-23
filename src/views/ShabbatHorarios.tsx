@@ -127,7 +127,7 @@ export default function ShabbatHorarios() {
   }, [ciudadActiva])
 
   const horarioHoy = horarios[0]
-  const url = 'https://teques.beneyisrael.com/shabbat-horarios'
+  const url = 'https://www.beneyisrael.com/shabbat-horarios'
 
   const compartirWhatsApp = () => {
     if (!horarioHoy) return

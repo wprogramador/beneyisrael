@@ -74,7 +74,7 @@ export default function NombresHebreos() {
       `🔤 Hebreo: ${n.hebreo}\n` +
       `✨ Significado: ${n.significado}\n` +
       `📚 ${n.referencia}\n\n` +
-      `Via Beit Midrash Bene Israel\nhttps://teques.beneyisrael.com/nombres-hebreos`
+      `Via Beit Midrash Bene Israel\nhttps://www.beneyisrael.com/nombres-hebreos`
     window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank')
   }
 

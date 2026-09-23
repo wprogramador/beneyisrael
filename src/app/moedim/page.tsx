@@ -2,18 +2,35 @@ import type { Metadata } from 'next'
 import Moedim from '@/views/Moedim'
 
 export const metadata: Metadata = {
-  title: 'Moedim · Festividades y Celebraciones',
+  title: 'Las Moedim — Fiestas del Eterno',
   description:
-    'Calendario y celebraciones de las festividades judías en la comunidad Bene Israel de Los Teques. Pésaj, Shavuot, Sucot, Rosh Hashaná y Yom Kipur.',
-  alternates: { canonical: '/moedim' },
+    'Las fiestas del Eterno según Vayikrá 23: Shabat, Pésaj, Shavuot, Rosh Hashaná, Iom Kipur, Sucot, Janucá y Purim. Aprende su significado, fechas y rituales con la comunidad Bene Israel.',
+  alternates: {
+    canonical: '/moedim',
+  },
   openGraph: {
-    url: '/moedim',
-    title: 'Moedim · Festividades Judías · Beit Midrash Bene Israel',
+    title: 'Las Moedim — Fiestas del Eterno',
     description:
-      'Celebraciones de Pésaj, Shavuot, Sucot, Rosh Hashaná y Yom Kipur en Los Teques, Venezuela.',
+      'Las fiestas del Eterno según Vayikrá 23: Shabat, Pésaj, Shavuot, Rosh Hashaná, Iom Kipur, Sucot, Janucá y Purim.',
+    url: 'https://www.beneyisrael.com/moedim',
+    images: [
+      {
+        url: '/images/moed-sucot.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Sucot — Fiesta de los Tabernáculos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Las Moedim — Fiestas del Eterno',
+    description:
+      'Las fiestas del Eterno según Vayikrá 23: Shabat, Pésaj, Shavuot, Rosh Hashaná, Iom Kipur, Sucot, Janucá y Purim.',
+    images: ['/images/moed-sucot.jpg'],
   },
 }
 
-export default function MoedimPage() {
+export default function Page() {
   return <Moedim />
 }

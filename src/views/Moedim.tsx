@@ -12,7 +12,7 @@ import {
   Calendar, ChevronRight, Star
 } from 'lucide-react'
 
-const DOMAIN = 'https://teques.beneyisrael.com'
+const DOMAIN = 'https://www.beneyisrael.com'
 
 /* ============================================================
    PRÓXIMA FESTIVIDAD (calendario hebreo real)

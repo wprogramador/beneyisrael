@@ -6,6 +6,8 @@ import Link from 'next/link'
 import ShareButton from '@/components/ShareButton'
 import Footer from '@/sections/Footer'
 
+const SITE_URL = 'https://www.beneyisrael.com'
+
 export async function generateStaticParams() {
   const articulos = getAllArticulos()
   return articulos.map((a) => ({ slug: a.slug }))
@@ -22,6 +24,32 @@ export async function generateMetadata({
   return {
     title: `${articulo.frontmatter.titulo} · Bene Israel`,
     description: articulo.frontmatter.resumen,
+    alternates: {
+      canonical: `/estudios/${slug}`,
+    },
+    openGraph: {
+      type: 'article',
+      url: `${SITE_URL}/estudios/${slug}`,
+      title: `${articulo.frontmatter.titulo} · Bene Israel`,
+      description: articulo.frontmatter.resumen,
+      publishedTime: articulo.frontmatter.fecha,
+      authors: [articulo.frontmatter.autor],
+      tags: articulo.frontmatter.categorias,
+      images: [
+        {
+          url: '/images/logo-bet-midrash.png',
+          width: 512,
+          height: 512,
+          alt: articulo.frontmatter.titulo,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${articulo.frontmatter.titulo} · Bene Israel`,
+      description: articulo.frontmatter.resumen,
+      images: ['/images/logo-bet-midrash.png'],
+    },
   }
 }
 
@@ -34,7 +62,7 @@ export default async function ArticuloPage({
   const articulo = getArticuloBySlug(slug)
   if (!articulo) notFound()
 
-  const shareUrl = `https://teques.beneyisrael.com/estudios/${slug}`
+  const shareUrl = `${SITE_URL}/estudios/${slug}`
 
   return (
     <div className="min-h-screen bg-[#0c0a07] text-foreground">
