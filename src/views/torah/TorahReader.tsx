@@ -266,7 +266,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
         onOpenChange={(o) => !o && setSelected(null)}
         direction="right"
       >
-        <DrawerContent className="w-full overflow-y-auto bg-[#fdfcf9] sm:max-w-[480px]">
+        <DrawerContent className="w-full bg-[#fdfcf9] sm:max-w-[480px]">
           {selected != null && (
             <>
               <div className="flex items-start justify-between gap-2 p-4 pb-0 sm:p-6 sm:pb-0">
@@ -287,6 +287,8 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                   <X className="h-5 w-5" />
                 </DrawerClose>
               </div>
+              {/* zona de lectura: scroll nativo en móvil (vaul no roba el gesto) */}
+              <div data-vaul-no-drag className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
 
               {intro && (
                 <details className="mb-5 rounded-lg border border-stone-200 bg-white p-3 text-sm text-stone-600">
@@ -347,6 +349,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                   })()}
                 </div>
               )}
+              </div>
             </>
           )}
         </DrawerContent>
