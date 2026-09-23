@@ -13,7 +13,8 @@
    "capitulo": 6,
    "versiculo": 8
   },
-  "n_versiculos": 146
+  "n_versiculos": 146,
+  "hebreo": "בראשית"
  },
  {
   "orden": 2,
@@ -29,7 +30,8 @@
    "capitulo": 11,
    "versiculo": 32
   },
-  "n_versiculos": 153
+  "n_versiculos": 153,
+  "hebreo": "נח"
  },
  {
   "orden": 3,
@@ -45,7 +47,8 @@
    "capitulo": 17,
    "versiculo": 27
   },
-  "n_versiculos": 126
+  "n_versiculos": 126,
+  "hebreo": "לך לך"
  },
  {
   "orden": 4,
@@ -61,7 +64,8 @@
    "capitulo": 22,
    "versiculo": 24
   },
-  "n_versiculos": 147
+  "n_versiculos": 147,
+  "hebreo": "וירא"
  },
  {
   "orden": 5,
@@ -77,7 +81,8 @@
    "capitulo": 25,
    "versiculo": 18
   },
-  "n_versiculos": 105
+  "n_versiculos": 105,
+  "hebreo": "חיי שרה"
  },
  {
   "orden": 6,
@@ -93,7 +98,8 @@
    "capitulo": 28,
    "versiculo": 9
   },
-  "n_versiculos": 106
+  "n_versiculos": 106,
+  "hebreo": "תולדות"
  },
  {
   "orden": 7,
@@ -109,7 +115,8 @@
    "capitulo": 32,
    "versiculo": 3
   },
-  "n_versiculos": 148
+  "n_versiculos": 148,
+  "hebreo": "ויצא"
  },
  {
   "orden": 8,
@@ -125,7 +132,8 @@
    "capitulo": 36,
    "versiculo": 43
   },
-  "n_versiculos": 153
+  "n_versiculos": 153,
+  "hebreo": "וישלח"
  },
  {
   "orden": 9,
@@ -141,7 +149,8 @@
    "capitulo": 40,
    "versiculo": 23
   },
-  "n_versiculos": 112
+  "n_versiculos": 112,
+  "hebreo": "וישב"
  },
  {
   "orden": 10,
@@ -157,7 +166,8 @@
    "capitulo": 44,
    "versiculo": 17
   },
-  "n_versiculos": 146
+  "n_versiculos": 146,
+  "hebreo": "מקץ"
  },
  {
   "orden": 11,
@@ -173,7 +183,8 @@
    "capitulo": 47,
    "versiculo": 27
   },
-  "n_versiculos": 106
+  "n_versiculos": 106,
+  "hebreo": "ויגש"
  },
  {
   "orden": 12,
@@ -189,7 +200,8 @@
    "capitulo": 50,
    "versiculo": 26
   },
-  "n_versiculos": 85
+  "n_versiculos": 85,
+  "hebreo": "ויחי"
  },
  {
   "orden": 13,
@@ -205,7 +217,8 @@
    "capitulo": 6,
    "versiculo": 1
   },
-  "n_versiculos": 124
+  "n_versiculos": 124,
+  "hebreo": "שמות"
  },
  {
   "orden": 14,
@@ -221,7 +234,8 @@
    "capitulo": 9,
    "versiculo": 35
   },
-  "n_versiculos": 121
+  "n_versiculos": 121,
+  "hebreo": "וארא"
  },
  {
   "orden": 15,
@@ -237,7 +251,8 @@
    "capitulo": 13,
    "versiculo": 16
   },
-  "n_versiculos": 106
+  "n_versiculos": 106,
+  "hebreo": "בא"
  },
  {
   "orden": 16,
@@ -253,7 +268,8 @@
    "capitulo": 17,
    "versiculo": 16
   },
-  "n_versiculos": 116
+  "n_versiculos": 116,
+  "hebreo": "בשלח"
  },
  {
   "orden": 17,
@@ -269,7 +285,8 @@
    "capitulo": 20,
    "versiculo": 23
   },
-  "n_versiculos": 75
+  "n_versiculos": 75,
+  "hebreo": "יתרו"
  },
  {
   "orden": 18,
@@ -285,7 +302,8 @@
    "capitulo": 24,
    "versiculo": 18
   },
-  "n_versiculos": 118
+  "n_versiculos": 118,
+  "hebreo": "משפטים"
  },
  {
   "orden": 19,
@@ -301,7 +319,8 @@
    "capitulo": 27,
    "versiculo": 19
   },
-  "n_versiculos": 96
+  "n_versiculos": 96,
+  "hebreo": "תרומה"
  },
  {
   "orden": 20,
@@ -317,7 +336,8 @@
    "capitulo": 30,
    "versiculo": 10
   },
-  "n_versiculos": 101
+  "n_versiculos": 101,
+  "hebreo": "תצוה"
  },
  {
   "orden": 21,
@@ -333,7 +353,8 @@
    "capitulo": 34,
    "versiculo": 35
   },
-  "n_versiculos": 139
+  "n_versiculos": 139,
+  "hebreo": "כי תשא"
  },
  {
   "orden": 22,
@@ -349,7 +370,8 @@
    "capitulo": 38,
    "versiculo": 20
   },
-  "n_versiculos": 122
+  "n_versiculos": 122,
+  "hebreo": "ויקהל"
  },
  {
   "orden": 23,
@@ -365,7 +387,8 @@
    "capitulo": 40,
    "versiculo": 38
   },
-  "n_versiculos": 92
+  "n_versiculos": 92,
+  "hebreo": "פקודי"
  },
  {
   "orden": 24,
@@ -381,7 +404,8 @@
    "capitulo": 5,
    "versiculo": 26
   },
-  "n_versiculos": 111
+  "n_versiculos": 111,
+  "hebreo": "ויקרא"
  },
  {
   "orden": 25,
@@ -397,7 +421,8 @@
    "capitulo": 8,
    "versiculo": 36
   },
-  "n_versiculos": 97
+  "n_versiculos": 97,
+  "hebreo": "צו"
  },
  {
   "orden": 26,
@@ -413,7 +438,8 @@
    "capitulo": 11,
    "versiculo": 47
   },
-  "n_versiculos": 91
+  "n_versiculos": 91,
+  "hebreo": "שמיני"
  },
  {
   "orden": 27,
@@ -429,7 +455,8 @@
    "capitulo": 13,
    "versiculo": 59
   },
-  "n_versiculos": 67
+  "n_versiculos": 67,
+  "hebreo": "תזריע"
  },
  {
   "orden": 28,
@@ -445,7 +472,8 @@
    "capitulo": 15,
    "versiculo": 33
   },
-  "n_versiculos": 90
+  "n_versiculos": 90,
+  "hebreo": "מצורע"
  },
  {
   "orden": 29,
@@ -461,7 +489,8 @@
    "capitulo": 18,
    "versiculo": 30
   },
-  "n_versiculos": 80
+  "n_versiculos": 80,
+  "hebreo": "אחרי מות"
  },
  {
   "orden": 30,
@@ -477,7 +506,8 @@
    "capitulo": 20,
    "versiculo": 27
   },
-  "n_versiculos": 64
+  "n_versiculos": 64,
+  "hebreo": "קדושים"
  },
  {
   "orden": 31,
@@ -493,7 +523,8 @@
    "capitulo": 24,
    "versiculo": 23
   },
-  "n_versiculos": 124
+  "n_versiculos": 124,
+  "hebreo": "אמור"
  },
  {
   "orden": 32,
@@ -509,7 +540,8 @@
    "capitulo": 26,
    "versiculo": 2
   },
-  "n_versiculos": 57
+  "n_versiculos": 57,
+  "hebreo": "בהר"
  },
  {
   "orden": 33,
@@ -525,7 +557,8 @@
    "capitulo": 27,
    "versiculo": 34
   },
-  "n_versiculos": 78
+  "n_versiculos": 78,
+  "hebreo": "בחוקתי"
  },
  {
   "orden": 34,
@@ -541,7 +574,8 @@
    "capitulo": 4,
    "versiculo": 20
   },
-  "n_versiculos": 159
+  "n_versiculos": 159,
+  "hebreo": "במדבר"
  },
  {
   "orden": 35,
@@ -557,7 +591,8 @@
    "capitulo": 7,
    "versiculo": 89
   },
-  "n_versiculos": 176
+  "n_versiculos": 176,
+  "hebreo": "נשא"
  },
  {
   "orden": 36,
@@ -573,7 +608,8 @@
    "capitulo": 12,
    "versiculo": 16
   },
-  "n_versiculos": 136
+  "n_versiculos": 136,
+  "hebreo": "בהעלותך"
  },
  {
   "orden": 37,
@@ -589,7 +625,8 @@
    "capitulo": 15,
    "versiculo": 41
   },
-  "n_versiculos": 119
+  "n_versiculos": 119,
+  "hebreo": "שלח לך"
  },
  {
   "orden": 38,
@@ -605,7 +642,8 @@
    "capitulo": 18,
    "versiculo": 32
   },
-  "n_versiculos": 95
+  "n_versiculos": 95,
+  "hebreo": "קרח"
  },
  {
   "orden": 39,
@@ -621,7 +659,8 @@
    "capitulo": 22,
    "versiculo": 1
   },
-  "n_versiculos": 87
+  "n_versiculos": 87,
+  "hebreo": "חקת"
  },
  {
   "orden": 40,
@@ -637,7 +676,8 @@
    "capitulo": 25,
    "versiculo": 9
   },
-  "n_versiculos": 104
+  "n_versiculos": 104,
+  "hebreo": "בלק"
  },
  {
   "orden": 41,
@@ -653,7 +693,8 @@
    "capitulo": 30,
    "versiculo": 1
   },
-  "n_versiculos": 168
+  "n_versiculos": 168,
+  "hebreo": "פנחס"
  },
  {
   "orden": 42,
@@ -669,7 +710,8 @@
    "capitulo": 32,
    "versiculo": 42
   },
-  "n_versiculos": 112
+  "n_versiculos": 112,
+  "hebreo": "מטות"
  },
  {
   "orden": 43,
@@ -685,7 +727,8 @@
    "capitulo": 36,
    "versiculo": 13
   },
-  "n_versiculos": 132
+  "n_versiculos": 132,
+  "hebreo": "מסעי"
  },
  {
   "orden": 44,
@@ -701,7 +744,8 @@
    "capitulo": 3,
    "versiculo": 22
   },
-  "n_versiculos": 105
+  "n_versiculos": 105,
+  "hebreo": "דברים"
  },
  {
   "orden": 45,
@@ -717,7 +761,8 @@
    "capitulo": 7,
    "versiculo": 11
   },
-  "n_versiculos": 122
+  "n_versiculos": 122,
+  "hebreo": "ואתחנן"
  },
  {
   "orden": 46,
@@ -733,7 +778,8 @@
    "capitulo": 11,
    "versiculo": 25
   },
-  "n_versiculos": 111
+  "n_versiculos": 111,
+  "hebreo": "עקב"
  },
  {
   "orden": 47,
@@ -749,7 +795,8 @@
    "capitulo": 16,
    "versiculo": 17
   },
-  "n_versiculos": 126
+  "n_versiculos": 126,
+  "hebreo": "ראה"
  },
  {
   "orden": 48,
@@ -765,7 +812,8 @@
    "capitulo": 21,
    "versiculo": 9
   },
-  "n_versiculos": 97
+  "n_versiculos": 97,
+  "hebreo": "שופטים"
  },
  {
   "orden": 49,
@@ -781,7 +829,8 @@
    "capitulo": 25,
    "versiculo": 19
   },
-  "n_versiculos": 110
+  "n_versiculos": 110,
+  "hebreo": "כי תצא"
  },
  {
   "orden": 50,
@@ -797,7 +846,8 @@
    "capitulo": 29,
    "versiculo": 8
   },
-  "n_versiculos": 122
+  "n_versiculos": 122,
+  "hebreo": "כי תבוא"
  },
  {
   "orden": 51,
@@ -813,7 +863,8 @@
    "capitulo": 30,
    "versiculo": 20
   },
-  "n_versiculos": 40
+  "n_versiculos": 40,
+  "hebreo": "נצבים"
  },
  {
   "orden": 52,
@@ -829,7 +880,8 @@
    "capitulo": 31,
    "versiculo": 30
   },
-  "n_versiculos": 30
+  "n_versiculos": 30,
+  "hebreo": "וילך"
  },
  {
   "orden": 53,
@@ -845,7 +897,8 @@
    "capitulo": 32,
    "versiculo": 52
   },
-  "n_versiculos": 52
+  "n_versiculos": 52,
+  "hebreo": "האזינו"
  },
  {
   "orden": 54,
@@ -861,6 +914,7 @@
    "capitulo": 34,
    "versiculo": 12
   },
-  "n_versiculos": 41
+  "n_versiculos": 41,
+  "hebreo": "וזאת הברכה"
  }
 ]
