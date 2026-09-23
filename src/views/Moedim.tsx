@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Navbar from '@/sections/Navbar'
 import Footer from '@/sections/Footer'
 import { MOEDIM, MOEDIM_POR_ID, type Moed } from '@/lib/moedimData'
+import { gregorianToHebrew, hebrewToGregorian, hebrewMonthNumberFromIndex } from '@/lib/hebrew'
 import { useReveal } from '@/hooks/useReveal'
 import {
   BookOpen, X, Share2, MessageCircle, Facebook, Twitter, Link2, Check,
@@ -12,6 +13,44 @@ import {
 } from 'lucide-react'
 
 const DOMAIN = 'https://teques.beneyisrael.com'
+
+/* ============================================================
+   PRÓXIMA FESTIVIDAD (calendario hebreo real)
+   Identidad del mes hebreo (índice interno) y día de inicio:
+   Tishrei=0, Jeshván=1, Kislev=2, Tevet=3, Shevat=4,
+   Adar I=5, Adar/Adar II=6, Nisán=7, Iyar=8, Siván=9, …
+   En años embolismales el índice 6 corresponde a Adar II.
+   ============================================================ */
+const FECHAS_HEBREAS: Record<string, { idx: number; dia: number }> = {
+  'rosh-hashana': { idx: 0, dia: 1 },
+  'iom-kipur': { idx: 0, dia: 10 },
+  'sucot': { idx: 0, dia: 15 },
+  'januca': { idx: 2, dia: 25 },
+  'purim': { idx: 6, dia: 14 },
+  'pesaj': { idx: 7, dia: 15 },
+  'shavuot': { idx: 9, dia: 6 },
+}
+
+function calcularProximaMoed(): { moed: Moed; fecha: Date } | null {
+  const hoy = new Date()
+  hoy.setHours(0, 0, 0, 0)
+  const hebreo = gregorianToHebrew(hoy.getFullYear(), hoy.getMonth() + 1, hoy.getDate())
+
+  const candidatos: { moed: Moed; fecha: Date }[] = []
+  for (const moed of MOEDIM) {
+    const f = FECHAS_HEBREAS[moed.id]
+    if (!f) continue // 'shabat' es semanal, no participa
+    for (const anio of [hebreo.y, hebreo.y + 1]) {
+      const mesPublico = hebrewMonthNumberFromIndex(anio, f.idx)
+      if (mesPublico < 0) continue
+      const g = hebrewToGregorian(anio, mesPublico, f.dia)
+      const fecha = new Date(g.y, g.m - 1, g.d)
+      if (fecha >= hoy) candidatos.push({ moed, fecha })
+    }
+  }
+  candidatos.sort((a, b) => a.fecha.getTime() - b.fecha.getTime())
+  return candidatos[0] ?? null
+}
 
 /* ============================================================
    COMPARTIR
@@ -206,15 +245,12 @@ export default function Moedim() {
     'https://wa.me/584124586537?text=' +
     encodeURIComponent('Shalom, deseo celebrar las Moedim con la comunidad Beit Midrash Bene Israel (Los Teques).')
 
-  // Próxima festividad (aproximación por mes)
-  const proximaMoed = useMemo(() => {
-    const mes = new Date().getMonth() // 0-11
-    const mapa: Record<number, string> = {
-      0: 'januca', 1: 'purim', 2: 'pesaj', 3: 'pesaj', 4: 'shavuot',
-      5: 'shavuot', 6: 'sucot', 7: 'rosh-hashana', 8: 'rosh-hashana',
-      9: 'sucot', 10: 'januca', 11: 'januca',
-    }
-    return MOEDIM_POR_ID[mapa[mes] || 'shabat']
+  // Próxima festividad según el calendario hebreo real.
+  // useEffect evita el mismatch de hidratación: la fecha "de hoy"
+  // solo se evalúa en el navegador, no en el prerender del build.
+  const [proxima, setProxima] = useState<{ moed: Moed; fecha: Date } | null>(null)
+  useEffect(() => {
+    setProxima(calcularProximaMoed())
   }, [])
 
   return (
@@ -240,23 +276,25 @@ export default function Moedim() {
         </section>
 
         {/* Próxima festividad */}
-        {proximaMoed && (
+        {proxima && (
           <section className="pb-8 md:pb-12">
             <div className="mx-auto max-w-6xl px-5">
               <div className="bg-[#1a1510] border border-[#d4af37]/25 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-40" />
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                  <img src={proximaMoed.img} alt={proximaMoed.es} className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover border border-[#d4af37]/20" />
+                  <img src={proxima.moed.img} alt={proxima.moed.es} className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover border border-[#d4af37]/20" />
                   <div className="flex-1">
                     <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#d4af37]/15 border border-[#d4af37]/40 text-[#d4af37] mb-2">
                       Próxima festividad
                     </span>
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#f5f0e6]">{proximaMoed.es} <span className="text-[#d4af37] font-hebrew" dir="rtl">{proximaMoed.he}</span></h2>
-                    <p className="text-sm text-[#a89b8c] mt-1">{proximaMoed.fecha}</p>
-                    <p className="text-sm text-[#d5cfc5] mt-2 line-clamp-2">{proximaMoed.breve}</p>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#f5f0e6]">{proxima.moed.es} <span className="text-[#d4af37] font-hebrew" dir="rtl">{proxima.moed.he}</span></h2>
+                    <p className="text-sm text-[#a89b8c] mt-1">
+                      {proxima.moed.fecha} · {proxima.fecha.toLocaleDateString('es-VE', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </p>
+                    <p className="text-sm text-[#d5cfc5] mt-2 line-clamp-2">{proxima.moed.breve}</p>
                   </div>
                   <button
-                    onClick={() => setSelectedMoed(proximaMoed)}
+                    onClick={() => setSelectedMoed(proxima.moed)}
                     className="shrink-0 bg-[#d4af37] text-[#14100a] font-semibold px-5 py-2.5 rounded-md hover:bg-[#e9c65a] transition-colors text-sm"
                   >
                     Ver más
