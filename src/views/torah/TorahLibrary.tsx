@@ -4,17 +4,16 @@ import Link from 'next/link'
 import { ChevronRight, LayoutGrid, MessageSquareQuote, Rows3 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { BOOK_META, BOOK_ORDER, BOOK_SLUG } from '@/lib/torah'
-import type { BookId, BookSummary, Parasha } from '@/lib/torah'
-import TorahBrand from '@/components/torah/TorahBrand'
+import type { BookSummary, Parasha } from '@/lib/torah'
+import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
 
 export interface TorahLibraryProps {
   books: BookSummary[]
   parashot: Parasha[]
-  totals: { chapters: number; verses: number; withComment: number }
 }
 
-export default function TorahLibrary({ books, parashot, totals }: TorahLibraryProps) {
+export default function TorahLibrary({ books, parashot }: TorahLibraryProps) {
   // vista inicial opcional vía ?view=parashot (solo en el cliente; el HTML
   // estático siempre se genera con la vista de libros para buen SEO)
   const [view, setView] = useState<'books' | 'parashot'>('books')
@@ -29,14 +28,25 @@ export default function TorahLibrary({ books, parashot, totals }: TorahLibraryPr
       <header className="border-b border-stone-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-6 py-5">
           <TorahBrand subtitle="La Torá en español y hebreo, con comentarios por versículo" />
+          <div className="ml-auto">
+            <TorahHomeLink />
+          </div>
         </div>
       </header>
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
-          <Stat n={totals.chapters} label="capítulos" />
-          <Stat n={totals.verses} label="versículos en español y hebreo" />
-          <Stat n={totals.withComment.toLocaleString('es-ES')} label="comentarios" icon />
+        {/* presentación */}
+        <div className="mb-10 text-center">
+          <p
+            className="font-hebrew text-3xl font-bold text-stone-800 sm:text-4xl"
+            dir="rtl"
+            lang="he"
+          >
+            חמישה חומשי תורה
+          </p>
+          <p className="mt-3 text-sm tracking-wide text-stone-500">
+            Torá · Hebreo – Español con comentarios
+          </p>
         </div>
 
         {/* conmutador de vista */}
@@ -76,7 +86,16 @@ export default function TorahLibrary({ books, parashot, totals }: TorahLibraryPr
                       />
                       <ChevronRight className="h-4 w-4 text-stone-300 transition group-hover:translate-x-0.5 group-hover:text-stone-500" />
                     </div>
-                    <h3 className="torah-display text-xl font-semibold">{meta.name}</h3>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <h3 className="torah-display text-xl font-semibold">{meta.name}</h3>
+                      <span
+                        className="font-hebrew shrink-0 text-lg leading-none text-stone-400"
+                        dir="rtl"
+                        lang="he"
+                      >
+                        {meta.hebreo}
+                      </span>
+                    </div>
                     <p className="text-sm text-stone-500">{meta.spanish}</p>
                     <div className="mt-4 flex items-center gap-4 text-xs text-stone-500">
                       <span>{b.chapters} capítulos</span>
@@ -146,7 +165,16 @@ function ParashotView({ parashot }: { parashot: Parasha[] }) {
                       style={{ backgroundColor: meta.tint }}
                     />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate torah-display text-[15px] font-semibold">{p.nombre}</p>
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="truncate torah-display text-[15px] font-semibold">{p.nombre}</p>
+                        <span
+                          className="font-hebrew shrink-0 text-sm leading-none text-stone-400"
+                          dir="rtl"
+                          lang="he"
+                        >
+                          {p.hebreo}
+                        </span>
+                      </div>
                       <p className="mt-0.5 text-xs text-stone-500">
                         {meta.name} {p.inicio.capitulo}:{p.inicio.versiculo} –{' '}
                         {p.fin.capitulo === p.inicio.capitulo
@@ -189,17 +217,5 @@ function ViewTab({
       {icon}
       {label}
     </button>
-  )
-}
-
-function Stat({ n, label, icon }: { n: number | string; label: string; icon?: boolean }) {
-  return (
-    <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-sm">
-      <div className="flex items-center gap-2">
-        {icon && <MessageSquareQuote className="h-4 w-4 text-[#4a6fa5]" />}
-        <span className="torah-display text-2xl font-semibold tabular-nums">{n}</span>
-      </div>
-      <div className="mt-1 text-xs uppercase tracking-wide text-stone-400">{label}</div>
-    </div>
   )
 }

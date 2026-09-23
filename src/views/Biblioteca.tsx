@@ -10,6 +10,7 @@ import {
   ExternalLink,
   Search,
   Sunrise,
+  ScrollText,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -29,6 +30,19 @@ interface Recurso {
 }
 
 const recursos: Recurso[] = [
+  {
+    id: 'jumash',
+    titulo: 'Jumash · La Torá completa',
+    categoria: 'estudio',
+    descripcion:
+      'Los cinco libros de la Torá en español y hebreo, versículo a versículo, con 2.579 comentarios tradicionales y lectura por las 54 parashiot del ciclo anual.',
+    url: '/torah',
+    icono: <ScrollText className="size-6" />,
+    badge: 'Torá',
+    badgeColor: '#d4af37',
+    esInterno: true,
+    botonTexto: 'Abrir la Torá',
+  },
   {
     id: 'birkot-hashajar',
     titulo: 'Birkot Hashajar',

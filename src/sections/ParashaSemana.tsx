@@ -2,11 +2,12 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
-import { ArrowRight, BookOpen } from 'lucide-react'
+import { ArrowRight, BookOpen, ScrollText } from 'lucide-react'
 import { useReveal } from '@/hooks/useReveal'
 import { useParasha } from '@/lib/hebcal'
 import { COMENTARIOS_CORTOS } from '@/lib/reflexiones'
 import { resolveParashaIds } from '@/lib/parashaIds'
+import { torahLinkFromLectura } from '@/lib/torah'
 
 function comentarioDe(nombreParasha: string): string | undefined {
   for (const id of resolveParashaIds(nombreParasha)) {
@@ -68,12 +69,22 @@ export default function ParashaSemana() {
               Shabat: Shajarit y estudio de la Parashá · Los Teques / en línea
             </p>
 
-            <Link
-              href="/reflexiones"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#d4af37]/50 px-6 py-2.5 text-sm font-semibold text-[#d4af37] hover:bg-[#d4af37]/15 transition-colors"
-            >
-              Leer la reflexión completa <ArrowRight size={16} />
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/reflexiones"
+                className="inline-flex items-center gap-2 rounded-full border border-[#d4af37]/50 px-6 py-2.5 text-sm font-semibold text-[#d4af37] hover:bg-[#d4af37]/15 transition-colors"
+              >
+                Leer la reflexión completa <ArrowRight size={16} />
+              </Link>
+              {parasha.lectura && torahLinkFromLectura(parasha.lectura) && (
+                <Link
+                  href={torahLinkFromLectura(parasha.lectura)!}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#d4af37] px-6 py-2.5 text-sm font-semibold text-[#0a0908] hover:bg-[#e9c65a] transition-colors"
+                >
+                  <ScrollText size={16} /> Leer en la Torá
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

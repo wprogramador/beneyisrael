@@ -20,6 +20,7 @@ export interface Comentario {
 export interface Parasha {
   orden: number
   nombre: string
+  hebreo?: string
   sefaria_ref: string
   wholeRef: string
   libro: string
@@ -48,12 +49,12 @@ export interface Chapter {
 export const BOOK_ORDER = ['BERESHIT', 'SHEMOT', 'VAIKRA', 'BAMIDBAR', 'DEVARIM'] as const
 export type BookId = (typeof BOOK_ORDER)[number]
 
-export const BOOK_META: Record<BookId, { name: string; spanish: string; tint: string }> = {
-  BERESHIT: { name: 'Bereshit', spanish: 'Génesis', tint: '#7c5cbf' },
-  SHEMOT: { name: 'Shemot', spanish: 'Éxodo', tint: '#3d7ec2' },
-  VAIKRA: { name: 'Vaikra', spanish: 'Levítico', tint: '#c2782d' },
-  BAMIDBAR: { name: 'Bamidbar', spanish: 'Números', tint: '#3d9e7c' },
-  DEVARIM: { name: 'Devarim', spanish: 'Deuteronomio', tint: '#b04a6a' },
+export const BOOK_META: Record<BookId, { name: string; hebreo: string; spanish: string; tint: string }> = {
+  BERESHIT: { name: 'Bereshit', hebreo: 'בראשית', spanish: 'Génesis', tint: '#7c5cbf' },
+  SHEMOT: { name: 'Shemot', hebreo: 'שמות', spanish: 'Éxodo', tint: '#3d7ec2' },
+  VAIKRA: { name: 'Vaikra', hebreo: 'ויקרא', spanish: 'Levítico', tint: '#c2782d' },
+  BAMIDBAR: { name: 'Bamidbar', hebreo: 'במדבר', spanish: 'Números', tint: '#3d9e7c' },
+  DEVARIM: { name: 'Devarim', hebreo: 'דברים', spanish: 'Deuteronomio', tint: '#b04a6a' },
 }
 
 /** slugs en minúsculas para las URLs: /torah/bereshit/1 */
@@ -102,4 +103,23 @@ export function summarizeBooks(chapters: Chapter[]): BookSummary[] {
       withComment: list.reduce((s, c) => s + (c.comentario?.n_con_comentario ?? 0), 0),
     }
   }).filter((b) => b.chapters > 0)
+}
+
+/** Mapa de nombres de libros en las citas de lectura (español) → slug de la Jumash. */
+const LIBRO_SLUG_LECTURA: Record<string, string> = {
+  Génesis: 'bereshit',
+  Éxodo: 'shemot',
+  Levítico: 'vaikra',
+  Números: 'bamidbar',
+  Deuteronomio: 'devarim',
+}
+
+/** Convierte una cita de lectura tipo "Génesis 1:1–6:8" en enlace a la Jumash
+ *  (/torah/bereshit/1?v=1). En parashot dobles toma el versículo inicial de la
+ *  primera porción. Devuelve null si la cita no se reconoce. */
+export function torahLinkFromLectura(lectura: string): string | null {
+  const m = /^(Génesis|Éxodo|Levítico|Números|Deuteronomio)\s+(\d+):(\d+)/.exec(lectura.trim())
+  if (!m) return null
+  const slug = LIBRO_SLUG_LECTURA[m[1]]
+  return slug ? `/torah/${slug}/${m[2]}?v=${m[3]}` : null
 }

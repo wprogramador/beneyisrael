@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 /** Marca del sitio dentro de la Jumash: logo Bene Israel + nombre de la sección. */
 export default function TorahBrand({ subtitle }: { subtitle?: string }) {
@@ -18,6 +19,20 @@ export default function TorahBrand({ subtitle }: { subtitle?: string }) {
         </h1>
         {subtitle && <p className="text-sm text-stone-500">{subtitle}</p>}
       </div>
+    </Link>
+  )
+}
+
+/** Enlace para regresar al sitio principal desde cualquier página de la Jumash. */
+export function TorahHomeLink() {
+  return (
+    <Link
+      href="/"
+      className="flex shrink-0 items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs text-stone-500 shadow-sm transition hover:text-stone-800 hover:shadow"
+    >
+      <ArrowLeft className="h-3.5 w-3.5" />
+      <span className="hidden sm:inline">beneyisrael.com</span>
+      <span className="sm:hidden">Inicio</span>
     </Link>
   )
 }

@@ -19,10 +19,5 @@ export const metadata: Metadata = {
 export default function TorahIndexPage() {
   const { chapters, parashot } = getTorahData()
   const books = summarizeBooks(chapters)
-  const totals = {
-    chapters: chapters.length,
-    verses: chapters.reduce((s, c) => s + c.versiculos.length, 0),
-    withComment: chapters.reduce((s, c) => s + (c.comentario?.n_con_comentario ?? 0), 0),
-  }
-  return <TorahLibrary books={books} parashot={parashot} totals={totals} />
+  return <TorahLibrary books={books} parashot={parashot} />
 }

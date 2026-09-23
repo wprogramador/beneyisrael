@@ -11,6 +11,7 @@ import {
   Feather,
   Info,
   MessageSquareQuote,
+  X,
 } from 'lucide-react'
 import {
   Select,
@@ -19,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
 import {
   BOOK_META,
   BOOK_ORDER,
@@ -29,7 +30,7 @@ import {
 } from '@/lib/torah'
 import type { BookId, Chapter, Parasha, Verse } from '@/lib/torah'
 import { CommentText } from '@/components/torah/RichText'
-import TorahBrand from '@/components/torah/TorahBrand'
+import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
 
 export interface TorahReaderProps {
@@ -43,16 +44,25 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
   const router = useRouter()
   const chNum = ch.capitulo
   const [selected, setSelected] = useState<number | null>(null)
+  const [flash, setFlash] = useState<number | null>(null)
 
   const idx = chapterNumbers.indexOf(chNum)
 
-  // versículo inicial: deep-link ?v=N (abre su comentario); se lee en el
-  // cliente para no forzar CSR-bailout y mantener el HTML estático completo
+  // deep-link ?v=N (desde parashá): lleva al versículo y lo resalta un
+  // momento, SIN abrir el comentario (que en móvil tapa la navegación)
   useEffect(() => {
     const vParam = parseInt(new URLSearchParams(window.location.search).get('v') ?? '', 10)
-    setSelected(Number.isFinite(vParam) ? vParam : null)
+    if (Number.isFinite(vParam) && ch.versiculos.some((v) => v.n === vParam)) {
+      setFlash(vParam)
+      window.history.replaceState(null, '', window.location.pathname)
+      requestAnimationFrame(() => {
+        document.getElementById(`v${vParam}`)?.scrollIntoView({ block: 'center' })
+      })
+      const t = setTimeout(() => setFlash(null), 2400)
+      return () => clearTimeout(t)
+    }
     window.scrollTo({ top: 0 })
-  }, [book, chNum])
+  }, [book, chNum, ch])
 
   const go = (n: number) => router.push(`/torah/${BOOK_SLUG[book]}/${n}`)
   const goBook = (b: BookId) => router.push(`/torah/${BOOK_SLUG[b]}/1`)
@@ -102,6 +112,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <TorahHomeLink />
             <button
               onClick={() => idx > 0 && go(chapterNumbers[idx - 1])}
               disabled={idx <= 0}
@@ -203,6 +214,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                     showAlia={Boolean(v.alia && v.alia !== prevAlia)}
                     hasComment={String(v.n) in comments}
                     selected={selected === v.n}
+                    flash={flash === v.n}
                     onSelect={() => selectVerse(v.n)}
                   />
                   {endP && (
@@ -248,24 +260,35 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
         </div>
       </main>
 
-      {/* panel de comentario */}
-      <Sheet open={selected != null} onOpenChange={(o) => !o && setSelected(null)}>
-        <SheetContent
-          side="right"
-          className="w-full overflow-y-auto bg-[#fdfcf9] sm:max-w-[480px]"
-        >
+      {/* panel de comentario: se cierra deslizando hacia la derecha o con la X */}
+      <Drawer
+        open={selected != null}
+        onOpenChange={(o) => !o && setSelected(null)}
+        direction="right"
+      >
+        <DrawerContent className="w-full bg-[#fdfcf9] sm:max-w-[480px]">
           {selected != null && (
             <>
-              <SheetHeader className="mb-4">
-                <SheetTitle className="torah-display text-xl text-left">
-                  {meta.name} {ch.capitulo}:{selected}
-                </SheetTitle>
-                <p className="text-left text-xs text-stone-400">
-                  {String(selected) in comments
-                    ? 'Comentario tradicional'
-                    : 'Este versículo aún no tiene comentario.'}
-                </p>
-              </SheetHeader>
+              <div className="flex items-start justify-between gap-2 p-4 pb-0 sm:p-6 sm:pb-0">
+                <DrawerHeader className="mb-4 flex-1 p-0 text-left">
+                  <DrawerTitle className="torah-display text-xl text-left text-stone-900">
+                    {meta.name} {ch.capitulo}:{selected}
+                  </DrawerTitle>
+                  <p className="mt-1 text-left text-xs text-stone-400">
+                    {String(selected) in comments
+                      ? 'Comentario tradicional'
+                      : 'Este versículo aún no tiene comentario.'}
+                  </p>
+                </DrawerHeader>
+                <DrawerClose
+                  aria-label="Cerrar comentario"
+                  className="rounded-full p-2 text-stone-400 transition hover:bg-stone-100 hover:text-stone-700"
+                >
+                  <X className="h-5 w-5" />
+                </DrawerClose>
+              </div>
+              {/* zona de lectura: scroll nativo en móvil (vaul no roba el gesto) */}
+              <div data-vaul-no-drag className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
 
               {intro && (
                 <details className="mb-5 rounded-lg border border-stone-200 bg-white p-3 text-sm text-stone-600">
@@ -326,10 +349,11 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                   })()}
                 </div>
               )}
+              </div>
             </>
           )}
-        </SheetContent>
-      </Sheet>
+        </DrawerContent>
+      </Drawer>
 
       <TorahFooter />
     </div>
@@ -342,6 +366,7 @@ function VerseRow({
   showAlia,
   hasComment,
   selected,
+  flash,
   onSelect,
 }: {
   verse: Verse
@@ -349,6 +374,7 @@ function VerseRow({
   showAlia: boolean
   hasComment: boolean
   selected: boolean
+  flash?: boolean
   onSelect: () => void
 }) {
   return (
@@ -361,8 +387,13 @@ function VerseRow({
       <button
         onClick={onSelect}
         className={`group flex w-full items-baseline gap-3 rounded-lg px-3 py-2 text-left transition ${
-          selected ? 'bg-stone-200/60' : 'hover:bg-stone-100/80'
+          selected
+            ? 'bg-stone-200/60'
+            : flash
+              ? ''
+              : 'hover:bg-stone-100/80'
         }`}
+        style={flash ? { backgroundColor: `${tint}26` } : undefined}
       >
         <span className="flex w-10 shrink-0 items-baseline justify-end gap-1">
           <span
