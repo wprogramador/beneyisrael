@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Menu, X, ChevronDown, Heart, BookOpen, Calendar, HelpCircle, Clock } from 'lucide-react'
+import { Menu, X, ChevronDown, Heart, BookOpen, Calendar, HelpCircle, Clock, ScrollText } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import FechaHoyBar from '@/components/FechaHoyBar'
@@ -107,6 +107,13 @@ export default function Navbar() {
             >
               <BookOpen size={14} />
               Biblioteca
+            </Link>
+            <Link
+              href="/torah"
+              className="text-sm tracking-wide text-foreground/75 hover:text-[#d4af37] transition-colors inline-flex items-center gap-1.5"
+            >
+              <ScrollText size={14} />
+              Jumash
             </Link>
 
             {/* Dropdown: Recursos */}
@@ -218,6 +225,14 @@ export default function Navbar() {
             >
               <BookOpen size={18} />
               Biblioteca
+            </Link>
+            <Link
+              href="/torah"
+              onClick={() => setOpen(false)}
+              className="py-3 text-base text-foreground/85 hover:text-[#d4af37] transition-colors border-b border-[#d4af37]/10 inline-flex items-center gap-2"
+            >
+              <ScrollText size={18} />
+              Jumash · Torá completa
             </Link>
 
             {/* Recursos en móvil */}
