@@ -44,6 +44,19 @@ const recursos: Recurso[] = [
     botonTexto: 'Abrir la Torá',
   },
   {
+    id: 'tanaj',
+    titulo: 'תנ״ך · Tanaj (Biblia) completo',
+    categoria: 'estudio',
+    descripcion:
+      'Torá, Profetas y Escritos en hebreo (con ta\'amim) y español, versículo a versículo, con 8.163 comentarios, lectura bilingüe y buscador de texto en todo el Tanaj.',
+    url: '/tanaj',
+    icono: <BookOpen className="size-6" />,
+    badge: 'Tanaj',
+    badgeColor: '#4a6fa5',
+    esInterno: true,
+    botonTexto: 'Abrir el Tanaj',
+  },
+  {
     id: 'birkot-hashajar',
     titulo: 'Birkot Hashajar',
     categoria: 'tefila',

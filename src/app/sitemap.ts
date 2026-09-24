@@ -1,8 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { getAllArticulos } from '@/lib/articulos'
 import { getTorahData } from '@/lib/torahData'
+import { getTanajData } from '@/lib/tanajData'
 import { BOOK_SLUG } from '@/lib/torah'
+import { TANAJ_ORDER, TANAJ_SLUG } from '@/lib/tanaj'
 import type { BookId } from '@/lib/torah'
+import type { TanajBookId } from '@/lib/tanaj'
 
 const BASE_URL = 'https://www.beneyisrael.com'
 
@@ -112,5 +115,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticRoutes, ...dynamicRoutes, ...torahIndex, ...torahChapters]
+  const tanajIndex: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/tanaj`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+  ]
+  const tanajChapters: MetadataRoute.Sitemap = getTanajData().books.flatMap((b) =>
+    b.chapters.map((c) => ({
+      url: `${BASE_URL}/tanaj/${TANAJ_SLUG[TANAJ_ORDER[b.id] as TanajBookId]}/${c.n}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    })),
+  )
+
+  return [
+    ...staticRoutes,
+    ...dynamicRoutes,
+    ...torahIndex,
+    ...torahChapters,
+    ...tanajIndex,
+    ...tanajChapters,
+  ]
 }
