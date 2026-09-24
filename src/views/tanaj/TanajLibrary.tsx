@@ -5,6 +5,7 @@ import { ChevronRight, MessageSquareQuote } from 'lucide-react'
 import type { TanajBookSummary } from '@/lib/tanaj'
 import TanajBrand, { TanajHomeLink } from '@/components/tanaj/TanajBrand'
 import TanajFooter from '@/components/tanaj/TanajFooter'
+import ScriptureSearch from '@/components/ScriptureSearch'
 
 const SECTIONS: { id: 'Torá' | 'Neviim' | 'Ketuvim'; he: string; desc: string }[] = [
   { id: 'Torá', he: 'תורה', desc: 'La Ley · cinco libros' },
@@ -44,6 +45,13 @@ export default function TanajLibrary({ books }: { books: TanajBookSummary[] }) {
           <p className="mt-3 text-sm tracking-wide text-stone-500">
             Tanaj (Biblia) · Hebreo – Español con comentarios
           </p>
+          <div className="mt-5 flex justify-center">
+            <ScriptureSearch
+              endpoint="/api/tanaj/search"
+              placeholder="Buscar en el Tanaj…"
+              buildLink={(h) => `/tanaj/${h.slug}/${h.chapter}?v=${h.verse}`}
+            />
+          </div>
           <p className="mx-auto mt-4 max-w-xl text-xs leading-relaxed text-stone-400">
             Los 24 libros del Tanaj en hebreo (con ta&apos;amim) y español, versículo a versículo,
             con {totals.comments.toLocaleString('es')} comentarios de la fuente.{' '}

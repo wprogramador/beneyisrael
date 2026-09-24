@@ -7,6 +7,7 @@ import { BOOK_META, BOOK_ORDER, BOOK_SLUG } from '@/lib/torah'
 import type { BookSummary, Parasha } from '@/lib/torah'
 import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
+import ScriptureSearch from '@/components/ScriptureSearch'
 
 export interface TorahLibraryProps {
   books: BookSummary[]
@@ -47,6 +48,14 @@ export default function TorahLibrary({ books, parashot }: TorahLibraryProps) {
           <p className="mt-3 text-sm tracking-wide text-stone-500">
             Torá · Hebreo – Español con comentarios
           </p>
+          <div className="mt-5 flex justify-center">
+            <ScriptureSearch
+              endpoint="/api/torah/search"
+              placeholder="Buscar en la Torá…"
+              accent="#7c5cbf"
+              buildLink={(h) => `/torah/${h.slug}/${h.chapter}?v=${h.verse}`}
+            />
+          </div>
         </div>
 
         {/* conmutador de vista */}
