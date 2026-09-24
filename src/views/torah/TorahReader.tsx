@@ -296,7 +296,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                     Introducción del capítulo
                   </summary>
                   <div className="mt-2 leading-relaxed">
-                    <CommentText text={intro} />
+                    <CommentText text={intro} tint={meta.tint} />
                   </div>
                 </details>
               )}
@@ -313,7 +313,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
                     <MessageSquareQuote className="h-3.5 w-3.5" /> Comentario
                   </div>
                   <div className="text-[0.95rem] text-stone-800">
-                    <CommentText text={selectedText} />
+                    <CommentText text={selectedText} tint={meta.tint} />
                   </div>
                 </div>
               ) : (
