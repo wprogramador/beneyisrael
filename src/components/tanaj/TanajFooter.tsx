@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Heart } from 'lucide-react'
 
 export default function TanajFooter() {
   return (
@@ -9,6 +10,12 @@ export default function TanajFooter() {
           {' · '}Tanaj hebreo–español con comentarios · Centro de Estudios Hebraicos Bene Israel
           Venezuela
         </p>
+        <Link
+          href="/donar"
+          className="mt-4 inline-flex items-center gap-2 rounded-md bg-[#d4af37] px-5 py-2.5 text-sm font-semibold text-[#14100a] transition-colors hover:bg-[#e9c65a]"
+        >
+          <Heart size={16} /> Donar / Solicitar
+        </Link>
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-stone-500">
           <Link href="/" className="transition hover:text-stone-800">
             Inicio

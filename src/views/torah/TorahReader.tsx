@@ -32,6 +32,7 @@ import type { BookId, Chapter, Parasha, Verse } from '@/lib/torah'
 import { CommentText } from '@/components/torah/RichText'
 import TorahBrand, { TorahHomeLink } from '@/components/torah/TorahBrand'
 import TorahFooter from '@/components/torah/TorahFooter'
+import ScriptureSearch from '@/components/ScriptureSearch'
 
 export interface TorahReaderProps {
   book: BookId
@@ -112,6 +113,12 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
+            <ScriptureSearch
+              endpoint="/api/torah/search"
+              placeholder="Buscar…"
+              accent="#7c5cbf"
+              buildLink={(h) => `/torah/${h.slug}/${h.chapter}?v=${h.verse}`}
+            />
             <TorahHomeLink />
             <button
               onClick={() => idx > 0 && go(chapterNumbers[idx - 1])}
