@@ -9,10 +9,6 @@ export default function TanajFooter() {
           {' · '}Tanaj hebreo–español con comentarios · Centro de Estudios Hebraicos Bene Israel
           Venezuela
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-stone-400">
-          תורה נביאים וכתובים — Texto hebreo y traducción con comentarios: fuente hatanakh.com
-          (proyecto Herzog)
-        </p>
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-stone-500">
           <Link href="/" className="transition hover:text-stone-800">
             Inicio
