@@ -4,6 +4,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { TanajBookData, TanajChapter, TanajData } from '@/lib/tanaj'
+import { normalizeForSearch } from '@/lib/searchNorm'
 
 let cached: TanajData | null = null
 
@@ -38,15 +39,17 @@ export interface TanajSearchHit {
 
 const MAX_HITS = 60
 
-/** Búsqueda de texto en todo el Tanaj (español o hebreo). */
+/** Búsqueda de texto en todo el Tanaj (español o hebreo), con normalización:
+ *  sin tildes, sin vocales/cantillación hebrea y finales unificadas. */
 export function searchTanaj(query: string): TanajSearchHit[] {
-  const q = query.trim().toLowerCase()
+  const raw = query.trim()
+  const q = normalizeForSearch(raw)
   if (q.length < 2) return []
   const hits: TanajSearchHit[] = []
   for (const book of getTanajData().books) {
     for (const ch of book.chapters) {
       for (const v of ch.verses) {
-        if (v.es.toLowerCase().includes(q) || v.he.includes(query.trim())) {
+        if (normalizeForSearch(v.es).includes(q) || normalizeForSearch(v.he).includes(q)) {
           hits.push({
             bookIndex: book.id,
             bookName: book.name_es,

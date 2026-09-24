@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { BOOK_META, BOOK_ORDER, BOOK_SLUG } from '@/lib/torah'
 import type { Chapter, Parasha } from '@/lib/torah'
+import { normalizeForSearch } from '@/lib/searchNorm'
 
 export interface TorahData {
   chapters: Chapter[]
@@ -49,15 +50,16 @@ export interface TorahSearchHit {
 
 const MAX_HITS = 60
 
-/** Búsqueda de texto en toda la Jumash (español o hebreo). */
+/** Búsqueda de texto en toda la Jumash (español o hebreo), con normalización:
+ *  sin tildes, sin vocales/cantillación hebrea y finales unificadas. */
 export function searchTorah(query: string): TorahSearchHit[] {
-  const q = query.trim().toLowerCase()
+  const q = normalizeForSearch(query)
   if (q.length < 2) return []
   const hits: TorahSearchHit[] = []
   for (const ch of getTorahData().chapters) {
     for (const v of ch.versiculos) {
       const he = v.hebreo ?? ''
-      if (v.texto.toLowerCase().includes(q) || he.includes(query.trim())) {
+      if (normalizeForSearch(v.texto).includes(q) || normalizeForSearch(he).includes(q)) {
         const bookId = ch.libro as (typeof BOOK_ORDER)[number]
         hits.push({
           bookName: `${BOOK_META[bookId].spanish} · ${BOOK_META[bookId].hebreo}`,
