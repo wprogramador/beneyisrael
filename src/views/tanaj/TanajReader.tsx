@@ -272,7 +272,10 @@ export default function TanajReader({ book, bookIndex, chapter: ch, chapterNumbe
                   <X className="h-5 w-5" />
                 </DrawerClose>
               </div>
-              <div data-vaul-no-drag className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
+              <div
+                data-vaul-no-drag
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-6 [touch-action:pan-y] sm:px-6"
+              >
                 {selectedVerse.comment ? (
                   <div className="rounded-lg border-l-4 bg-white p-4 shadow-sm" style={{ borderColor: meta.tint }}>
                     <div
@@ -502,7 +505,7 @@ function SearchBox() {
         }}
         onFocus={() => setOpen(true)}
         placeholder="Buscar en el Tanaj…"
-        className="w-[190px] rounded-full border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-xs shadow-sm outline-none transition placeholder:text-stone-400 focus:border-stone-300 focus:ring-2 focus:ring-stone-200 sm:w-[220px]"
+        className="w-[160px] rounded-full border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-base shadow-sm outline-none transition placeholder:text-stone-400 focus:border-stone-300 focus:ring-2 focus:ring-stone-200 sm:w-[220px] sm:text-xs"
       />
       {open && q.trim().length >= 3 && (
         <div className="absolute left-0 right-0 top-full z-30 mt-2 max-h-[340px] overflow-y-auto rounded-xl border border-stone-200 bg-white shadow-lg">
