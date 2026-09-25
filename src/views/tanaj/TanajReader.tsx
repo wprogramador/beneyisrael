@@ -272,7 +272,10 @@ export default function TanajReader({ book, bookIndex, chapter: ch, chapterNumbe
                   <X className="h-5 w-5" />
                 </DrawerClose>
               </div>
-              <div data-vaul-no-drag className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
+              <div
+                data-vaul-no-drag
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-6 [touch-action:pan-y] sm:px-6"
+              >
                 {selectedVerse.comment ? (
                   <div className="rounded-lg border-l-4 bg-white p-4 shadow-sm" style={{ borderColor: meta.tint }}>
                     <div
