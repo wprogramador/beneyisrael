@@ -505,7 +505,7 @@ function SearchBox() {
         }}
         onFocus={() => setOpen(true)}
         placeholder="Buscar en el Tanaj…"
-        className="w-[190px] rounded-full border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-xs shadow-sm outline-none transition placeholder:text-stone-400 focus:border-stone-300 focus:ring-2 focus:ring-stone-200 sm:w-[220px]"
+        className="w-[160px] rounded-full border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-base shadow-sm outline-none transition placeholder:text-stone-400 focus:border-stone-300 focus:ring-2 focus:ring-stone-200 sm:w-[220px] sm:text-xs"
       />
       {open && q.trim().length >= 3 && (
         <div className="absolute left-0 right-0 top-full z-30 mt-2 max-h-[340px] overflow-y-auto rounded-xl border border-stone-200 bg-white shadow-lg">

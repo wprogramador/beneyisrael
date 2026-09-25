@@ -112,7 +112,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
               </button>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex w-full flex-wrap items-center justify-center gap-2 sm:w-auto sm:flex-nowrap sm:justify-end">
             <ScriptureSearch
               endpoint="/api/torah/search"
               placeholder="Buscar…"
@@ -129,7 +129,7 @@ export default function TorahReader({ book, chapter: ch, chapterNumbers, parasho
               <ChevronLeft className="h-5 w-5" />
             </button>
             <Select value={String(chNum)} onValueChange={(v) => go(parseInt(v, 10))}>
-              <SelectTrigger className="w-[130px] bg-white">
+              <SelectTrigger className="w-[110px] bg-white sm:w-[130px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
