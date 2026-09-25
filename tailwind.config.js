@@ -96,6 +96,12 @@ module.exports = {
             '--tw-prose-pre-bg': '#141009',
             '--tw-prose-th-borders': 'rgba(212,175,55,0.3)',
             '--tw-prose-td-borders': 'rgba(212,175,55,0.15)',
+            '--tw-prose-invert-th-borders': 'rgba(212,175,55,0.3)',
+            '--tw-prose-invert-td-borders': 'rgba(212,175,55,0.15)',
+            th: {
+              color: '#f5f0e6',
+              backgroundColor: 'rgba(212,175,55,0.08)',
+            },
           },
         },
       },
